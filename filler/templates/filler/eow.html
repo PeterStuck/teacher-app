@@ -1,0 +1,25 @@
+{% extends './base.html' %}
+
+{% block title %} Sukces {% endblock %}
+
+{% block styles %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'filler/eow.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="time_is_money">
+        <i class="fas fa-money-bill-wave"></i>
+        <i class="far fa-clock"></i>
+        <i class="fas fa-money-bill-wave"></i>
+    </div>
+    <h1>Uzupełnianie zakończone. Masz wolne. Przynajmniej na chwilę. 😉</h1>
+    {% if filename %}
+        <h4>
+            <i class="fas fa-file-csv"></i>
+            Plik z Teams został zapisany w archiwum pod nazwą
+            <span class="filename">{{ filename }}</span>.
+        </h4>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+
+
+.home_icon a i {
+    color: black !important;
+}
+
+.time_is_money, .section_wrapper h1, .section_wrapper h4 {
+    flex-basis: 70%;
+}
+
+.time_is_money {
+    text-align: center;
+}
+
+.time_is_money .fa-money-bill-wave {
+    font-size: 3.5rem;
+    color: #218838;
+}
+
+.time_is_money .fa-clock {
+    font-size: 5rem;
+    margin: 2% 5%;
+}
+
+.section_wrapper h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.section_wrapper h4 {
+    text-align: center;
+    font-weight: 300;
+}
+
+.filename {
+    font-weight: bold;
+}

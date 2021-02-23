@@ -1,0 +1,56 @@
+body {
+    background-color: #36393f;
+}
+
+.section_wrapper {
+    margin-bottom: 5%;
+}
+
+.settings_form {
+    flex-basis: 55%;
+}
+
+.settings_form h1 {
+    margin: 10% 0 0 0;
+    text-align: center;
+    color: #dcddde;
+    font-weight: bold;
+}
+
+.settings_form form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.settings_form form label, .form_field, form input[type=submit] {
+    flex-basis: 51%;
+}
+
+.settings_form form label {
+    margin-top: 2%;
+    color: #dcddde;
+    font-weight: 200;
+}
+
+.form_field {
+}
+
+.settings_form form input[type=submit] {
+    margin: 2% 50%;
+}
+
+small.form-text {
+    flex-basis: 55%;
+}
+
+footer {
+    position: static;
+    clear: both;
+}
+
+.technologies_icons i, .technologies_icons p {
+    color: #2a2d31;
+}

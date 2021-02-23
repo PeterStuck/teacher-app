@@ -1,0 +1,37 @@
+{% extends './base.html' %}
+
+{% block title %} Ustawienia {% endblock %}
+
+{% block styles %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'filler/settings.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="settings_form">
+        <h1>Zmiana archiwum</h1>
+        <form action="{% url 'filler:update_file_settings' %}" method="post">
+            {% csrf_token %}
+            {% include './standard_form_template.html' with form=archive_form %}
+            <input class="btn btn-success" type="submit" value="Aktualizuj">
+        </form>
+    </div>
+    <div class="settings_form">
+        <h1>Dane logowania</h1>
+        <form action="{% url 'filler:update_credentials' %}" method="post">
+            {% csrf_token %}
+            {% include './standard_form_template.html' with form=credentials_form %}
+            <small class="form-text text-muted">Aktualne dane nie zostały wczytane w celu bezpieczeństwa.</small>
+            <input class="btn btn-success" type="submit" value="Aktualizuj">
+        </form>
+    </div>
+    <div class="settings_form">
+        <h1>Konfiguracja silnika</h1>
+        <form action="{% url 'filler:update_webdriver_settings' %}" method="post">
+            {% csrf_token %}
+            {% include './standard_form_template.html' with form=webdriver_form %}
+            <input class="btn btn-success" type="submit" value="Aktualizuj">
+        </form>
+    </div>
+{% endblock %}

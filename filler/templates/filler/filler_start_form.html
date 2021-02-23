@@ -1,0 +1,51 @@
+{% extends './base.html' %}
+
+{% block title %} Wypełnij obecność {% endblock %}
+
+{% block styles %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'filler/filler_start_form.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% if error_message %}
+        <div class="alert alert-warning" id="error_message" role="alert">
+          {{ error_message }} <i id="close_error_message" class="fas fa-times" onclick="close_error_message()"></i>
+        </div>
+    {% endif %}
+    <div id="fill_attendance_form">
+        <form method="post" enctype="multipart/form-data"  action="{% url 'filler:filler_start' %}" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == 'file' %}
+                    <label for="{{ field.id_for_label }}">{{ field.label }} <i class="fas fa-file-csv"></i></label>
+                    {{ field }}
+                {% else %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                {% endif %}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="error">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            <input type="submit" class="btn-lg btn btn-success" id="submit-btn" value="Oszczędź czas">
+        </form>
+    </div>
+
+    <div class="settings_wrapper">
+        <div class="settings">
+            <a href="{% url 'filler:settings' %}"><i class="fas fa-sliders-h"></i></a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+
+    function close_error_message(event) {
+        document.querySelector('#error_message').style.display = 'none';
+    }
+
+{% endblock %}
