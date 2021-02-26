@@ -25,6 +25,7 @@ def log_in_view(request):
             username = login_form.cleaned_data['username']
             password = login_form.cleaned_data['password']
             if authenticate_user(request, username, password):
+                print('AUTH SUCCESS')
                 if next_page:
                     return HttpResponseRedirect(request.POST.get('next'))
                 else:
@@ -38,6 +39,7 @@ def authenticate_user(request, username, password):
     if user is not None:
         credentials = UserCredentials(email=user.email, password=password)
         request.session['credentials'] = credentials.__to_dict__()
+        print("LOGGED IN")
         login(request, user)
     return user is not None
 
