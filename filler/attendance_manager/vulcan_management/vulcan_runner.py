@@ -8,22 +8,23 @@ from time import sleep
 class VulcanAttendanceFiller:
     """ Main engine to fill students presence on Vulcan Uonet page """
 
-    def __init__(self, data: VulcanData, is_double_lesson: bool):
+    def __init__(self, data: VulcanData, is_double_lesson: bool, credentials: dict):
         self.data = data
         self.adr = AttendanceDataReader()
         self.filename = ''
         self.vulcan_agent: VulcanAI = None
         self.is_double_lesson = is_double_lesson
+        self.credentials = credentials
 
     def start_sequence(self):
-        """ Start point for choose which sequence run, based on check if file was uploaded """
-        self.vulcan_agent = VulcanAI()
+        """ Start point for choose which sequence to run, based on check if file was uploaded and if lesson is double """
+        self.vulcan_agent = VulcanAI(self.credentials)
         if self.is_double_lesson and not self.data.file_not_loaded:
             presence_dict = self.__sequence_double_lesson_with_file()
             self.__show_draggable_attendance_list(presence_dict)
         elif not self.data.file_not_loaded and not self.is_double_lesson:
             presence_dict = self.__sequence_with_file()
-            self.__show_draggable_attendance_list(presence_dict)
+            # self.__show_draggable_attendance_list(presence_dict)
         elif self.data.file_not_loaded and self.is_double_lesson:
             self.__sequence_double_lesson_without_file()
         else:
@@ -33,9 +34,9 @@ class VulcanAttendanceFiller:
         """ Whole sequence from login into page to fill up students attendance using uploaded file """
         self.__convert_teams_file()
         self.__go_to_attendance_edit()
-        students_from_csv = self.__get_students_from_csv_file()
-        presence_dict = self.vulcan_agent.change_attendance(vulcan_data=self.data, students_from_csv=students_from_csv)
-        return presence_dict
+        # students_from_csv = self.__get_students_from_csv_file()
+        # presence_dict = self.vulcan_agent.change_attendance(vulcan_data=self.data, students_from_csv=students_from_csv)
+        # return presence_dict
 
     def __sequence_double_lesson_with_file(self):
         """ Sequence to fill up same attendace on given lesson and one lesson after """

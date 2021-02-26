@@ -2,7 +2,6 @@ from .vulcan_webdriver import VulcanWebdriver
 from filler.plain_classes.user_credentials import UserCredentials
 from selenium.common.exceptions import NoSuchElementException
 from filler.utils.errors.argument_error import InvalidArgumentError
-from filler.attendance_manager.credentials_management.credentials_reader import CredentialsReader
 from filler.plain_classes.vulcan_data import VulcanData
 
 from time import sleep
@@ -23,17 +22,16 @@ def parse_attendance_dict_to_html_string(presence_dict: dict) -> str:
 class VulcanAI:
     """ Class to perform actions on Vulcan Uonet page """
 
-    def __init__(self):
+    def __init__(self, credentials: dict):
         self.driver = VulcanWebdriver()
         self.driver.open_vulcan_page()
+        self.credentials = UserCredentials(credentials['email'], credentials['password'])
 
     def login_into_service(self):
         """ Login into Vulcan Uonet with passed credentials """
         try:
-            credentials_reader = CredentialsReader()
-            credentials = credentials_reader.get_credentials()
             self.driver.find_element_by_css_selector(".loginButton").click()
-            self.__send_credentials(credentials)
+            self.__send_credentials(self.credentials)
         except NoSuchElementException as e:
             print(e)
             self.driver.execute_script("alert('#Error# Nie udało się znaleźć przycisku logowania.');")
@@ -63,12 +61,15 @@ class VulcanAI:
             self.driver.execute_script("alert('#Error# Problem ze znalezieniem podanego departamentu.');")
 
     def select_date(self, weekday: str = None):
-        """ Selects weekday where attendance should be changed """
+        """ Selects weekday where attendance should be changed.
+         First selects 'niedziela' to avoid default behavior in Vulcan page that sometimes extend lessen list in current weekday. """
         try:
+            self.driver.find_element_by_xpath(f'//span[contains(text(), "niedziela")]/../img').click()
+            sleep(1)
             self.driver.find_element_by_xpath(f'//span[contains(text(), "{weekday.lower()}")]/../img').click()
         except NoSuchElementException as e:
             print(e)
-            self.driver.execute_script("alert('#Error# Problem z wybraniem podanego dnia z rozpiski.');")
+            self.driver.execute_script(f"alert('#Error# Problem z wybraniem {weekday} z rozpiski.');")
 
     def select_lesson(self, lesson_number: int):
         """ Selects lesson on left side bar """

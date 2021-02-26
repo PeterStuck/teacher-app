@@ -10,12 +10,21 @@
         <link rel="stylesheet" href="{% static 'filler/normalize.css' %}">
         <link rel="stylesheet" href="{% static 'filler/base.css' %}">
     {% endblock %}
+    {% block external_scripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js" integrity="sha512-1dalHDkG9EtcOmCnoCjiwQ/HEB5SDNqw8d4G2MKoNwjiwMNeBAkudsBCmSlMnXdsH8Bm0mOd3tl/6nL5y0bMaQ==" crossorigin="anonymous"></script>
+    {% endblock %}
 </head>
 <body>
     <header>
         <div class="header_bar">
             <div class="home_icon">
                 <a href="{% url 'filler:filler_start' %}"><i class="fas fa-file-signature"></i></a>
+            </div>
+            <div class="logout">
+                {% if request.user.first_name %}
+                    <span id="user_name">{{ request.user.first_name }}</span>
+                {% endif %}
+                <a class="logout_link" href="{% url 'filler:logout' %}"><i class="fas fa-sign-out-alt"></i></a>
             </div>
         </div>
     </header>
@@ -36,12 +45,12 @@
 
     <script>
         {% block script %}
-
+            gsap.timeline()
+                .add('header')
+                .from('.home_icon', {duration: 0.5, xPercent: -150, opacity: 0}, 'header')
+                .from('.logout', {duration: 0.5, xPercent: 150, opacity: 0}, 'header')
+                .from('.technologies_icons', {duration: 1, opacity: 0})
         {% endblock %}
     </script>
-
-    {% block external_scripts %}
-
-    {% endblock %}
 </body>
 </html>

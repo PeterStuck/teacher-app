@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
 
 from .models import Department, PresenceSymbol
 
@@ -18,3 +19,4 @@ class PresenceSymbolAdminMeta(admin.ModelAdmin):
 
 
 admin.site.register(PresenceSymbol, PresenceSymbolAdminMeta)
+# admin.site.register(User)

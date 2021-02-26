@@ -1,6 +1,8 @@
 from django.forms import Form
 from django.forms import TextInput, FileField, ChoiceField, DateTimeField, Select, BooleanField, CheckboxInput, FileInput, CharField, PasswordInput
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, ValidationError
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 
 from filler.models import Department, PolishDays, PresenceSymbol
 
@@ -74,10 +76,29 @@ class WebdriverSettingsForm(Form):
     vulcan_url = CharField(label='URL do strony Vulcan', widget=TextInput(attrs={'class': 'form-control form_field'}), required=True)
 
 
-class ChangeCredentialsForm(Form):
-    email = CharField(label='Email', widget=TextInput(attrs={'class': 'form-control form_field'}), required=True)
-    passw = CharField(label='Hasło', widget=PasswordInput(attrs={'class': 'form-control form_field'}), required=True)
+class ChangePasswordForm(Form):
+    old_passw = CharField(label='Stare hasło', widget=PasswordInput(attrs={'class': 'form-control form_field'}), required=True)
+    passw = CharField(label='Nowe hasło', widget=PasswordInput(attrs={'class': 'form-control form_field'}), required=True)
 
 
 class ArchiveSettingsForm(Form):
     path = CharField(label='Ścieżka absolutna do archiwum', widget=TextInput(attrs={'class': 'form-control form_field'}), required=True)
+
+
+all_users = User.objects.all()
+usernames = [[user.username, user.get_full_name()] for user in all_users if not user.is_superuser]
+
+
+class LoginForm(Form):
+    username = ChoiceField(
+        label='Zaloguj jako',
+        choices=usernames,
+        widget=Select(attrs={
+            'class': 'form-control form_field',
+        }))
+    password = CharField(
+        label='Hasło',
+        widget=PasswordInput(attrs={
+            'class': 'form-control form_field'
+        }),
+        required=True)

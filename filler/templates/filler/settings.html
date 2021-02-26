@@ -8,7 +8,23 @@
     <link rel="stylesheet" href="{% static 'filler/settings.css' %}">
 {% endblock %}
 
+{% block external_scripts %}
+    {{ block.super }}
+{% endblock %}
+
 {% block content %}
+    {% if request.GET.status %}
+        {% if request.GET.status == '0' %}
+            <div class="alert alert-danger" role="alert">
+                Coś poszło nie tak. Spróbuj ponownie. <i id="close_error_message" class="fas fa-times" onclick="close_alert()"></i>
+            </div>
+        {% endif %}
+        {% if request.GET.status == '1' %}
+            <div class="alert alert-success" role="alert">
+                Zapisano zmiany. <i id="close_error_message" class="fas fa-times" onclick="close_alert()"></i>
+            </div>
+        {% endif %}
+    {% endif %}
     <div class="settings_form">
         <h1>Zmiana archiwum</h1>
         <form action="{% url 'filler:update_file_settings' %}" method="post">
@@ -18,11 +34,11 @@
         </form>
     </div>
     <div class="settings_form">
-        <h1>Dane logowania</h1>
+        <h1>Aktualizacja hasła</h1>
         <form action="{% url 'filler:update_credentials' %}" method="post">
             {% csrf_token %}
             {% include './standard_form_template.html' with form=credentials_form %}
-            <small class="form-text text-muted">Aktualne dane nie zostały wczytane w celu bezpieczeństwa.</small>
+            <small class="form-text text-muted">Hasło zostanie zmienione tylko w przypadku, gdy poprzednie się zgadza.</small>
             <input class="btn btn-success" type="submit" value="Aktualizuj">
         </form>
     </div>
@@ -34,4 +50,21 @@
             <input class="btn btn-success" type="submit" value="Aktualizuj">
         </form>
     </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+
+    gsap.timeline()
+        .delay(0.5)
+        .from('.alert', {opacity: 0})
+        .from('.settings_form', {opacity: 0, y: 200, stagger: {amount: 2}, ease: "back.out(1.7)"})
+
+    function close_alert(event) {
+        gsap.to('.alert', {duration: 1 , xPercent: 100, opacity: 0})
+        setTimeout(() => {
+            document.querySelector('.alert').style.display = 'none';
+        }, 1000)
+
+    }
 {% endblock %}

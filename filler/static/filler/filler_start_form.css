@@ -1,6 +1,7 @@
 
 body {
     background-color: #36393f;
+    overflow-x: hidden;
 }
 
 #fill_attendance_form {

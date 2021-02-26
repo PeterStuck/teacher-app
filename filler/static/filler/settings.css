@@ -8,10 +8,10 @@ body {
 
 .settings_form {
     flex-basis: 55%;
+    margin-bottom: 5%;
 }
 
 .settings_form h1 {
-    margin: 10% 0 0 0;
     text-align: center;
     color: #dcddde;
     font-weight: bold;
@@ -53,4 +53,13 @@ footer {
 
 .technologies_icons i, .technologies_icons p {
     color: #2a2d31;
+}
+
+.alert {
+    flex-basis: 50%;
+}
+
+.alert i {
+    float: right;
+    cursor: pointer;
 }

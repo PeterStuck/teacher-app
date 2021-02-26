@@ -36,3 +36,7 @@
 .filename {
     font-weight: bold;
 }
+
+.logout #user_name {
+    color: #666;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'filler/login.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js" integrity="sha512-1dalHDkG9EtcOmCnoCjiwQ/HEB5SDNqw8d4G2MKoNwjiwMNeBAkudsBCmSlMnXdsH8Bm0mOd3tl/6nL5y0bMaQ==" crossorigin="anonymous"></script>
+</head>
+<body>
+    <section>
+        <div class="login_wrapper">
+            <i id="login_logo" class="fas fa-user-secret"></i>
+            <form id="login_form" action="{% url 'filler:login' %}" method="post" novalidate>
+                {% csrf_token %}
+                {% include 'filler/standard_form_template.html' with form=form %}
+
+                {% if request.GET.next %}
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
+                {% endif %}
+                <input id="submit-btn" class="btn btn-outline-primary btn-lg" type="submit" value="Login">
+            </form>
+        </div>
+    </section>
+
+    <script>
+        gsap.timeline()
+            .from('#login_logo', {duration: 0.8, opacity: 0, y: 200, ease: "back.out(1.7)"})
+            .from('#login_form', {duration: 0.7, opacity: 0, y: 200, ease: "power4.out"})
+            .from('#submit-btn', {duration: 1, opacity: 0, y: 200, ease: "slow(0.7, 0.7, false)"})
+    </script>
+</body>
+</html>

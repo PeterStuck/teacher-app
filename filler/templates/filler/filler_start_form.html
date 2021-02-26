@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="{% static 'filler/filler_start_form.css' %}">
 {% endblock %}
 
+{% block external_scripts %}
+    {{ block.super }}
+{% endblock %}
+
 {% block content %}
     {% if error_message %}
         <div class="alert alert-warning" id="error_message" role="alert">
@@ -43,6 +47,15 @@
 {% endblock %}
 
 {% block script %}
+    {{ block.super }}
+
+    gsap.timeline()
+        .delay(0.5)
+        .add('form')
+        .from('.alert', {duration: 1, y: 200, opacity: 0, ease: "back.out(1.7)"}, 'form')
+        .from('#fill_attendance_form', {duration: 0.7, y: 200, opacity: 0, ease: "circ.out"}, 'form')
+        .from('#submit-btn', {duration: 2, y: 200, opacity: 0, ease: "elastic.out(1, 0.3)"})
+        .from('.settings', {duration: 1, yPercent: 250, ease: "back.out(1.7)"})
 
     function close_error_message(event) {
         document.querySelector('#error_message').style.display = 'none';

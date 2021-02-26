@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="{% static 'filler/eow.css' %}">
 {% endblock %}
 
+{% block external_scripts %}
+    {{ block.super }}
+{% endblock %}
+
 {% block content %}
     <div class="time_is_money">
         <i class="fas fa-money-bill-wave"></i>
@@ -22,4 +26,15 @@
             <span class="filename">{{ filename }}</span>.
         </h4>
     {% endif %}
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+
+    gsap.timeline()
+        .delay(1)
+        .add('content')
+        .from('.time_is_money', {duration: 1, opacity: 0, ease: "expo.out"}, 'content')
+        .from('h1', {duration: 2, opacity: 0, ease: "expo.out"}, 'content')
+        .from('h4', {duration: 1, opacity: 0, ease: "expo.out"}, 'content')
 {% endblock %}
