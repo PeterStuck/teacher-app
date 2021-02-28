@@ -1,4 +1,5 @@
 import yaml
+from wku_django.settings import BASE_DIR
 
 
 class Settings:
@@ -8,7 +9,7 @@ class Settings:
         pass
 
     def load_main_settings(self) -> dict:
-        with open(r'D:\Projekty\Python\wku_django\filler\static\files\config\main_config.yaml') as settings:
+        with open(BASE_DIR / 'filler/static/files/config/main_config.yaml') as settings:
             settings_paths_dict = yaml.load(settings, Loader=yaml.FullLoader)
 
         return settings_paths_dict

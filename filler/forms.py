@@ -72,7 +72,6 @@ class FillerStartForm(Form):
 
 
 class WebdriverSettingsForm(Form):
-    path = CharField(label='Ścieżka absolutna do chromedriver.exe', widget=TextInput(attrs={'class': 'form-control form_field'}), required=True)
     vulcan_url = CharField(label='URL do strony Vulcan', widget=TextInput(attrs={'class': 'form-control form_field'}), required=True)
 
 

@@ -43,7 +43,7 @@
         </form>
     </div>
     <div class="settings_form">
-        <h1>Konfiguracja silnika</h1>
+        <h1>Vulcan</h1>
         <form action="{% url 'filler:update_webdriver_settings' %}" method="post">
             {% csrf_token %}
             {% include './standard_form_template.html' with form=webdriver_form %}

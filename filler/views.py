@@ -1,4 +1,5 @@
 from datetime import datetime as dt
+from wku_django.settings import BASE_DIR
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -110,7 +111,7 @@ def settings_view(request, info=None):
 def prepopulate_archive_form():
     settings = files_settings.FilesSettings()
     settings_dict = settings.load_settings()
-    return ArchiveSettingsForm(label_suffix='', initial={'path': settings_dict['archive_desktop_path'],})
+    return ArchiveSettingsForm(label_suffix='', initial={'path': BASE_DIR / settings_dict['archive_desktop_path'],})
 
 
 def prepopulate_webdriver_form():
@@ -127,7 +128,7 @@ def update_file_settings(request):
             new_archive_path = form.cleaned_data['path']
             settings = files_settings.FilesSettings()
             settings_data = settings.load_settings()
-            settings_data['archive_desktop_path'] = new_archive_path
+            settings_data['archive_desktop_path'] = BASE_DIR / new_archive_path
             settings.update_settings(settings_data)
             return HttpResponseRedirect('/filler/settings?status=1')
         return HttpResponseRedirect('/filler/settings?status=0')
@@ -138,12 +139,10 @@ def update_webdriver_settings(request):
     if request.method == "POST":
         form = WebdriverSettingsForm(request.POST)
         if form.is_valid():
-            new_path = form.cleaned_data['path']
             new_vulcan_url = form.cleaned_data['vulcan_url']
 
             settings = webdriver_settings.WebdriverSettings()
             settings_data = settings.load_settings()
-            settings_data['path'] = new_path
             settings_data['vulcan_url'] = new_vulcan_url
             settings.update_settings(settings_data)
             return HttpResponseRedirect('/filler/settings?status=1')

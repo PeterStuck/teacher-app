@@ -4,6 +4,8 @@ from filler.plain_classes.teams_data import TeamsData
 from filler.attendance_manager.settings.files_settings import FilesSettings
 from filler.attendance_manager.data_readers.attendance_data_reader import AttendanceDataReader
 
+from wku_django.settings import BASE_DIR
+
 import os
 import glob
 
@@ -24,9 +26,11 @@ class TestAttendanceDataReader(TestCase):
 
     def tearDown(self) -> None:
         """ Removes files created in tests """
-        converted_file_path = self.settings_dict['coverted_files_path'] + self.filename
-        archive_file_path = self.settings_dict['archive_desktop_path'] + self.filename
-        raw_file_path = self.settings_dict['raw_teams_file_path'] + self.filename
+        converted_file_path = str(BASE_DIR / self.settings_dict['coverted_files_path']) + "\\" + self.filename
+        archive_file_path = str(BASE_DIR / self.settings_dict['archive_desktop_path']) + "\\" + self.filename
+        raw_file_path = str(BASE_DIR / self.settings_dict['raw_teams_file_path']) + "\\" + self.filename
+
+        print(raw_file_path, converted_file_path, archive_file_path)
 
         if os.path.isfile(converted_file_path):
             os.remove(converted_file_path)
@@ -39,18 +43,20 @@ class TestAttendanceDataReader(TestCase):
 
     def test_convert_teams_file(self):
         """ Checks creating files on archive and converted directories. """
-        basePath = r"D:\Projekty\Python\wku_django\media\teams"
+        print(str(BASE_DIR))
+        print(BASE_DIR / self.settings_dict["raw_teams_file_path"])
+        basePath = BASE_DIR / self.settings_dict["raw_teams_file_path"]
         filePaths = glob.glob(os.path.join(basePath, '*.csv'))
 
         with open(filePaths[0], 'r') as file:
-            with open(basePath + "\\" + self.filename, 'w', encoding='utf16') as test_file:
+            with open(str(basePath) + "\\" + self.filename, 'w', encoding='utf16') as test_file:
                 for line in file.readlines()[:-1]:
                     test_file.write(line)
 
         self.adr.convert_teams_file(self.filename)
 
-        self.assertTrue(os.path.isfile(self.settings_dict['coverted_files_path'] + self.filename))
-        self.assertTrue(os.path.isfile(self.settings_dict['archive_desktop_path'] + self.filename))
+        self.assertTrue(os.path.isfile(str(BASE_DIR / self.settings_dict['coverted_files_path']) + "\\" + self.filename))
+        self.assertTrue(os.path.isfile(str(BASE_DIR / self.settings_dict['archive_desktop_path']) + "\\" + self.filename))
 
     def test_recreate_csv_file(self):
         """ Test is able to recreate csv file based on data from Teams """

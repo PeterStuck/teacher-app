@@ -2,6 +2,8 @@ from filler.utils.errors.argument_error import InvalidArgumentError
 from filler.plain_classes.teams_data import TeamsData
 from filler.attendance_manager.settings.files_settings import FilesSettings
 
+from wku_django.settings import BASE_DIR
+
 import pandas as pd
 
 
@@ -13,7 +15,7 @@ class AttendanceDataReader:
 
     def convert_teams_file(self, filename):
         """ Reads file downloaded from Teams, get sliced informations and parse to new csv file with correct format """
-        file_path = self.settings_dict["raw_teams_file_path"] + filename
+        file_path = str(BASE_DIR / self.settings_dict["raw_teams_file_path"]) + "/" + filename
         self.__copy_file_to_archive(original_file_path=file_path, filename=filename)
         with open(f'{file_path}', "r", encoding="utf16") as attendance_data:
             participants = list()
@@ -37,7 +39,7 @@ class AttendanceDataReader:
 
     def __copy_file_to_archive(self, original_file_path, filename):
         """ Copies original file into desktop repository with appropriate unique file name """
-        archive_file_path = self.settings_dict["archive_desktop_path"] + filename
+        archive_file_path = str(BASE_DIR / self.settings_dict["archive_desktop_path"]) + "/" + filename
         with open(original_file_path, "r", encoding="utf16") as original_file:
             file_content = original_file.readlines()
 
@@ -57,11 +59,11 @@ class AttendanceDataReader:
         }
 
         data = pd.DataFrame(data_dict)
-        converted_path = self.settings_dict['coverted_files_path'] + filename
+        converted_path = str(BASE_DIR / self.settings_dict['coverted_files_path']) + "/" + filename
         data.to_csv(f'{converted_path}')
 
     def get_participants(self, filename: str):
         """ Reads lesson participants from recreated file and returns as set of them without duplicates """
-        converted_path = self.settings_dict['coverted_files_path'] + filename
+        converted_path = str(BASE_DIR / self.settings_dict['coverted_files_path']) + "/" + filename
         attendance_data = pd.read_csv(f'{converted_path}')
         return set(attendance_data.uczestnik.to_list())
