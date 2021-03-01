@@ -2,4 +2,3 @@ wku_django/secret_key.py
 filler/static/files/converted
 filler/static/files/archive
 media/teams
-db.sqlite3

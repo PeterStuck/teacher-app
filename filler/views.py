@@ -128,7 +128,7 @@ def update_file_settings(request):
             new_archive_path = form.cleaned_data['path']
             settings = files_settings.FilesSettings()
             settings_data = settings.load_settings()
-            settings_data['archive_desktop_path'] = BASE_DIR / new_archive_path
+            settings_data['archive_desktop_path'] = new_archive_path
             settings.update_settings(settings_data)
             return HttpResponseRedirect('/filler/settings?status=1')
         return HttpResponseRedirect('/filler/settings?status=0')
