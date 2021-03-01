@@ -36,6 +36,7 @@ body {
 }
 
 .form_field {
+    border: none;
 }
 
 .settings_form form input[type=submit] {

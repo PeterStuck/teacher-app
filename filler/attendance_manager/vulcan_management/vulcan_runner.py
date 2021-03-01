@@ -34,9 +34,9 @@ class VulcanAttendanceFiller:
         """ Whole sequence from login into page to fill up students attendance using uploaded file """
         self.__convert_teams_file()
         self.__go_to_attendance_edit()
-        # students_from_csv = self.__get_students_from_csv_file()
-        # presence_dict = self.vulcan_agent.change_attendance(vulcan_data=self.data, students_from_csv=students_from_csv)
-        # return presence_dict
+        students_from_csv = self.__get_students_from_csv_file()
+        presence_dict = self.vulcan_agent.change_attendance(vulcan_data=self.data, students_from_csv=students_from_csv)
+        return presence_dict
 
     def __sequence_double_lesson_with_file(self):
         """ Sequence to fill up same attendace on given lesson and one lesson after """
@@ -59,7 +59,7 @@ class VulcanAttendanceFiller:
         self.vulcan_agent.login_into_service()
         sleep(1)
         self.vulcan_agent.select_department(department=self.data.department)
-        sleep(1)
+        sleep(1.5)
         self.vulcan_agent.select_date(weekday=self.data.day)
         sleep(1)
         self.vulcan_agent.select_lesson(lesson_number=int(self.data.lesson))
