@@ -24,7 +24,7 @@ class VulcanAttendanceFiller:
             self.__show_draggable_attendance_list(presence_dict)
         elif not self.data.file_not_loaded and not self.is_double_lesson:
             presence_dict = self.__sequence_with_file()
-            # self.__show_draggable_attendance_list(presence_dict)
+            self.__show_draggable_attendance_list(presence_dict)
         elif self.data.file_not_loaded and self.is_double_lesson:
             self.__sequence_double_lesson_without_file()
         else:
