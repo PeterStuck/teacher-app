@@ -12,14 +12,23 @@ Created for teachers. Not by teachers.
 
 ## Opis
 
-Jeżeli wszystko poszło zgodnie z planem aplikacja będzie dostępna pod `127.0.0.1:8005/filler`. Program wymaga logowania. Jeżeli nie masz konta załóż je poprzez `/admin` logując się na wczesniej utworzonego `superusera`.
+### Kompleks aplikacji wspierający nauczycieli w powtarzających się czynnościach.
+
+Jeżeli wszystko poszło zgodnie z planem aplikacja będzie dostępna pod `127.0.0.1:8005/`.
+
+#### Filler - automatyczne uzupełnianie obecności na dzienniku Vulcan.
+
+Znajdziejsz go pod `/filler`. Aplikacja wymaga logowania. Jeżeli nie masz konta załóż je poprzez `/admin` logując się na wczesniej utworzonego `superusera`.
 
 Dane logowania są bezpośrednio powiązane z aplikacją, więc upewnij się, że `email` oraz `hasło` zgadzają się z twoimi danymi do Vulcan.
 
-Program służy do zautomatyzowania procesu wpisywania obecności uczniom na platformie Uonet Vulcan. Oferuje on wiele opcji pod tym względem między innymi równobieżne dbanie o porządek plików z Teams, poprzez tworzenie kopii tych plików z unikatowymi nazwami pod folderem, który jest wskazany w ustawieniach jako `Archiwum`, więc ustaw sobie odpowiednią dla siebie ścieżkę.
-> Uwaga.
-> Ścieżka ta nie powinna być absolutna. Program sam dopasowywuje sobie pierwsze części ścieżki bazując na lokacji, w której się znajduje. Ścieżka absolutna w podglądzie została pokazana w celu ułatwienia zlokalizowania archiwum. Ścieżka właściwa powinna zaczynać się od folderu głownego.
-> Przykład. `/filler/static/files/archive`
+Program służy do zautomatyzowania procesu wpisywania obecności uczniom na platformie Uonet Vulcan. Oferuje on wiele opcji oraz funkcji pod tym względem, między innymi równobieżne dbanie o porządek plików z Teams, poprzez tworzenie kopii tych plików z unikatowymi nazwami pod folderem, który jest wskazany w ustawieniach jako `Archiwum`, zadbaj więc o to, aby pliki te były zapisywane w wskazanym przez Ciebie miejscu.
+> Uwaga. Ścieżka powinna być ścieżką absolutną. Pozwala to na jednoznaczne określenie miejsca archiwum w systemie, jednocześnie nie zwracając uwagi, gdzie znajduje się aktualnie aplikacja.
+
+Lista obecności uzupełniana jest na podstawie pliku pobranego z Teams ( lub też nie ). W przypadku przekazania pliku na końcu program wygeneruje listę stworzoną na podstawie tego pliku na stronie Vulcan, w celu sprawdzenia czy aplikacja poprawnie wykonała swoją pracę.
+
+Aplikacja udostępnia także opcje związane z na przykład dwoma lekcjami pod rząd, wpisaniu wszystkim uczniom jednakowych obecności ( jeżeli plik nie został przekazany ), wybór lekcji, instytucji czy ustawienie statusu nieobecnego ucznia innego niż `nieobecny`.
+
 
 ## Problemy z aplikacją
 ### ModuleNotFound
