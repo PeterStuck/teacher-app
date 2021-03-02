@@ -1,6 +1,6 @@
 from filler.plain_classes.vulcan_data import VulcanData
 from filler.attendance_manager.data_readers.attendance_data_reader import AttendanceDataReader
-from .vulcan_ai import VulcanAI
+from utils.vulcan_management.vulcan_agent import VulcanAgent
 
 from time import sleep
 
@@ -12,13 +12,13 @@ class VulcanAttendanceFiller:
         self.data = data
         self.adr = AttendanceDataReader()
         self.filename = ''
-        self.vulcan_agent: VulcanAI = None
+        self.vulcan_agent: VulcanAgent = None
         self.is_double_lesson = is_double_lesson
         self.credentials = credentials
 
     def start_sequence(self):
         """ Start point for choose which sequence to run, based on check if file was uploaded and if lesson is double """
-        self.vulcan_agent = VulcanAI(self.credentials)
+        self.vulcan_agent = VulcanAgent(self.credentials)
         if self.is_double_lesson and not self.data.file_not_loaded:
             presence_dict = self.__sequence_double_lesson_with_file()
             self.__show_draggable_attendance_list(presence_dict)

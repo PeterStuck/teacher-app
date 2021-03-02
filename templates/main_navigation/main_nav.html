@@ -1,0 +1,44 @@
+{% extends '../standard_base_template.html' %}
+
+{% block title %} Cześć {% endblock %}
+
+{% block styles %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/text_rainbow_anim.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main_nav.css' %}">
+{% endblock %}
+
+{% block external_scripts %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1 id="time_spared">
+        <ul class="c-rainbow">
+        {% for layer in rainbow_layers %}
+         <li class="c-rainbow__layer {{ layer }} layer">8 hours 15 minutes 12 seconds</li>
+        {% endfor %}
+        </ul>
+    </h1>
+    <h3 id="time_spared_label">
+        {%  if request.user.first_name|last == 'a' %}
+            Tyle czasu już oszczędziłaś. Nie tylko czasu. Przelicz to na swoją stawkę. Zaskoczona?
+        {% else %}
+            Tyle czasu już oszczędziłeś. Nie tylko czasu. Przelicz to na swoją stawkę. Zaskoczony?
+        {% endif %}
+    </h3>
+    <div class="available_apps">
+        <a href="#"><i class="fas fa-user-friends"></i></a>
+        <a href="{% url 'filler:filler_start' %}"><i class="fas fa-file-signature"></i></a>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+
+    gsap.timeline()
+        .from('#time_spared', {duration: 1, yPercent: 100, opacity: 0, ease: "back.out(1.7)"})
+        .from('#time_spared_label', {duration: 1, opacity: 0})
+        .from('.available_apps a', {opacity: 0, yPercent: 200, stagger: {amount: 0.5}, ease: "power3.out"})
+{% endblock %}

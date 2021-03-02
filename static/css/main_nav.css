@@ -1,0 +1,42 @@
+
+body {
+	background-color: #222;
+}
+
+#time_spared {
+	flex-basis: 90%;
+	margin-top: 0;
+	text-align: center;
+	overflow: hidden;
+	font-size: 8rem;
+	font-weight: bold;
+}
+
+.layer {
+	width: 100%;
+	text-align: center !important;
+}
+
+#time_spared_label {
+	font-size: 2rem;
+	font-weight: 300;
+	color: #dcddde;
+	text-align: center;
+}
+
+.available_apps {
+	flex-basis: 60%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	margin: 4% 0;
+}
+
+.available_apps i {
+	font-size: 4rem;
+	color: white;
+}
+
+.technologies_icons {
+	color: #000;
+}

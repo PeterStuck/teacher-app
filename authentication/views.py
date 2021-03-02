@@ -22,7 +22,7 @@ def login_view(request):
                 if next_page:
                     return HttpResponseRedirect(request.POST.get('next'))
                 else:
-                    return HttpResponseRedirect(reverse('filler:filler_start'))
+                    return HttpResponseRedirect(reverse('menu'))
     return render(request, 'authentication/login.html', context={'form': login_form})
 
 

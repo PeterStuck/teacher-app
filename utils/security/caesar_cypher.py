@@ -1,7 +1,7 @@
 from string import ascii_uppercase, ascii_lowercase, digits, punctuation
 from math import fabs
 
-from ..errors.argument_error import InvalidArgumentError
+from filler.utils.errors.argument_error import InvalidArgumentError
 
 ALL_LOWERCASE_LETTERS = ascii_lowercase
 ALL_UPPERCASE_LETTERS = ascii_uppercase

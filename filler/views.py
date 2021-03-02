@@ -1,9 +1,9 @@
 from datetime import datetime as dt
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.shortcuts import render, HttpResponseRedirect
 
-from filler.attendance_manager.vulcan_management.vulcan_runner import VulcanAttendanceFiller
+from filler.attendance_manager.vulcan_runner import VulcanAttendanceFiller
 from wku_django.settings import BASE_DIR
 from .attendance_manager.settings import files_settings, webdriver_settings
 from .forms import FillerStartForm, ArchiveSettingsForm, WebdriverSettingsForm, ChangePasswordForm

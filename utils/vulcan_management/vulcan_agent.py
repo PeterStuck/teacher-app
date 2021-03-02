@@ -18,7 +18,7 @@ def parse_attendance_dict_to_html_string(presence_dict: dict) -> str:
     return parsed_data_string
 
 
-class VulcanAI:
+class VulcanAgent:
     """ Class to perform actions on Vulcan Uonet page """
 
     def __init__(self, credentials: dict):
