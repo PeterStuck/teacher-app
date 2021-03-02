@@ -29,7 +29,7 @@
         <h1>Zmiana archiwum</h1>
         <form action="{% url 'filler:update_file_settings' %}" method="post">
             {% csrf_token %}
-            {% include './standard_form_template.html' with form=archive_form %}
+            {% include 'standard_form_template.html' with form=archive_form %}
             <input class="btn btn-success" type="submit" value="Aktualizuj">
         </form>
     </div>
@@ -37,7 +37,7 @@
         <h1>Aktualizacja hasła</h1>
         <form action="{% url 'filler:update_credentials' %}" method="post">
             {% csrf_token %}
-            {% include './standard_form_template.html' with form=credentials_form %}
+            {% include 'standard_form_template.html' with form=credentials_form %}
             <small class="form-text text-muted">Hasło zostanie zmienione tylko w przypadku, gdy poprzednie się zgadza.</small>
             <input class="btn btn-success" type="submit" value="Aktualizuj">
         </form>
@@ -46,7 +46,7 @@
         <h1>Vulcan</h1>
         <form action="{% url 'filler:update_webdriver_settings' %}" method="post">
             {% csrf_token %}
-            {% include './standard_form_template.html' with form=webdriver_form %}
+            {% include 'standard_form_template.html' with form=webdriver_form %}
             <input class="btn btn-success" type="submit" value="Aktualizuj">
         </form>
     </div>

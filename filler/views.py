@@ -1,57 +1,17 @@
 from datetime import datetime as dt
-from wku_django.settings import BASE_DIR
 
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, reverse, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, reverse
 
 from filler.attendance_manager.vulcan_management.vulcan_runner import VulcanAttendanceFiller
-from filler.plain_classes.user_credentials import UserCredentials
+from wku_django.settings import BASE_DIR
 from .attendance_manager.settings import files_settings, webdriver_settings
-from .forms import FillerStartForm, ArchiveSettingsForm, WebdriverSettingsForm, ChangePasswordForm, LoginForm
+from .forms import FillerStartForm, ArchiveSettingsForm, WebdriverSettingsForm, ChangePasswordForm
 from .plain_classes.vulcan_data import VulcanData
 from .utils.override_file_storage import OverrideFileStorage
 
 
-def log_in_view(request):
-    """ Start place for all filler subpages """
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('filler:filler_start'))
-
-    login_form = LoginForm(label_suffix='')
-    if request.method == "POST":
-        login_form = LoginForm(request.POST)
-        if login_form.is_valid():
-            next_page = request.POST.get('next')
-            username = login_form.cleaned_data['username']
-            password = login_form.cleaned_data['password']
-            if authenticate_user(request, username, password):
-                print('AUTH SUCCESS')
-                if next_page:
-                    return HttpResponseRedirect(request.POST.get('next'))
-                else:
-                    return HttpResponseRedirect(reverse('filler:filler_start'))
-    return render(request, 'filler/login.html', context={'form': login_form})
-
-
-def authenticate_user(request, username, password):
-    """ Authenticates user and create user session if username and password are valid """
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        credentials = UserCredentials(email=user.email, password=password)
-        request.session['credentials'] = credentials.__to_dict__()
-        print("LOGGED IN")
-        login(request, user)
-    return user is not None
-
-
-def logout_view(request):
-    """ Deletes user data from session """
-    logout(request)
-    return HttpResponseRedirect(reverse('filler:login'))
-
-
-@login_required(login_url='/filler/login')
+@login_required(login_url='/login')
 def filler_form_view(request):
     """ Main control panel to set parameters for VulcanAttendaceFiller """
     form = FillerStartForm(label_suffix='', initial={'date': dt.now().strftime('%Y-%m-%d')})
@@ -92,7 +52,7 @@ def save_file(filename: str, file):
     fs.save(f'teams/{filename}.csv', file)
 
 
-@login_required(login_url='/filler/login')
+@login_required(login_url='/login')
 def settings_view(request, info=None):
     credentials_form = ChangePasswordForm(label_suffix='')
     archive_form = prepopulate_archive_form()
@@ -120,7 +80,7 @@ def prepopulate_webdriver_form():
     return WebdriverSettingsForm(label_suffix='', initial={'path': settings_dict['path'], 'vulcan_url': settings_dict['vulcan_url']})
 
 
-@login_required(login_url='/filler/login')
+@login_required(login_url='/login')
 def update_file_settings(request):
     if request.method == "POST":
         form = ArchiveSettingsForm(request.POST)
@@ -134,7 +94,7 @@ def update_file_settings(request):
         return HttpResponseRedirect('/filler/settings?status=0')
 
 
-@login_required(login_url='/filler/login')
+@login_required(login_url='/login')
 def update_webdriver_settings(request):
     if request.method == "POST":
         form = WebdriverSettingsForm(request.POST)
@@ -149,7 +109,7 @@ def update_webdriver_settings(request):
         return HttpResponseRedirect('/filler/settings?status=0')
 
 
-@login_required(login_url='/filler/login')
+@login_required(login_url='/login')
 def update_credentials(request):
     if request.method == "POST":
         form = ChangePasswordForm(request.POST)
@@ -164,7 +124,7 @@ def update_credentials(request):
         return HttpResponseRedirect('/filler/settings?status=0')
 
 
-@login_required(login_url='/filler/login')
+@login_required(login_url='/login')
 def end_of_work_view(request, filename=None):
     """ View to display when filler ends work correctly """
     return render(request, 'filler/eow.html', context={'filename': filename})

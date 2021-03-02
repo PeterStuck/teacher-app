@@ -1,8 +1,7 @@
+from django.core.validators import RegexValidator
 from django.forms import Form
-from django.forms import TextInput, FileField, ChoiceField, DateTimeField, Select, BooleanField, CheckboxInput, FileInput, CharField, PasswordInput
-from django.core.validators import RegexValidator, ValidationError
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
+from django.forms import TextInput, FileField, ChoiceField, DateTimeField, Select, BooleanField, CheckboxInput, \
+    FileInput, CharField, PasswordInput
 
 from filler.models import Department, PolishDays, PresenceSymbol
 
@@ -82,22 +81,3 @@ class ChangePasswordForm(Form):
 
 class ArchiveSettingsForm(Form):
     path = CharField(label='Ścieżka absolutna do archiwum', widget=TextInput(attrs={'class': 'form-control form_field'}), required=True)
-
-
-all_users = User.objects.all()
-usernames = [[user.username, user.get_full_name()] for user in all_users if not user.is_superuser]
-
-
-class LoginForm(Form):
-    username = ChoiceField(
-        label='Zaloguj jako',
-        choices=usernames,
-        widget=Select(attrs={
-            'class': 'form-control form_field',
-        }))
-    password = CharField(
-        label='Hasło',
-        widget=PasswordInput(attrs={
-            'class': 'form-control form_field'
-        }),
-        required=True)

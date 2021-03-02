@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import filler_form_view, settings_view, update_file_settings, update_webdriver_settings, update_credentials, end_of_work_view, log_in_view, logout_view
+from .views import filler_form_view, settings_view, update_file_settings, update_webdriver_settings, update_credentials, end_of_work_view
 
 app_name = 'filler'
 urlpatterns = [
@@ -9,6 +9,4 @@ urlpatterns = [
     path('settings/update_webdriver/', update_webdriver_settings, name='update_webdriver_settings'),
     path('settings/update_credentials/', update_credentials, name='update_credentials'),
     path('eow/', end_of_work_view, name='eow'),
-    path('login/', log_in_view, name='login'),
-    path('logout/', logout_view, name='logout'),
 ]

@@ -1,5 +1,4 @@
 from .vulcan_webdriver import VulcanWebdriver
-from filler.plain_classes.user_credentials import UserCredentials
 from selenium.common.exceptions import NoSuchElementException
 from filler.utils.errors.argument_error import InvalidArgumentError
 from filler.plain_classes.vulcan_data import VulcanData
@@ -25,25 +24,25 @@ class VulcanAI:
     def __init__(self, credentials: dict):
         self.driver = VulcanWebdriver()
         self.driver.open_vulcan_page()
-        self.credentials = UserCredentials(credentials['email'], credentials['password'])
+        self.credentials = (credentials['email'], credentials['password'])
 
     def login_into_service(self):
         """ Login into Vulcan Uonet with passed credentials """
         try:
             self.driver.find_element_by_css_selector(".loginButton").click()
-            self.__send_credentials(self.credentials)
+            self.__send_credentials()
         except NoSuchElementException as e:
             print(e)
             self.driver.execute_script("alert('#Error# Nie udało się znaleźć przycisku logowania.');")
 
-    def __send_credentials(self, credentials: UserCredentials):
+    def __send_credentials(self):
         """ Pastes login data into fields on page and submit them """
         try:
             email_input = self.driver.find_element_by_css_selector("#LoginName")
-            email_input.send_keys(credentials.email)
+            email_input.send_keys(self.credentials[0])
 
             pass_input = self.driver.find_element_by_css_selector("#Password")
-            pass_input.send_keys(credentials.password)
+            pass_input.send_keys(self.credentials[1])
 
             login_submit_btn = self.driver.find_element_by_xpath('//input[@value="Zaloguj się >"]')
             login_submit_btn.click()
