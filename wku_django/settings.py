@@ -142,7 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 
@@ -152,7 +152,9 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
+    BASE_DIR / 'static',
     BASE_DIR / 'filler/static/filler',
+    BASE_DIR / 'authentication/static/authentication'
 ]
 
 MEDIA_URL = '/media/'
