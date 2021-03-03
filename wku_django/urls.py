@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('authentication.urls')),
     path('menu/', main_navigation_view, name='menu'),
     path('filler/', include('filler.urls')),
+    path('single/', include('single.urls')),
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='/login')),
 ]

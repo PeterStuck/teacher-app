@@ -34,7 +34,13 @@ body {
 
 .available_apps i {
 	font-size: 4rem;
-	color: white;
+	color: #eee;
+	transition: 0.4s;
+}
+
+.available_apps i:hover {
+	font-size: 4.5rem;
+	color: #fff;
 }
 
 .technologies_icons {
