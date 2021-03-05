@@ -57,9 +57,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dbbackup',
+    'base.apps.BaseConfig',
     'filler.apps.FillerConfig',
     'authentication.apps.AuthenticationConfig',
-    'single.apps.SingleConfig'
+    'single.apps.SingleConfig',
 ]
 
 MIDDLEWARE = [
@@ -162,3 +164,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR / 'db/backups'}

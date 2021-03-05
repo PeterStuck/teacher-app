@@ -17,11 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import RedirectView
 
-from .views import main_navigation_view
-
 urlpatterns = [
     path('', include('authentication.urls')),
-    path('menu/', main_navigation_view, name='menu'),
+    path('', include('base.urls')),
     path('filler/', include('filler.urls')),
     path('single/', include('single.urls')),
     path('admin/', admin.site.urls),

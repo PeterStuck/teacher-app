@@ -3,7 +3,7 @@ from django.forms import Form
 from django.forms import TextInput, FileField, ChoiceField, DateTimeField, Select, BooleanField, CheckboxInput, \
     FileInput, CharField, PasswordInput
 
-from filler.models import Department, PolishDays, PresenceSymbol
+from base.models import Department, PolishDays, PresenceSymbol
 
 all_departments = Department.objects.all()
 DEPARTMENTS = [[department.name, department.full_name] for department in all_departments]

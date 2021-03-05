@@ -1,6 +1,6 @@
 from filler.plain_classes.vulcan_data import VulcanData
 from filler.attendance_manager.data_readers.attendance_data_reader import AttendanceDataReader
-from utils.vulcan_management.vulcan_agent import VulcanAgent
+from base.vulcan_management.vulcan_agent import VulcanAgent
 
 from time import sleep
 
