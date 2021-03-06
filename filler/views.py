@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect
 
 from filler.attendance_manager.vulcan_runner import VulcanAttendanceFiller
+from base.utils.spared_time_counter import add_spared_time_to_total
 from wku_django.settings import BASE_DIR
 from .attendance_manager.settings import files_settings, webdriver_settings
 from .forms import FillerStartForm, ArchiveSettingsForm, WebdriverSettingsForm, ChangePasswordForm
@@ -41,7 +42,8 @@ def filler_form_view(request):
 
             vulcan_data = VulcanData(file=file, file_not_loaded=file_not_loaded, department=department, day=day, date=date, lesson=lesson, absent_symbol=absent_symbol)
             vulcan_runner = VulcanAttendanceFiller(data=vulcan_data, is_double_lesson=is_double_lesson, credentials=request.session['credentials'])
-            vulcan_runner.start_sequence()
+            spared_time = vulcan_runner.start_sequence()
+            add_spared_time_to_total(time_in_sec=spared_time, user=request.user)
 
             return render(request, 'filler/eow.html', context={'filename': filename})
     return render(request, 'filler/filler_start_form.html', context={'form': form})
@@ -53,7 +55,7 @@ def save_file(filename: str, file):
 
 
 @login_required(login_url='/login')
-def settings_view(request, info=None):
+def settings_view(request):
     credentials_form = ChangePasswordForm(label_suffix='')
     archive_form = prepopulate_archive_form()
     webdriver_form = prepopulate_webdriver_form()
@@ -62,7 +64,6 @@ def settings_view(request, info=None):
         'archive_form': archive_form,
         'credentials_form': credentials_form,
         'webdriver_form': webdriver_form,
-        'info': info
     }
 
     return render(request, 'filler/settings.html', context=context)

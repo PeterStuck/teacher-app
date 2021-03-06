@@ -1,6 +1,7 @@
 from filler.plain_classes.vulcan_data import VulcanData
 from filler.attendance_manager.data_readers.attendance_data_reader import AttendanceDataReader
 from base.vulcan_management.vulcan_agent import VulcanAgent
+from base.utils.spared_time_counter import count_spared_time
 
 from time import sleep
 
@@ -16,8 +17,12 @@ class VulcanAttendanceFiller:
         self.is_double_lesson = is_double_lesson
         self.credentials = credentials
 
+    @count_spared_time
     def start_sequence(self):
-        """ Start point for choose which sequence to run, based on check if file was uploaded and if lesson is double """
+        """
+        Start point for choose which sequence to run, based on check if file was uploaded and if lesson is double .
+        Returns spared time in seconds by decorator.
+        """
         self.vulcan_agent = VulcanAgent(self.credentials)
         if self.is_double_lesson and not self.data.file_not_loaded:
             presence_dict = self.__sequence_double_lesson_with_file()
@@ -47,7 +52,7 @@ class VulcanAttendanceFiller:
     def __sequence_without_file(self):
         """ Whole sequence from login into page to fill up students same attendance """
         self.__go_to_attendance_edit()
-        self.vulcan_agent.change_attendance(vulcan_data=self.data)
+        # self.vulcan_agent.change_attendance(vulcan_data=self.data)
 
     def __sequence_double_lesson_without_file(self):
         """ Sequence to fill up same attendace to all students on given lesson and one lesson after """

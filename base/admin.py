@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Department, PresenceSymbol
+from .models import Department, PresenceSymbol, SparedTime
 
 
 class DepartmentAdminMeta(admin.ModelAdmin):
@@ -16,3 +16,15 @@ class PresenceSymbolAdminMeta(admin.ModelAdmin):
 
 
 admin.site.register(PresenceSymbol, PresenceSymbolAdminMeta)
+
+
+class SparedTimeAdminMeta(admin.ModelAdmin):
+    list_display = ('get_teacher_name', 'time')
+
+    def get_teacher_name(self, obj):
+        return obj.teacher.get_full_name()
+
+    get_teacher_name.short_description = 'Teacher'
+
+
+admin.site.register(SparedTime, SparedTimeAdminMeta)

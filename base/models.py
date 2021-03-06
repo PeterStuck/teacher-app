@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -23,3 +24,11 @@ class PresenceSymbol(models.Model):
 
     def __str__(self):
         return self.full_name
+
+
+class SparedTime(models.Model):
+    time = models.BigIntegerField(null=False)
+    teacher = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.teacher.get_full_name() + str(self.time)
