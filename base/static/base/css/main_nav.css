@@ -6,6 +6,7 @@ body {
 #time_spared {
 	flex-basis: 90%;
 	margin-top: 0;
+	padding: 2% 0;
 	text-align: center;
 	overflow: hidden;
 	font-size: 8rem;

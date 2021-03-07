@@ -14,6 +14,10 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/authentication/static" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/base/static" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/filler/static" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/individual/static" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -23,7 +27,11 @@
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/../wku_django\templates" />
+        <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/authentication/templates" />
+        <option value="$MODULE_DIR$/base/templates" />
+        <option value="$MODULE_DIR$/filler/templates" />
+        <option value="$MODULE_DIR$/individual/templates" />
       </list>
     </option>
   </component>

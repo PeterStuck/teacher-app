@@ -17,7 +17,27 @@
     <h1 id="time_spared">
         <ul class="c-rainbow">
         {% for layer in rainbow_layers %}
-         <li class="c-rainbow__layer {{ layer }} layer">8 hours 15 minutes 12 seconds</li>
+            <li class="c-rainbow__layer {{ layer }} layer">
+            {% if has_spared_time %}
+                {% if spared_time.days %}
+                    {{ spared_time.days }}D|upper
+                {% endif %}
+
+                {% if spared_time.hours %}
+                    {{ spared_time.hours }}G
+                {% endif %}
+
+                {% if spared_time.minutes %}
+                    {{ spared_time.minutes }}M
+                {% endif %}
+
+                {% if spared_time.seconds %}
+                    {{ spared_time.seconds }}S
+                {% endif %}
+            {% else %}
+                Tu widzisz oszczędzony czas.
+            {% endif %}
+            </li>
         {% endfor %}
         </ul>
     </h1>
@@ -29,7 +49,7 @@
         {% endif %}
     </h3>
     <div class="available_apps">
-        <a href="{% url 'single:start' %}"><i class="fas fa-user-friends"></i></a>
+        <a href="{% url 'individual:start' %}"><i class="fas fa-user-friends"></i></a>
         <a href="{% url 'filler:filler_start' %}"><i class="fas fa-file-signature"></i></a>
     </div>
 {% endblock %}
