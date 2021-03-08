@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import RevalidationStudent
+from .models import RevalidationStudent, IndividualLessonPaymentType
 
 
 # Register your models here.
@@ -18,3 +18,4 @@ class RevalidationStudentAdminMeta(admin.ModelAdmin):
 
 
 admin.site.register(RevalidationStudent, RevalidationStudentAdminMeta)
+admin.site.register(IndividualLessonPaymentType)

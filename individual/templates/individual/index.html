@@ -5,9 +5,28 @@
     <title>Hello</title>
 </head>
 <body>
-<form action="{% url 'individual:start' %}" method="post">
+<form id="individual_lesson_form" action="{% url 'individual:start' %}" method="post" revalidation-students-url="{% url 'individual:load_revalidation_students' %}">
     {% csrf_token %}
+    {{ individual_lesson_form.as_p }}
     <input type="submit" value="START">
 </form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_department").change(function () {
+        var url = $("#individual_lesson_form").attr("revalidation-students-url");
+        var department_name = $(this).val();
+
+        $.ajax({
+          url: url,
+          data: {
+              department: department_name
+          },
+            success: function (data) {
+              $("#id_students").html(data);
+            }
+        });
+    });
+</script>
 </body>
 </html>

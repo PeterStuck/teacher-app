@@ -39,7 +39,7 @@ class AttendanceDataReader:
 
     def __copy_file_to_archive(self, original_file_path, filename):
         """ Copies original file into desktop repository with appropriate unique file name """
-        archive_file_path = self.settings_dict["archive_desktop_path"] + "/" + filename
+        archive_file_path = self.settings_dict["archive_desktop_path"] + "\\" + filename
         with open(original_file_path, "r", encoding="utf16") as original_file:
             file_content = original_file.readlines()
 

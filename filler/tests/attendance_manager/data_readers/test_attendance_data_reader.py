@@ -52,7 +52,7 @@ class TestAttendanceDataReader(TestCase):
         self.adr.convert_teams_file(self.filename)
 
         self.assertTrue(os.path.isfile(str(BASE_DIR / self.settings_dict['coverted_files_path']) + "\\" + self.filename))
-        self.assertTrue(os.path.isfile(self.settings_dict['archive_desktop_path'] + self.filename))
+        self.assertTrue(os.path.isfile(self.settings_dict['archive_desktop_path'] + '\\' + self.filename))
 
     def test_recreate_csv_file(self):
         """ Test is able to recreate csv file based on data from Teams """
