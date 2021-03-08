@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ChoiceField, CharField
+from django.forms import ChoiceField, CharField, Select, TextInput, Textarea
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 
@@ -20,7 +20,10 @@ class IndividualLessonForm(forms.Form):
         choices=DEPARTMENTS,
         error_messages= {
             'invalid_choice': 'Wybierz szkołę.'
-        }
+        },
+        widget=Select(attrs={
+            'class': 'form-control form__field form__field--dark'
+        })
     )
     students = ChoiceField(
         label='Wybierz ucznia',
@@ -28,7 +31,10 @@ class IndividualLessonForm(forms.Form):
         error_messages= {
             'required': REQUIRED_ERROR_INFO,
             'invalid_choice': 'Wybierz właściwego ucznia.'
-        }
+        },
+        widget=Select(attrs={
+            'class': 'form-control form__field form__field--dark'
+        })
     )
     date = CharField(
         label='Data spotkania',
@@ -37,18 +43,51 @@ class IndividualLessonForm(forms.Form):
         error_messages= {
             'required': REQUIRED_ERROR_INFO
         },
+        widget=TextInput(attrs={
+            'class': 'form-control form__field form__field--dark'
+        }),
         required=True)
-    topic = CharField(label='Temat lekcji', error_messages= {
+    topic = CharField(
+        label='Temat lekcji',
+        error_messages= {
             'required': REQUIRED_ERROR_INFO
-        }, required=True)
-    comments = CharField(label='Uwagi', error_messages= {
+        },
+        widget=TextInput(attrs={
+            'class': 'form-control form__field form__field--dark'
+        }),
+        required=True)
+    comments = CharField(
+        label='Uwagi',
+        error_messages= {
             'required': REQUIRED_ERROR_INFO
-        }, required=True)
-    payment_type = ChoiceField(label='Typ płatności', choices=PAYMENT_TYPES)
-    num_of_hours = CharField(label='Liczba godzin', error_messages= {
+        },
+        widget=Textarea(attrs={
+            'class': 'form-control form__textarea form__textarea--dark'
+        }),
+        required=True)
+    payment_type = ChoiceField(
+        label='Typ płatności',
+        choices=PAYMENT_TYPES,
+        widget=Select(attrs={
+            'class': 'form-control form__field form__field--dark'
+        })
+    )
+    num_of_hours = CharField(
+        label='Liczba godzin',
+        error_messages= {
             'required': REQUIRED_ERROR_INFO
-        }, required=True)
-    presence_symbol = ChoiceField(label='Status obecności', choices=PRESENCE_SYMBOLS)
+        },
+        widget=TextInput(attrs={
+            'class': 'form-control form__field form__field--dark'
+        }),
+        required=True)
+    presence_symbol = ChoiceField(
+        label='Status obecności',
+        choices=PRESENCE_SYMBOLS,
+        widget=Select(attrs={
+            'class': 'form-control form__field form__field--dark'
+        })
+    )
 
     def __init__(self, user: User, *args, **kwargs):
         super().__init__(*args, **kwargs)

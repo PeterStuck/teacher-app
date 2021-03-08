@@ -46,6 +46,11 @@ header {
     text-decoration: none;
     font-size: 2rem;
     color: red;
+    transition: 0.4s;
+}
+
+.logout a:hover {
+    color: #8E0E00;
 }
 
 section {
@@ -63,6 +68,13 @@ section {
 
 .error {
     color: red;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.alert i {
+    float: right;
+    cursor: pointer;
 }
 
 footer {

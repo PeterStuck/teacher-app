@@ -1,0 +1,25 @@
+/* Fixed, right down screen position settings circle with icon */
+
+.settings_wrapper {
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+}
+
+.settings {
+    padding: 1.5rem;
+    border: none;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+.settings:hover {
+    box-shadow: 1px 1px 1px 1px white;
+}
+
+.settings a i {
+    text-decoration: none;
+    outline: none;
+    font-size: 3.5rem;
+    color: white;
+}

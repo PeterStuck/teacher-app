@@ -1,0 +1,37 @@
+body {
+    background-color: #36393f;
+    overflow-x: hidden;
+}
+
+#flex_form label {
+    color: #dcddde;
+}
+
+.form__submit {
+    background: linear-gradient(-45deg, #833ab4, #fd1d1d, #fcb045);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+    color: white;
+}
+
+.error {
+    flex-basis: 70%;
+}
+
+.alert {
+    flex-basis: 51%;
+}
+
+.settings {
+    background: linear-gradient(-45deg, #833ab4, #fd1d1d, #fcb045);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+.settings a i {
+    padding: 5px 0;
+}
+
+.technologies_icons i, .technologies_icons p {
+    color: #2a2d31;
+}

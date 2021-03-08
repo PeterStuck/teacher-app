@@ -1,32 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hello</title>
-</head>
-<body>
-<form id="individual_lesson_form" action="{% url 'individual:start' %}" method="post" revalidation-students-url="{% url 'individual:load_revalidation_students' %}">
-    {% csrf_token %}
-    {{ individual_lesson_form.as_p }}
-    <input type="submit" value="START">
-</form>
+{% extends 'standard_base_template.html' %}
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-    $("#id_department").change(function () {
-        var url = $("#individual_lesson_form").attr("revalidation-students-url");
-        var department_name = $(this).val();
+{% block title %} Rewalidacja {% endblock %}
 
-        $.ajax({
-          url: url,
-          data: {
-              department: department_name
-          },
-            success: function (data) {
-              $("#id_students").html(data);
-            }
-        });
-    });
-</script>
-</body>
-</html>
+{% block styles %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/gradient_anim.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fixed_settings.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flex_form.css' %}">
+    <link rel="stylesheet" href="{% static 'individual/css/index.css' %}">
+{% endblock %}
+
+{% block external_scripts %}
+    {{ block.super }}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    {% load static %}
+    <script src="{% static 'individual/js/load_revalidation_students.js' %}"></script>
+{% endblock %}
+
+{% block home_icon %}
+    <a href="{% url 'individual:start' %}"><i class="fas fa-user-friends"></i></a>
+{% endblock %}
+
+{% block content %}
+    <div class="form_wrapper">
+        <form id="flex_form"
+              action="{% url 'individual:start' %}"
+              method="post"
+              revalidation-students-url="{% url 'individual:load_revalidation_students' %}">
+            {% csrf_token %}
+            {% include 'standard_form_template.html' with form=individual_lesson_form %}
+            <input class="form__submit btn btn-lg" type="submit" value="Oszczędź czas">
+        </form>
+    </div>
+
+    <div class="settings_wrapper">
+        <div class="settings">
+            <a href="#"><i class="fas fa-cogs"></i></a>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    {{ block.super }}
+
+    gsap.timeline()
+        .from('#flex_form', {duration: 0.7, y: 200, opacity: 0, ease: "circ.out"}, 'form')
+        .from('.form__submit', {duration: 2, y: 200, opacity: 0, ease: "elastic.out(1, 0.3)"})
+        .from('.settings_wrapper', {duration: 1, yPercent: 250, ease: "back.out(1.7)"})
+{% endblock %}

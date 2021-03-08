@@ -1,0 +1,45 @@
+.form_wrapper {
+    flex-basis: 50%;
+}
+
+.form_wrapper #flex_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.form__field, #flex_form label, .form__textarea {
+    flex-basis: 70%;
+}
+
+#flex_form label {
+    margin-top: 2%;
+    font-weight: bold;
+}
+
+.form__submit {
+    flex-basis: 31%;
+    margin: 3%;
+    border: none;
+    outline: none;
+}
+
+.form__field--dark, .form__textarea--dark {
+    background-color: #40444b;
+    color: #dcddde;
+    text-align: center !important;
+    text-align-last: center;
+    border: none;
+    outline: none;
+}
+
+.form__field--dark:focus, .form__textarea--dark:focus {
+    background-color: #40444b;
+    color: #dcddde;
+}
+
+.form__textarea {
+    resize: none;
+    height: 100px !important;
+}
