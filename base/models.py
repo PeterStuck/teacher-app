@@ -34,10 +34,22 @@ class SparedTime(models.Model):
         return self.teacher.get_full_name() + str(self.time)
 
 
+class LessonCategory(models.Model):
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name = 'Lesson category'
+        verbose_name_plural = 'Lesson categories'
+
+    def __str__(self):
+        return self.name
+
+
 class LessonTopic(models.Model):
     topic = models.CharField(max_length=300)
     is_individual = models.BooleanField()
-    teacher = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    teacher = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    category = models.ForeignKey(LessonCategory, on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
         return self.topic
