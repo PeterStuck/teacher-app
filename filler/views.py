@@ -13,7 +13,7 @@ from .utils.override_file_storage import OverrideFileStorage
 
 
 @login_required(login_url='/login')
-def filler_form_view(request):
+def start(request):
     """ Main control panel to set parameters for VulcanAttendaceFiller """
     form = FillerStartForm(label_suffix='', initial={'date': dt.now().strftime('%Y-%m-%d')})
     if request.method == 'POST':
@@ -35,7 +35,7 @@ def filler_form_view(request):
                 save_file(filename, file)
             elif not file_not_loaded and file is None:
                 error_message = 'Musisz wgrać plik lub wybrać opcję poniżej zaznaczając kwadracik, aby program mógł przystąpić do działania.'
-                return render(request, 'filler/filler_start_form.html', {
+                return render(request, 'filler/index.html', {
                     'form': form,
                     'error_message': error_message
                 })
@@ -45,8 +45,8 @@ def filler_form_view(request):
             spared_time = vulcan_runner.start_sequence()
             add_spared_time_to_total(time_in_sec=spared_time, user=request.user)
 
-            return render(request, 'filler/eow.html', context={'filename': filename})
-    return render(request, 'filler/filler_start_form.html', context={'form': form})
+            return render(request, 'base/end_of_work.html', context={'filename': filename})
+    return render(request, 'filler/index.html', context={'form': form})
 
 
 def save_file(filename: str, file):
@@ -123,9 +123,3 @@ def update_credentials(request):
                 user.save()
                 return HttpResponseRedirect('/filler/settings?status=1')
         return HttpResponseRedirect('/filler/settings?status=0')
-
-
-@login_required(login_url='/login')
-def end_of_work_view(request, filename=None):
-    """ View to display when filler ends work correctly """
-    return render(request, 'filler/eow.html', context={'filename': filename})

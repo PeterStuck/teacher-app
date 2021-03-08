@@ -26,6 +26,11 @@ header {
 .home_icon i {
     font-size: 3.5rem;
     color: white;
+    transition: 0.4s;
+}
+
+.home_icon i:hover {
+    font-size: 4rem;
 }
 
 .logout {

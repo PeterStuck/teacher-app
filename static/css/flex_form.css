@@ -13,6 +13,13 @@
     flex-basis: 70%;
 }
 
+.form__checkfield {
+    flex-basis: 20%;
+    outline: none;
+    margin-top: 2%;
+    margin-bottom: 0.5rem;
+}
+
 #flex_form label {
     margin-top: 2%;
     font-weight: bold;

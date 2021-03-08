@@ -1,15 +1,20 @@
-{% extends './base.html' %}
+{% extends 'standard_base_template.html' %}
 
 {% block title %} Ustawienia {% endblock %}
 
 {% block styles %}
     {{ block.super }}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'filler/settings.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flex_form.css' %}">
+    <link rel="stylesheet" href="{% static 'filler/css/settings.css' %}">
 {% endblock %}
 
 {% block external_scripts %}
     {{ block.super }}
+{% endblock %}
+
+{% block home_icon %}
+    <a href="{% url 'filler:filler_start' %}"><i class="fas fa-file-signature"></i></a>
 {% endblock %}
 
 {% block content %}
@@ -25,29 +30,31 @@
             </div>
         {% endif %}
     {% endif %}
-    <div class="settings_form">
+    <div class="form_wrapper">
         <h1>Zmiana archiwum</h1>
-        <form action="{% url 'filler:update_file_settings' %}" method="post">
+        <form id="flex_form" action="{% url 'filler:update_file_settings' %}" method="post">
             {% csrf_token %}
             {% include 'standard_form_template.html' with form=archive_form %}
-            <input class="btn btn-success" type="submit" value="Aktualizuj">
+            <input class="form__submit btn btn-success" type="submit" value="Aktualizuj">
         </form>
     </div>
-    <div class="settings_form">
+
+    <div class="form_wrapper">
         <h1>Aktualizacja hasła</h1>
-        <form action="{% url 'filler:update_credentials' %}" method="post">
+        <form id="flex_form" action="{% url 'filler:update_credentials' %}" method="post">
             {% csrf_token %}
             {% include 'standard_form_template.html' with form=credentials_form %}
             <small class="form-text text-muted">Hasło zostanie zmienione tylko w przypadku, gdy poprzednie się zgadza.</small>
-            <input class="btn btn-success" type="submit" value="Aktualizuj">
+            <input class="form__submit btn btn-success" type="submit" value="Aktualizuj">
         </form>
     </div>
-    <div class="settings_form">
+
+    <div class="form_wrapper">
         <h1>Vulcan</h1>
-        <form action="{% url 'filler:update_webdriver_settings' %}" method="post">
+        <form id="flex_form" action="{% url 'filler:update_webdriver_settings' %}" method="post">
             {% csrf_token %}
             {% include 'standard_form_template.html' with form=webdriver_form %}
-            <input class="btn btn-success" type="submit" value="Aktualizuj">
+            <input class="form__submit btn btn-success" type="submit" value="Aktualizuj">
         </form>
     </div>
 {% endblock %}
@@ -58,7 +65,7 @@
     gsap.timeline()
         .delay(0.5)
         .from('.alert', {opacity: 0})
-        .from('.settings_form', {opacity: 0, y: 200, stagger: {amount: 2}, ease: "back.out(1.7)"})
+        .from('.form_wrapper', {opacity: 0, y: 200, stagger: {amount: 2}, ease: "back.out(1.7)"})
 
     function close_alert(event) {
         gsap.to('.alert', {duration: 1 , xPercent: 100, opacity: 0})

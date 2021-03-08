@@ -1,15 +1,22 @@
-{% extends './base.html' %}
+{% extends 'standard_base_template.html' %}
 
 {% block title %} Wypełnij obecność {% endblock %}
 
 {% block styles %}
     {{ block.super }}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'filler/filler_start_form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gradient_anim.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fixed_settings.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flex_form.css' %}">
+    <link rel="stylesheet" href="{% static 'filler/css/index.css' %}">
 {% endblock %}
 
 {% block external_scripts %}
     {{ block.super }}
+{% endblock %}
+
+{% block home_icon %}
+    <a href="{% url 'filler:filler_start' %}"><i class="fas fa-file-signature"></i></a>
 {% endblock %}
 
 {% block content %}
@@ -18,12 +25,12 @@
           {{ error_message }} <i id="close_error_message" class="fas fa-times" onclick="close_error_message()"></i>
         </div>
     {% endif %}
-    <div id="fill_attendance_form">
-        <form method="post" enctype="multipart/form-data"  action="{% url 'filler:filler_start' %}" novalidate>
+    <div class="form_wrapper">
+        <form id="flex_form" method="post" enctype="multipart/form-data"  action="{% url 'filler:filler_start' %}" novalidate>
             {% csrf_token %}
             {% for field in form %}
                 {% if field.name == 'file' %}
-                    <label for="{{ field.id_for_label }}">{{ field.label }} <i class="fas fa-file-csv"></i></label>
+                    <label for="{{ field.id_for_label }}">{{ field.label }} <i id="csv_file_icon" class="fas fa-file-csv"></i></label>
                     {{ field }}
                 {% else %}
                     {{ field.label_tag }}
@@ -35,7 +42,7 @@
                     {% endfor %}
                 {% endif %}
             {% endfor %}
-            <input type="submit" class="btn-lg btn btn-success" id="submit-btn" value="Oszczędź czas">
+            <input type="submit" class="form__submit btn-lg btn" value="Oszczędź czas">
         </form>
     </div>
 
@@ -53,9 +60,9 @@
         .delay(0.5)
         .add('form')
         .from('.alert', {duration: 1, y: 200, opacity: 0, ease: "back.out(1.7)"}, 'form')
-        .from('#fill_attendance_form', {duration: 0.7, y: 200, opacity: 0, ease: "circ.out"}, 'form')
-        .from('#submit-btn', {duration: 2, y: 200, opacity: 0, ease: "elastic.out(1, 0.3)"})
-        .from('.settings', {duration: 1, yPercent: 250, ease: "back.out(1.7)"})
+        .from('#flex_form', {duration: 0.7, y: 200, opacity: 0, ease: "circ.out"}, 'form')
+        .from('.form__submit', {duration: 2, y: 200, opacity: 0, ease: "elastic.out(1, 0.3)"})
+        .from('.settings_wrapper', {duration: 1, yPercent: 250, ease: "back.out(1.7)"})
 
     function close_error_message(event) {
         document.querySelector('#error_message').style.display = 'none';

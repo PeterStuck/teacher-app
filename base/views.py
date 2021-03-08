@@ -31,3 +31,9 @@ def get_user_spared_time(user):
         raise AttributeError("User has no SparedTime object associated.")
     spared_time_in_sec = user.sparedtime.time
     return relativedelta(seconds=spared_time_in_sec)
+
+
+@login_required(login_url='/login')
+def end_of_work_view(request, filename=None):
+    """ View to display when filler ends work correctly """
+    return render(request, 'base/end_of_work.html', context={'filename': filename})

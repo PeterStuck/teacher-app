@@ -1,0 +1,47 @@
+
+body {
+    background-color: #36393f;
+    overflow-x: hidden;
+}
+
+#flex_form label {
+    color: #dcddde;
+}
+
+/* To refactor */
+#flex_form label[for=id_file_not_loaded], #flex_form label[for=id_is_double_lesson] {
+    flex-basis: 50% !important;
+    font-weight: 300 !important;
+}
+
+#flex_form .form__submit {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+    color: white;
+}
+
+#flex_form input[type='file'] {
+    color: #dcddde;
+}
+
+#csv_file_icon {
+    margin-left: 2%;
+    font-size: 1.25rem;
+    color: white;
+}
+
+.settings {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+.alert {
+    flex-basis: 51%;
+}
+
+.technologies_icons i, .technologies_icons p {
+    color: #2a2d31;
+}
+

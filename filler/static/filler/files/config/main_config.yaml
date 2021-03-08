@@ -1,0 +1,2 @@
+files_config_path: filler/static/filler/files/config/files_config.yaml
+webdriver_config_path: filler/static/filler/files/config/webdriver_config.yaml

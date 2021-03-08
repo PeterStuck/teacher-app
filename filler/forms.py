@@ -16,26 +16,26 @@ PRESENCE_SYMBOLS = [[presence.symbol, presence.full_name] for presence in all_pr
 
 
 class FillerStartForm(Form):
-    file = FileField(label="Podaj plik z Teams", widget=FileInput(attrs={'class': 'form_field'}), required=False)
+    file = FileField(label="Podaj plik z Teams", widget=FileInput(attrs={'class': 'form__field'}), required=False)
     lesson_number = ChoiceField(
         label='Wybierz lekcję',
         choices=[[lesson, lesson] for lesson in range(1, 10)],
         widget=Select(attrs={
-            'class': 'form-control form_field',
+            'class': 'form-control form__field form__field--dark',
         })
     )
     departments = ChoiceField(
         label='Wybierz instytucję',
         choices=DEPARTMENTS,
         widget=Select(attrs={
-            'class': 'form-control form_field',
+            'class': 'form-control form__field form__field--dark',
         })
     )
     day = ChoiceField(
         label='Podaj dzień',
         choices=DAYS,
         widget=Select(attrs={
-            'class': 'form-control form_field',
+            'class': 'form-control form__field form__field--dark',
         }),
         validators=[
 
@@ -43,7 +43,7 @@ class FillerStartForm(Form):
     )
     date = DateTimeField(
         label='Data',
-        widget=TextInput(attrs={'class': 'form-control form_field'}),
+        widget=TextInput(attrs={'class': 'form-control form__field form__field--dark'}),
         validators=[
             RegexValidator(regex='[0-9]{4}-[0-9]{2}-[0-9]{2}', message="Zachowaj datę w podanym formacie, tj. RRRR-MM-DD.")
         ],
@@ -53,16 +53,16 @@ class FillerStartForm(Form):
         label='Co wpisać nieobecnym?',
         choices=PRESENCE_SYMBOLS,
         widget=Select(attrs={
-            'class': 'form-control form_field',
+            'class': 'form-control form__field form__field--dark',
         })
     )
     file_not_loaded = BooleanField(
         label='Wpisz wszystkim jednakową obecność, którą ustawię poniżej.',
-        widget=CheckboxInput(attrs={'class': 'form_check'}),
+        widget=CheckboxInput(attrs={'class': 'form_check form__checkfield'}),
         required=False)
     is_double_lesson = BooleanField(
         label='Dwie lekcje pod rząd z tą samą obecnością.',
-        widget=CheckboxInput(attrs={'class': 'form_check'}),
+        widget=CheckboxInput(attrs={'class': 'form_check form__checkfield'}),
         required=False)
 
     use_required_attribute = True
@@ -71,13 +71,13 @@ class FillerStartForm(Form):
 
 
 class WebdriverSettingsForm(Form):
-    vulcan_url = CharField(label='URL do strony Vulcan', widget=TextInput(attrs={'class': 'form-control form_field'}), required=True)
+    vulcan_url = CharField(label='URL do strony Vulcan', widget=TextInput(attrs={'class': 'form-control form__field'}), required=True)
 
 
 class ChangePasswordForm(Form):
-    old_passw = CharField(label='Stare hasło', widget=PasswordInput(attrs={'class': 'form-control form_field'}), required=True)
-    passw = CharField(label='Nowe hasło', widget=PasswordInput(attrs={'class': 'form-control form_field'}), required=True)
+    old_passw = CharField(label='Stare hasło', widget=PasswordInput(attrs={'class': 'form-control form__field'}), required=True)
+    passw = CharField(label='Nowe hasło', widget=PasswordInput(attrs={'class': 'form-control form__field'}), required=True)
 
 
 class ArchiveSettingsForm(Form):
-    path = CharField(label='Ścieżka absolutna do archiwum', widget=TextInput(attrs={'class': 'form-control form_field'}), required=True)
+    path = CharField(label='Ścieżka absolutna do archiwum', widget=TextInput(attrs={'class': 'form-control form__field'}), required=True)

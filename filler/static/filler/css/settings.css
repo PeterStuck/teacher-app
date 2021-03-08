@@ -1,0 +1,51 @@
+body {
+    background-color: #36393f;
+}
+
+.form_wrapper {
+    flex-basis: 55% !important;
+    margin-bottom: 5%;
+    background-color: #2a2d31;
+}
+
+.section_wrapper {
+    margin-bottom: 5%;
+}
+
+.form_wrapper h1 {
+    text-align: center;
+    color: #dcddde;
+    font-weight: bold;
+}
+
+#flex_form label {
+    flex-basis: 55% !important;
+    color: #dcddde;
+    font-weight: 200 !important;
+}
+
+#flex_form .form__field {
+    flex-basis: 55% !important;
+    border: none;
+}
+
+#flex_form .form__submit {
+    margin: 2% 50%;
+}
+
+small.form-text {
+    flex-basis: 55%;
+    text-align: center;
+}
+
+footer {
+    clear: both !important;
+}
+
+.technologies_icons i, .technologies_icons p {
+    color: #2a2d31;
+}
+
+.alert {
+    flex-basis: 50%;
+}
