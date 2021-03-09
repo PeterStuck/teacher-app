@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
               department: department_name
           },
             success: function (data) {
-              $("#id_students").html(data);
+              $("#id_student").html(data);
             }
         });
     });

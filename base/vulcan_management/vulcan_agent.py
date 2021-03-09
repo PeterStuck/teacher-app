@@ -21,15 +21,16 @@ def parse_attendance_dict_to_html_string(presence_dict: dict) -> str:
 class VulcanAgent:
     """ Class to perform actions on Vulcan Uonet page """
 
-    def __init__(self, credentials: dict):
+    def __init__(self, credentials: dict, vulcan_data = None):
         self.driver = VulcanWebdriver()
         self.driver.open_vulcan_page()
         self.credentials = (credentials['email'], credentials['password'])
+        self.vd = vulcan_data
 
-    def go_to_lessons_menu(self, department: str):
+    def go_to_lessons_menu(self):
         self.login_into_service()
         sleep(1)
-        self.select_department(department=department)
+        self.select_department()
 
     def login_into_service(self):
         """ Login into Vulcan Uonet with passed credentials """
@@ -56,10 +57,10 @@ class VulcanAgent:
             self.driver.execute_script(
                 "alert('#Error# Problem ze znalezieniem elementów lub wprowadzeniem danych do zalogowania.');")
 
-    def select_department(self, department: str):
+    def select_department(self):
         """ Selects department on main page """
         try:
-            self.driver.find_element_by_xpath(f'//span[text()="{department}"]/..').click()
+            self.driver.find_element_by_xpath(f'//span[text()="{self.vd.department}"]/..').click()
         except NoSuchElementException as e:
             print(e)
             self.driver.execute_script("alert('#Error# Problem ze znalezieniem podanego departamentu.');")

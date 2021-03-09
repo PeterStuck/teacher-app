@@ -1,12 +1,15 @@
 from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.views.generic.edit import FormView
 
 from .forms import IndividualLessonForm
 from .models import RevalidationStudent
 from .plain_classes.vulcan_data import VulcanIndividualLessonData
-from .utils.vulcan_management.individual_lesson_agent import IndividualLessonAgent
+from individual.vulcan_management.individual_lesson_agent import IndividualLessonAgent
+from individual.vulcan_management.revalidation_vulcan_runner import RevalidationVulcanRunner
 
 DEPARTMENT = 'SPBrza'
 STUDENT_NAME = 'Tomek'
@@ -18,25 +21,45 @@ data = VulcanIndividualLessonData(
     comments='Some comments',
     payment_type='W ramach pensum',
     num_of_hours=1,
-    presency_status='obecny'
+    presence_symbol='obecny'
 )
 
 
-@login_required(login_url='/login')
-def start(request):
-    form = IndividualLessonForm(user=request.user, label_suffix='', initial={'date': datetime.now().strftime('%d.%m.%Y')})
-    if request.method == 'POST':
-        form = IndividualLessonForm(request.user, request.POST, label_suffix='')
-        if form.is_valid():
-            credentials = request.session['credentials']
-            vulcan_agent = IndividualLessonAgent(credentials)
+class IndividualLessonFormView(LoginRequiredMixin, FormView):
+    login_url = "/login"
 
-            # vulcan_agent.go_to_lessons_menu(department=DEPARTMENT)
-            # vulcan_agent.go_to_student_invidual_lessons(student_name=STUDENT_NAME)
-            # vulcan_agent.add_lesson(data)
-        print(form.errors)
-        return render(request, 'individual/index.html', context={'individual_lesson_form': form})
-    return render(request, 'individual/index.html', context={'individual_lesson_form': form})
+    template_name = 'individual/index.html'
+    form_class = IndividualLessonForm
+    success_url = '/eow/'
+    initial = {
+        'date': datetime.now().strftime('%d.%m.%Y'),
+    }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['individual_lesson_form'] = self.form_class(
+            user=self.request.user,
+            label_suffix='',
+            initial=self.get_initial())
+        return context
+
+    def get_form(self, form_class=None):
+        return self.form_class(self.request.user, **self.get_form_kwargs())
+
+    def form_valid(self, form):
+        credentials = self.request.session['credentials']
+        vd: VulcanIndividualLessonData = form.parse_to_vulcan_data()
+
+        runner = RevalidationVulcanRunner(credentials=credentials, vd=vd)
+        runner.run()
+
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        context = self.get_context_data()
+        context['individual_lesson_form'] = form
+        context['individual_lesson_form'].label_suffix = ''
+        return self.render_to_response(context)
 
 
 @login_required(login_url="/login")

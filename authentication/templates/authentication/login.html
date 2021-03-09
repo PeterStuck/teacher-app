@@ -5,6 +5,8 @@
 {% block style %}
     {{ block.super }}
     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/gradient_anim.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flex_form.css' %}">
     <link rel="stylesheet" href="{% static 'authentication/css/login.css' %}">
 {% endblock %}
 
@@ -13,21 +15,25 @@
 {% endblock %}
 
 {% block content %}
-    <i id="login_logo" class="fas fa-user-secret"></i>
-    <form id="login_form" action="{% url 'authentication:login' %}" method="post" novalidate>
-        {% csrf_token %}
-        {% include 'standard_form_template.html' with form=form %}
+    <div class="form_wrapper">
+        <i id="login_logo" class="fas fa-key"></i>
+        <form id="flex_form" action="{% url 'authentication:login' %}" method="post" novalidate>
+            {% csrf_token %}
+            {% include 'standard_form_template.html' with form=form %}
 
-        {% if request.GET.next %}
-            <input type="hidden" name="next" value="{{ request.GET.next }}">
-        {% endif %}
-        <input id="submit-btn" class="btn btn-outline-primary btn-lg" type="submit" value="Login">
-    </form>
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% endif %}
+            <input class="submit_btn btn btn-outline-primary btn-lg" type="submit" value="Login">
+        </form>
+    </div>
 {% endblock %}
 
 {% block script %}
     gsap.timeline()
         .from('#login_logo', {duration: 0.8, opacity: 0, y: 200, ease: "back.out(1.7)"})
-        .from('#login_form', {duration: 0.7, opacity: 0, y: 200, ease: "power4.out"})
-        .from('#submit-btn', {duration: 1, opacity: 0, y: 200, ease: "slow(0.7, 0.7, false)"})
+        .add('form')
+        .from('.form_wrapper', {duration: 0.7, opacity: 0, y: 200, ease: "power4.out"}, 'form')
+        .from('#flex_form', {duration: 0.7, opacity: 0, y: 200, ease: "power4.out"}, 'form')
+        .from('.submit_btn', {duration: 1, opacity: 0, y: 200, ease: "slow(0.7, 0.7, false)"})
 {% endblock %}

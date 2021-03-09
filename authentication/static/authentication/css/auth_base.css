@@ -15,7 +15,7 @@ section {
 .content_wrapper {
     display: flex;
     justify-content: center;
-    align-content: start;
+    align-content: center;
     flex-wrap: wrap;
     height: 100vh;
 }

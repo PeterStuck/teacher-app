@@ -5,10 +5,11 @@ from django.contrib.auth.models import User
 
 from base.models import Department, PresenceSymbol
 from .models import IndividualLessonPaymentType, RevalidationStudent
+from .plain_classes.vulcan_data import VulcanIndividualLessonData
 
 DEPARTMENTS = [[department.name, department.full_name] for department in Department.objects.all()]
 DEPARTMENTS.insert(0, [0, '---'])
-PAYMENT_TYPES = [[payment_type.id, payment_type.type] for payment_type in IndividualLessonPaymentType.objects.all()]
+PAYMENT_TYPES = [[payment_type.type, payment_type.type] for payment_type in IndividualLessonPaymentType.objects.all()]
 PRESENCE_SYMBOLS = [[symbol.symbol, symbol.full_name] for symbol in PresenceSymbol.objects.all()]
 
 REQUIRED_ERROR_INFO = 'To pole jest wymagane.'
@@ -25,7 +26,7 @@ class IndividualLessonForm(forms.Form):
             'class': 'form-control form__field form__field--dark'
         })
     )
-    students = ChoiceField(
+    student = ChoiceField(
         label='Wybierz ucznia',
         choices=[[0, '---']],
         error_messages= {
@@ -64,7 +65,7 @@ class IndividualLessonForm(forms.Form):
         widget=Textarea(attrs={
             'class': 'form-control form__textarea form__textarea--dark'
         }),
-        required=True)
+        required=False)
     payment_type = ChoiceField(
         label='Typ płatności',
         choices=PAYMENT_TYPES,
@@ -78,7 +79,8 @@ class IndividualLessonForm(forms.Form):
             'required': REQUIRED_ERROR_INFO
         },
         widget=TextInput(attrs={
-            'class': 'form-control form__field form__field--dark'
+            'class': 'form-control form__field form__field--dark',
+            'type': 'number',
         }),
         required=True)
     presence_symbol = ChoiceField(
@@ -89,13 +91,13 @@ class IndividualLessonForm(forms.Form):
         })
     )
 
-    def __init__(self, user: User, *args, **kwargs):
+    def __init__(self, user: User= None, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if 'students' in self.data:
+        if 'student' in self.data:
             try:
                 department_name = self.data.get('department')
-                self.fields['students'].choices = \
+                self.fields['student'].choices = \
                     [[student.id, student.name] for student in RevalidationStudent.objects
                         .filter(department__name=department_name)
                         .filter(teacher=user)
@@ -103,5 +105,18 @@ class IndividualLessonForm(forms.Form):
             except (ValueError, TypeError) as e:
                 print("ERROR", e)
                 pass
+
+    def parse_to_vulcan_data(self):
+        form_fields = dict()
+        for field in self.fields:
+            form_fields[field] = self.data.get(field)
+
+        vd = VulcanIndividualLessonData(**form_fields)
+
+        student_id = self.data.get('student')
+        student = RevalidationStudent.objects.get(pk=student_id)
+        vd.student = student
+
+        return vd
 
 

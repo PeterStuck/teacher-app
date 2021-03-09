@@ -12,11 +12,11 @@ class LoginForm(Form):
         label='Zaloguj jako',
         choices=usernames,
         widget=Select(attrs={
-            'class': 'form-control form_field',
+            'class': 'form-control form__field form__field--dark',
         }))
     password = CharField(
         label='Hasło',
         widget=PasswordInput(attrs={
-            'class': 'form-control form_field'
+            'class': 'form-control form__field form__field--dark'
         }),
         required=True)

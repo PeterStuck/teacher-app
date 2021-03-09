@@ -23,7 +23,7 @@ class VulcanAttendanceFiller:
         Start point for choose which sequence to run, based on check if file was uploaded and if lesson is double .
         Returns spared time in seconds by decorator.
         """
-        self.vulcan_agent = VulcanAgent(self.credentials)
+        self.vulcan_agent = VulcanAgent(self.credentials, vulcan_data=self.data)
         if self.is_double_lesson and not self.data.file_not_loaded:
             presence_dict = self.__sequence_double_lesson_with_file()
             self.__show_draggable_attendance_list(presence_dict)
@@ -52,7 +52,7 @@ class VulcanAttendanceFiller:
     def __sequence_without_file(self):
         """ Whole sequence from login into page to fill up students same attendance """
         self.__go_to_attendance_edit()
-        # self.vulcan_agent.change_attendance(vulcan_data=self.data)
+        self.vulcan_agent.change_attendance(vulcan_data=self.data)
 
     def __sequence_double_lesson_without_file(self):
         """ Sequence to fill up same attendace to all students on given lesson and one lesson after """
@@ -63,7 +63,7 @@ class VulcanAttendanceFiller:
         """ Passes through login, department and lesson selection on given date to attendance edit page """
         self.vulcan_agent.login_into_service()
         sleep(1)
-        self.vulcan_agent.select_department(department=self.data.department)
+        self.vulcan_agent.select_department()
         sleep(1.5)
         self.vulcan_agent.select_date(weekday=self.data.day)
         sleep(1)

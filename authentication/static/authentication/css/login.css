@@ -1,37 +1,29 @@
+.form_wrapper {
+    background-color: #2a2d31 !important;
+}
+
 #login_logo {
-    flex-basis: 100%;
+    width: 100%;
+    margin: 3% 0;
     text-align: center;
-    font-size: 25rem;
-    margin: 2% 0;
+    font-size: 10rem;
+    background: -webkit-linear-gradient(-45deg, #ffe000, #ba8b02, #181818);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-#login_form {
-    flex-basis: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+.submit_btn {
+    flex-basis: 30%;
+    margin: 3% 50%;
 }
 
-#login_form label, #login_form input[type=password], #login_form select {
-    flex-basis: 100%;
-}
-
-#login_form label {
-    margin: 4% 0 2% 0;
+#flex_form label {
     color: #dcddde;
-    font-weight: 300;
+    font-weight: 300 !important;
 }
 
-#login_form input[type=password], #login_form select {
-    background-color: #40444b;
-    color: #dcddde;
-    border: none;
-    outline: none;
-    font-weight: 300;
-    font-size: 1.25rem;
-}
-
-#login_form input[type=submit] {
-    margin: 5% 0;
+#flex_form .form__field, #flex_form label {
+    flex-basis: 55% !important;
 }
