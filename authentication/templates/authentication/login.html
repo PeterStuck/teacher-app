@@ -16,24 +16,33 @@
 
 {% block content %}
     <div class="form_wrapper">
-        <i id="login_logo" class="fas fa-key"></i>
+        <i id="login_logo" class="fas fa-atom"></i>
         <form id="flex_form" action="{% url 'authentication:login' %}" method="post" novalidate>
             {% csrf_token %}
-            {% include 'standard_form_template.html' with form=form %}
+            {% for field in form %}
+            {{ field.label_tag }}
+        <div class="field_wrapper">
+                <i class="{% cycle 'far fa-user' 'fas fa-key' %}"></i>
+                {{ field }}            
+        </div>
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="error">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
 
             {% if request.GET.next %}
                 <input type="hidden" name="next" value="{{ request.GET.next }}">
             {% endif %}
-            <input class="submit_btn btn btn-outline-primary btn-lg" type="submit" value="Login">
+            <input class="submit_btn btn btn-outline-primary btn-lg" type="submit" value="Zaloguj">
         </form>
     </div>
 {% endblock %}
 
+
 {% block script %}
-    gsap.timeline()
-        .from('#login_logo', {duration: 0.8, opacity: 0, y: 200, ease: "back.out(1.7)"})
-        .add('form')
-        .from('.form_wrapper', {duration: 0.7, opacity: 0, y: 200, ease: "power4.out"}, 'form')
-        .from('#flex_form', {duration: 0.7, opacity: 0, y: 200, ease: "power4.out"}, 'form')
-        .from('.submit_btn', {duration: 1, opacity: 0, y: 200, ease: "slow(0.7, 0.7, false)"})
+    gsap.timeline()  
+        .from('.form_wrapper', {duration: 0.7, opacity: 0, y: 200, ease: "power4.out"})
+        .from('#login_logo', {duration: 1, opacity: 0, ease: "back.out(1.7)"})
 {% endblock %}

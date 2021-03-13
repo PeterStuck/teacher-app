@@ -7,9 +7,9 @@
     margin: 3% 0;
     text-align: center;
     font-size: 10rem;
-    background: -webkit-linear-gradient(-45deg, #ffe000, #ba8b02, #181818);
+    background: -webkit-linear-gradient(-45deg, #0062cc, #007bff, #4da3ff);
     background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    animation: heart-beat 3s infinite, gradient 15s infinite;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -26,4 +26,36 @@
 
 #flex_form .form__field, #flex_form label {
     flex-basis: 55% !important;
+}
+
+.field_wrapper {
+    flex-basis: 55%;
+    display: flex;
+}
+
+.field_wrapper .form__field {
+    flex-grow: 1;
+    border-radius: 0 5px 5px 0 !important;
+    font-size: 1.15rem !important;
+}
+
+.field_wrapper i {
+    flex-basis: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px 0 0 5px;
+    background-color: #fff;
+}
+
+@keyframes heart-beat {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
 }

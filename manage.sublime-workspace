@@ -1,0 +1,564 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"home",
+				"home_link"
+			],
+			[
+				"Http",
+				"HttpResponseRedirect\tclass"
+			],
+			[
+				"BaseF",
+				"BaseFormSet\tclass"
+			],
+			[
+				"Choic",
+				"ChoiceModelForm\tclass"
+			],
+			[
+				"transit",
+				"transition\tproperty"
+			],
+			[
+				"tran",
+				"transition\tCSS - transition: ;"
+			],
+			[
+				"ques",
+				"question\tstatement"
+			],
+			[
+				"choice_form",
+				"choices_formset\tstatement"
+			],
+			[
+				"choices_",
+				"choices_formset\tstatement"
+			],
+			[
+				"choic",
+				"choices\tstatement"
+			],
+			[
+				"choi",
+				"choices\tstatement"
+			],
+			[
+				"BaseModel",
+				"BaseModelFormSet\tclass"
+			],
+			[
+				"Base",
+				"BaseChoicesFormSet\tclass"
+			],
+			[
+				"form",
+				"formset"
+			],
+			[
+				"req",
+				"required"
+			],
+			[
+				"form_",
+				"form_input"
+			],
+			[
+				"model",
+				"modelformset_factory\tfunction"
+			],
+			[
+				"Choice",
+				"ChoicesFormSet\tstatement"
+			],
+			[
+				"quest",
+				"question_form\tstatement"
+			],
+			[
+				"err",
+				"errors\tmodule"
+			],
+			[
+				"formset",
+				"formset_factory\tfunction"
+			],
+			[
+				"choice",
+				"choice_text"
+			],
+			[
+				"cho",
+				"choice\tstatement"
+			],
+			[
+				"Inline",
+				"BaseInlineFormSet\tclass"
+			],
+			[
+				"for",
+				"formset"
+			],
+			[
+				"error",
+				"error_class"
+			],
+			[
+				"background",
+				"background-clip\tproperty"
+			],
+			[
+				"col",
+				"color\tproperty"
+			],
+			[
+				"lin",
+				"line-height\tproperty"
+			],
+			[
+				"Date",
+				"DateInput\tclass"
+			],
+			[
+				"que",
+				"question_form\tstatement"
+			],
+			[
+				"Tex",
+				"TextInput\tclass"
+			],
+			[
+				"lable",
+				"label_suffix"
+			],
+			[
+				"Poll",
+				"PollForm\tclass"
+			],
+			[
+				"Cho",
+				"ChoicesFormSet\tstatement"
+			],
+			[
+				"Mod",
+				"ModelForm"
+			],
+			[
+				"ModelCh",
+				"ModelChoiceField\tclass"
+			],
+			[
+				"labl",
+				"label_suffix"
+			],
+			[
+				"label",
+				"label_suffix"
+			],
+			[
+				"date",
+				"datetime\tclass"
+			],
+			[
+				"pub",
+				"pub_date"
+			],
+			[
+				"Err",
+				"DivErrorList"
+			],
+			[
+				"Text",
+				"TextInput\tclass"
+			],
+			[
+				"gettex",
+				"gettext_lazy\tstatement"
+			],
+			[
+				"erro",
+				"error_class=\tparam"
+			],
+			[
+				"Error",
+				"ErrorList\tclass"
+			],
+			[
+				"clean",
+				"cleaned_data\tstatement"
+			],
+			[
+				"HTTP",
+				"HttpResponseRedirect\tclass"
+			],
+			[
+				"is",
+				"is_valid\tfunction"
+			],
+			[
+				"Name",
+				"NameForm\tclass"
+			],
+			[
+				"add",
+				"add_new_poll"
+			],
+			[
+				"font-s",
+				"font-size\tproperty"
+			],
+			[
+				"trans",
+				"transition\tproperty"
+			],
+			[
+				"list-style-",
+				"list-style-type\tproperty"
+			],
+			[
+				"backg",
+				"background-color\tproperty"
+			],
+			[
+				"ali",
+				"align-items\tproperty"
+			],
+			[
+				"over",
+				"overflow-x\tproperty"
+			],
+			[
+				"max",
+				"max-width\tproperty"
+			],
+			[
+				"mode",
+				"models\tmodule"
+			],
+			[
+				"backgr",
+				"background-color\tproperty"
+			],
+			[
+				"back",
+				"background-color\tproperty"
+			],
+			[
+				"fie",
+				"fields"
+			],
+			[
+				"fields",
+				"fieldsets\tstatement"
+			],
+			[
+				"Que",
+				"QuestionAdmin\tclass"
+			],
+			[
+				"past",
+				"past_question\tstatement"
+			],
+			[
+				"fut",
+				"future_question"
+			],
+			[
+				"filt",
+				"filtered_questions"
+			],
+			[
+				"fit",
+				"filtered_questions"
+			],
+			[
+				"Htt",
+				"Http404"
+			],
+			[
+				"assert",
+				"assertEqual"
+			],
+			[
+				"questio",
+				"question_text"
+			],
+			[
+				"pas",
+				"past_question"
+			],
+			[
+				"ass",
+				"assertEqual"
+			],
+			[
+				"asse",
+				"assertIs"
+			],
+			[
+				"last",
+				"latest_question_list"
+			],
+			[
+				"cl",
+				"client"
+			],
+			[
+				"crea",
+				"create_question"
+			],
+			[
+				"day",
+				"days"
+			],
+			[
+				"time",
+				"timedelta"
+			],
+			[
+				"old",
+				"old_question"
+			],
+			[
+				"futu",
+				"future_question"
+			],
+			[
+				"tem",
+				"template_name"
+			],
+			[
+				"p",
+				"-pub_date"
+			],
+			[
+				"sele",
+				"selected_choice"
+			],
+			[
+				"q",
+				"question"
+			],
+			[
+				"get",
+				"get_object_or_404"
+			],
+			[
+				"Prod",
+				"ProductAdmin"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 157.0,
+		"history":
+		[
+			"dsds"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/static/polls/add.css",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/static/polls/style.css",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/models.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/test_models.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/forms.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/templates/polls/base.html",
+		"/D/Projekty/Python/django_tut/mysite/mysite/mysite/settings.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/urls.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/views.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/templates/polls/index.html",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/templates/polls/add.html",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/static/polls/index.css",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/static/polls/detail.css",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/templates/polls/base_form_schema.html",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/errors.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/templates/polls/results.html",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/static/polls/results.css",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/templates/polls/detail.html",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/tests/test_models.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/admin.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/templates/admin/index.html",
+		"/D/Projekty/Python/django_tut/mysite/mysite/templates/admin/base_site.html",
+		"/D/Projekty/Python/django_tut/mysite/mysite/templates/admin/base.html",
+		"/D/Projekty/Python/django_tut/mysite/mysite/django-polls/setup.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/django-polls/MANIFEST.in",
+		"/D/Projekty/Python/django_tut/mysite/mysite/django-polls/docs",
+		"/D/Projekty/Python/django_tut/mysite/mysite/django-polls/README.rst",
+		"/D/Projekty/Python/django_tut/mysite/mysite/django-polls/setup.cfg",
+		"/D/Projekty/Python/django_tut/mysite/mysite/polls/tests.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/mysite/urls.py",
+		"/D/Projekty/Python/django_tut/mysite/mysite/mysite/__init__.py",
+		"/D/Projekty/Python/django_tut/cfehome/src/products/admin.py",
+		"/D/Projekty/Python/django_tut/cfehome/src/products/models.py",
+		"/D/Projekty/Python/django_tut/cfehome/src/trydjango/settings.py",
+		"/D/Projekty/Python/django_tut/cfehome/src/manage.py",
+		"/D/Projekty/Python/django_tut/cfehome/src/db.sqlite3",
+		"/D/Projekty/Python/django_tut/cfehome/trydjango.sublime_text.sublime-project"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"}\")\n",
+			"()}\")\n",
+			" \n",
+			"']}),\n",
+			")",
+			"%}"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 39.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Python 3/Python3.sublime-build",
+	"project": "manage.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 198.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
