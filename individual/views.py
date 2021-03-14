@@ -11,19 +11,6 @@ from .plain_classes.vulcan_data import VulcanIndividualLessonData
 from individual.vulcan_management.individual_lesson_agent import IndividualLessonAgent
 from individual.vulcan_management.revalidation_vulcan_runner import RevalidationVulcanRunner
 
-DEPARTMENT = 'SPBrza'
-STUDENT_NAME = 'Tomek'
-
-data = VulcanIndividualLessonData(
-    department=DEPARTMENT,
-    date=datetime.now(),
-    topic='Some topic',
-    comments='Some comments',
-    payment_type='W ramach pensum',
-    num_of_hours=1,
-    presence_symbol='obecny'
-)
-
 
 class IndividualLessonFormView(LoginRequiredMixin, FormView):
     login_url = "/login"
