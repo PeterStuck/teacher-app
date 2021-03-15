@@ -14,7 +14,7 @@
 }
 
 .settings:hover {
-    box-shadow: 1px 1px 1px 1px white;
+    padding: 1.75rem;
 }
 
 .settings a i {
@@ -22,4 +22,9 @@
     outline: none;
     font-size: 3.5rem;
     color: white;
+    transition: 0.4s;
+}
+
+.settings a i:hover {
+    font-size: 4rem;
 }

@@ -1,0 +1,57 @@
+{% extends 'standard_base_template.html' %}
+
+{% block title %} Ustawienia konta {% endblock %}
+
+{% block styles %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/flex_form.css' %}">
+    <link rel="stylesheet" href="{% static 'authentication/css/account_options.css' %}">
+{% endblock %}
+
+{% block external_scripts %}
+    {{ block.super }}
+{% endblock %}
+
+{% block home_icon %}
+    <a href="{% url 'base:main_nav' %}"><i class="fas fa-home"></i></a>
+{% endblock %}
+
+{% block content %}
+    {% include 'save_status_alert_template.html' %}
+
+    <div class="form_wrapper">
+        <form id="flex_form" action="{% url 'authentication:change-password' %}" method="post">
+            {% csrf_token %}
+            {% for field in change_password_form %}
+                {{ field.label_tag }}
+                <div class="field_wrapper">
+                    <i class="fas fa-key"></i>
+                    {{ field }}
+                </div>
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="error">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        <input class="form__submit btn btn-success" type="submit" value="Aktualizuj">
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+
+    gsap.timeline()
+        .from('.form_wrapper', {y: 200, opacity: 0, stagger: 0.5,  ease: "power3. out" })
+
+    function close_alert(event) {
+        gsap.to('.alert', {duration: 0.5 , xPercent: 100, opacity: 0})
+        setTimeout(() => {
+            document.querySelector('.alert').style.display = 'none';
+        }, 1000)
+
+    }
+{% endblock %}
+

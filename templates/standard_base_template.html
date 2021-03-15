@@ -24,8 +24,11 @@
                 {% endblock %}
             </div>
             <div class="logout">
-                {% if request.user.first_name %}
-                    <span id="user_name">{{ request.user.first_name }}</span>
+                {% if request.user.is_authenticated %}
+                    <a id="account_options_link"
+                       href="{% url 'authentication:account-options' %}">
+                        <span>Moje konto</span>
+                    </a>
                 {% endif %}
                 <a class="logout_link" href="{% url 'authentication:logout' %}"><i class="fas fa-sign-out-alt"></i></a>
             </div>

@@ -39,12 +39,22 @@ header {
     align-items: center;
 }
 
-#user_name {
+#account_options_link {
+    text-decoration: none;
+    display: flex;
+    color: white !important;
+    transition: 0.4s;
+}
+
+#account_options_link:hover {
+    text-decoration: underline;
+}
+
+#account_options_link span {
     margin: 0 25px 0 10px;
-    font-weight: 300;
+    font-weight: 500;
     font-size: 1.5rem;
-    font-style: oblique;
-    color: #dcddde;
+    color: white;
 }
 
 .logout a {

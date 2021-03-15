@@ -37,6 +37,12 @@
     font-weight: bold;
 }
 
-.logout #user_name {
-    color: #666;
+#account_options_link span {
+    color: #666 !important;
+    transition: 0.4s;
+}
+
+#account_options_link span:hover {
+    color: #666 !important;
+    text-decoration: underline;
 }

@@ -1,0 +1,12 @@
+{% if request.GET.status %}
+    {% if request.GET.status == '0' %}
+        <div class="alert alert-danger" role="alert">
+            Coś poszło nie tak. Spróbuj ponownie. <i id="close_error_message" class="fas fa-times" onclick="close_alert()"></i>
+        </div>
+    {% endif %}
+    {% if request.GET.status == '1' %}
+        <div class="alert alert-success" role="alert">
+            Zapisano zmiany. <i id="close_error_message" class="fas fa-times" onclick="close_alert()"></i>
+        </div>
+    {% endif %}
+{% endif %}

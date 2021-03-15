@@ -1,0 +1,33 @@
+body {
+    background-color: #36393f;
+}
+
+.form_wrapper {
+    background-color: #2a2d31 !important;
+    padding: 3%;
+}
+
+.field_wrapper {
+    margin-bottom: 2%;
+}
+
+.form_wrapper #flex_form label {
+    color: #dcddde;
+}
+
+.field_wrapper i {
+    background-color: #dcddde;
+    color: #2a2d31;
+}
+
+.form__submit {
+    margin: 2% 40% 0 40% !important;
+}
+
+.alert {
+    flex-basis: 51%;
+}
+
+footer {
+  position: absolute;
+}

@@ -56,13 +56,11 @@ def save_file(filename: str, file):
 
 @login_required(login_url='/login')
 def settings_view(request):
-    credentials_form = ChangePasswordForm(label_suffix='')
     archive_form = prepopulate_archive_form()
     webdriver_form = prepopulate_webdriver_form()
 
     context = {
         'archive_form': archive_form,
-        'credentials_form': credentials_form,
         'webdriver_form': webdriver_form,
     }
 
@@ -107,19 +105,4 @@ def update_webdriver_settings(request):
             settings_data['vulcan_url'] = new_vulcan_url
             settings.update_settings(settings_data)
             return HttpResponseRedirect('/filler/settings?status=1')
-        return HttpResponseRedirect('/filler/settings?status=0')
-
-
-@login_required(login_url='/login')
-def update_credentials(request):
-    if request.method == "POST":
-        form = ChangePasswordForm(request.POST)
-        if form.is_valid():
-            old_pass = form.cleaned_data['old_passw']
-            new_pass = form.cleaned_data['passw']
-            if request.user.check_password(old_pass):
-                user = request.user
-                user.set_password(new_pass)
-                user.save()
-                return HttpResponseRedirect('/filler/settings?status=1')
         return HttpResponseRedirect('/filler/settings?status=0')

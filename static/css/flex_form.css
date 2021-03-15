@@ -13,6 +13,26 @@
     flex-basis: 70%;
 }
 
+.field_wrapper {
+    flex-basis: 70%;
+    display: flex;
+}
+
+.field_wrapper .form__field {
+    flex-grow: 1;
+    border-radius: 0 5px 5px 0;
+    font-size: 1.15rem;
+}
+
+.field_wrapper i {
+    flex-basis: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px 0 0 5px;
+    background-color: white;
+}
+
 .form__checkfield {
     flex-basis: 20%;
     outline: none;

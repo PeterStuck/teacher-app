@@ -1,10 +1,11 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic.edit import FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.base import TemplateView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import LoginForm
+from .forms import LoginForm, ChangePasswordForm
 from .plain_classes.user_credentials import UserCredentials
 from .utils.exceptions.bad_credentials_exception import BadCredentialsException
 
@@ -16,6 +17,7 @@ class LoginFormView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = self.form_class(label_suffix='')
+
         return context
 
     def get(self, request, *args, **kwargs):
@@ -52,6 +54,32 @@ def redirect_after_login(request):
         return HttpResponseRedirect(request.POST.get('next'))
     else:
         return HttpResponseRedirect(reverse('base:main_nav'))
+
+
+class AccountOptionsView(LoginRequiredMixin, TemplateView):
+    login_url = '/login'
+    template_name = 'authentication/account_options.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['change_password_form'] = ChangePasswordForm(label_suffix='')
+
+        return context
+
+
+@login_required(login_url='/login')
+def change_password(request):
+    if request.method == "POST":
+        logged_user = request.user
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            old_pass = form.cleaned_data['old_passw']
+            new_pass = form.cleaned_data['passw']
+            if logged_user.check_password(old_pass):
+                logged_user.set_password(new_pass)
+                logged_user.save()
+                return HttpResponseRedirect('/account-options?status=1')
+        return HttpResponseRedirect('/account-options?status=0')
 
 
 @login_required(login_url='/login')

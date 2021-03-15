@@ -29,22 +29,10 @@
 }
 
 .field_wrapper {
-    flex-basis: 55%;
-    display: flex;
-}
-
-.field_wrapper .form__field {
-    flex-grow: 1;
-    border-radius: 0 5px 5px 0 !important;
-    font-size: 1.15rem !important;
+    flex-basis: 55% !important;
 }
 
 .field_wrapper i {
-    flex-basis: 10%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px 0 0 5px;
     background-color: #fff;
 }
 

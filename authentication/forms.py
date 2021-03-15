@@ -14,9 +14,22 @@ class LoginForm(Form):
         widget=Select(attrs={
             'class': 'form-control form__field form__field--dark',
         }))
+
     password = CharField(
         label='Hasło',
         widget=PasswordInput(attrs={
             'class': 'form-control form__field form__field--dark'
         }),
+        required=True)
+
+
+class ChangePasswordForm(Form):
+    old_passw = CharField(
+        label='Stare hasło',
+        widget=PasswordInput(attrs={'class': 'form-control form__field form__field--dark'}),
+        required=True)
+
+    passw = CharField(
+        label='Nowe hasło',
+        widget=PasswordInput(attrs={'class': 'form-control form__field form__field--dark'}),
         required=True)

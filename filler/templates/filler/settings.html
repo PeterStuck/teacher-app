@@ -18,33 +18,13 @@
 {% endblock %}
 
 {% block content %}
-    {% if request.GET.status %}
-        {% if request.GET.status == '0' %}
-            <div class="alert alert-danger" role="alert">
-                Coś poszło nie tak. Spróbuj ponownie. <i id="close_error_message" class="fas fa-times" onclick="close_alert()"></i>
-            </div>
-        {% endif %}
-        {% if request.GET.status == '1' %}
-            <div class="alert alert-success" role="alert">
-                Zapisano zmiany. <i id="close_error_message" class="fas fa-times" onclick="close_alert()"></i>
-            </div>
-        {% endif %}
-    {% endif %}
+    {% include 'save_status_alert_template.html' %}
+
     <div class="form_wrapper">
         <h1>Zmiana archiwum</h1>
         <form id="flex_form" action="{% url 'filler:update_file_settings' %}" method="post">
             {% csrf_token %}
             {% include 'standard_form_template.html' with form=archive_form %}
-            <input class="form__submit btn btn-success" type="submit" value="Aktualizuj">
-        </form>
-    </div>
-
-    <div class="form_wrapper">
-        <h1>Aktualizacja hasła</h1>
-        <form id="flex_form" action="{% url 'filler:update_credentials' %}" method="post">
-            {% csrf_token %}
-            {% include 'standard_form_template.html' with form=credentials_form %}
-            <small class="form-text text-muted">Hasło zostanie zmienione tylko w przypadku, gdy poprzednie się zgadza.</small>
             <input class="form__submit btn btn-success" type="submit" value="Aktualizuj">
         </form>
     </div>
@@ -65,7 +45,7 @@
     gsap.timeline()
         .delay(0.5)
         .from('.alert', {opacity: 0})
-        .from('.form_wrapper', {opacity: 0, y: 200, stagger: {amount: 2}, ease: "back.out(1.7)"})
+        .from('.form_wrapper', {opacity: 0, y: 200, stagger: 0.5, ease: "back.out(1.7)"})
 
     function close_alert(event) {
         gsap.to('.alert', {duration: 1 , xPercent: 100, opacity: 0})
