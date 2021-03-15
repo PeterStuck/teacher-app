@@ -97,6 +97,27 @@ footer {
     width: 100%;
 }
 
+.back_to_main_nav {
+    width: 100%;
+    margin: 2% 0;
+    text-align: center;
+}
+
+.back_to_main_nav #back_to_main_nav_link {
+    text-decoration: none;
+    color: #007bff;
+    padding: 5px;
+    transition: 0.4s;
+}
+
+.back_to_main_nav #back_to_main_nav_link:hover {
+    border-bottom: 2px solid #007bff;
+}
+
+#back_to_main_nav_link i {
+    margin: 0 5px;
+}
+
 .technologies_icons {
     text-align: center;
 }

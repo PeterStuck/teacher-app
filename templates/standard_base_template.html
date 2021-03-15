@@ -42,6 +42,14 @@
         </div>
     </section>
     <footer>
+        <div class="back_to_main_nav">
+            {% block back_to_main_nav_link %}
+                <a id="back_to_main_nav_link" href="{% url 'base:main_nav' %}">
+                    <i class="fas fa-chevron-circle-left"></i>
+                    Powrót do ekranu głównego
+                </a>
+            {% endblock %}
+        </div>
         <div class="technologies_icons">
             <p>Powered by</p>
             <i class="fab fa-python"></i>
@@ -55,6 +63,7 @@
                 .add('header')
                 .from('.home_icon', {duration: 0.5, xPercent: -150, opacity: 0}, 'header')
                 .from('.logout', {duration: 0.5, xPercent: 150, opacity: 0}, 'header')
+                .from('.back_to_main_nav', {duration: 0.5, y: 100, opacity: 0})
                 .from('.technologies_icons', {duration: 1, opacity: 0})
         {% endblock %}
     </script>
