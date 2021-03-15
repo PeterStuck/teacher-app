@@ -1,25 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.views.generic import View
 from dateutil.relativedelta import relativedelta
-
-""" classes for text animation in view to avoid long cycle tag """
-RAINBOW_LAYERS = [
-    'c-rainbow__layer--white',
-    'c-rainbow__layer--orange',
-    'c-rainbow__layer--red',
-    'c-rainbow__layer--violet',
-    'c-rainbow__layer--blue',
-    'c-rainbow__layer--green',
-    'c-rainbow__layer--yellow',
-]
 
 
 @login_required(login_url='/login')
 def main_navigation_view(request):
     spared_time = get_user_spared_time(request.user)
     context = {
-        'rainbow_layers': RAINBOW_LAYERS,
         'spared_time': spared_time,
         'has_spared_time': (spared_time._has_time == 1)
     }

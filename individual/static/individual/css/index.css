@@ -5,6 +5,7 @@ body {
 
 #flex_form label {
     color: #dcddde;
+    font-weight: 300;
 }
 
 .form__submit {

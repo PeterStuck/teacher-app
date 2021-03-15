@@ -21,6 +21,7 @@
     {% include 'save_status_alert_template.html' %}
 
     <div class="form_wrapper">
+        <h1 class="form__title">Zmiana hasła</h1>
         <form id="flex_form" action="{% url 'authentication:change-password' %}" method="post">
             {% csrf_token %}
             {% for field in change_password_form %}

@@ -9,6 +9,12 @@
     flex-wrap: wrap;
 }
 
+.form_wrapper .form__title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
 .form__field, #flex_form label, .form__textarea {
     flex-basis: 70%;
 }

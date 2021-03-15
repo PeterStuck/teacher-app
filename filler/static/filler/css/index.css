@@ -6,6 +6,7 @@ body {
 
 #flex_form label {
     color: #dcddde;
+    font-weight: 600;
 }
 
 /* To refactor */

@@ -11,8 +11,13 @@ body {
     margin-bottom: 2%;
 }
 
+.form_wrapper .form__title {
+    color: #dcddde;
+}
+
 .form_wrapper #flex_form label {
     color: #dcddde;
+    font-weight: 300;
 }
 
 .field_wrapper i {
@@ -26,8 +31,4 @@ body {
 
 .alert {
     flex-basis: 51%;
-}
-
-footer {
-  position: absolute;
 }

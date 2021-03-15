@@ -46,3 +46,7 @@
     color: #666 !important;
     text-decoration: underline;
 }
+
+footer {
+    position: absolute;
+}

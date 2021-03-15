@@ -21,7 +21,7 @@
     {% include 'save_status_alert_template.html' %}
 
     <div class="form_wrapper">
-        <h1>Zmiana archiwum</h1>
+        <h1 class="form__title">Zmiana archiwum</h1>
         <form id="flex_form" action="{% url 'filler:update_file_settings' %}" method="post">
             {% csrf_token %}
             {% include 'standard_form_template.html' with form=archive_form %}
@@ -30,7 +30,7 @@
     </div>
 
     <div class="form_wrapper">
-        <h1>Vulcan</h1>
+        <h1 class="form__title">Vulcan</h1>
         <form id="flex_form" action="{% url 'filler:update_webdriver_settings' %}" method="post">
             {% csrf_token %}
             {% include 'standard_form_template.html' with form=webdriver_form %}

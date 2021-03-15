@@ -4,8 +4,10 @@
 
 {% block styles %}
     {{ block.super }}
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/text_rainbow_anim.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gradient_anim.css' %}">
+    <link rel="stylesheet" href="{% static 'css/neon_text.css' %}">
     <link rel="stylesheet" href="{% static 'base/css/main_nav.css' %}">
 {% endblock %}
 
@@ -15,12 +17,10 @@
 
 {% block content %}
     <h1 id="time_spared">
-        <ul class="c-rainbow">
-        {% for layer in rainbow_layers %}
-            <li class="c-rainbow__layer {{ layer }} layer">
+        <p class="neon_text">
             {% if has_spared_time %}
                 {% if spared_time.days %}
-                    {{ spared_time.days }}D|upper
+                    {{ spared_time.days }}D
                 {% endif %}
 
                 {% if spared_time.hours %}
@@ -37,15 +37,13 @@
             {% else %}
                 Tu widzisz oszczędzony czas.
             {% endif %}
-            </li>
-        {% endfor %}
-        </ul>
+        </p>
     </h1>
     <h3 id="time_spared_label">
         {%  if request.user.first_name|last == 'a' %}
-            Tyle czasu już oszczędziłaś. Nie tylko czasu. Przelicz to na swoją stawkę. Zaskoczona?
+            Tyle czasu już oszczędziłaś. Nie tylko czasu.
         {% else %}
-            Tyle czasu już oszczędziłeś. Nie tylko czasu. Przelicz to na swoją stawkę. Zaskoczony?
+            Tyle czasu już oszczędziłeś. Nie tylko czasu.
         {% endif %}
     </h3>
     <div class="available_apps">

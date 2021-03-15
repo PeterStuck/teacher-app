@@ -1,0 +1,40 @@
+:root {
+  --shadow-color: #FF9E9E;
+  --shadow-color-light: white;
+}
+
+body {
+    font-family: "Archivo", sans-serif;
+}
+
+p.neon_text {
+  font-size: 7rem;
+  font-family: "Archivo Black", "Archivo", sans-serif;
+  font-weight: normal;
+  display: block;
+  height: auto;
+  text-align: center;
+}
+
+.neon_text {
+  color: white;
+  animation: neon 3s infinite;
+}
+
+@keyframes neon {
+  0% {
+    text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 1px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 3px var(--shadow-color), 0 0 4px var(--shadow-color), 0 0 5px var(--shadow-color), 0 0 7px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 20px var(--shadow-color);
+  }
+  50% {
+    text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 5px var(--shadow-color-light), 0 0 15px var(--shadow-color-light), 0 0 3px var(--shadow-color-light),
+    0 0 4px var(--shadow-color), 0 0 5px var(--shadow-color), 0 0 6px var(--shadow-color), 0 0 8px var(--shadow-color), 0 0 11px var(--shadow-color), 0 0 21px var(--shadow-color);
+  }
+  100% {
+    text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 1px var(--shadow-color-light), 0 0 2px var(--shadow-color-light),
+    0 0 3px var(--shadow-color), 0 0 4px var(--shadow-color), 0 0 5px var(--shadow-color), 0 0 7px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 20px var(--shadow-color);
+  }
+}
