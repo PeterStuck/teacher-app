@@ -4,19 +4,21 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic.edit import FormView
+from django.contrib.auth.models import User
 
-from .forms import IndividualLessonForm
+from .forms import RevalidationLessonForm
 from .models import RevalidationStudent
 from .plain_classes.vulcan_data import VulcanIndividualLessonData
-from individual.vulcan_management.individual_lesson_agent import IndividualLessonAgent
-from individual.vulcan_management.revalidation_vulcan_runner import RevalidationVulcanRunner
+from .vulcan_management.revalidation_vulcan_runner import RevalidationVulcanRunner
+from base.utils.spared_time_counter import add_spared_time_to_total
+from base.models import LessonTopic, LessonCategory
 
 
 class IndividualLessonFormView(LoginRequiredMixin, FormView):
     login_url = "/login"
 
     template_name = 'individual/index.html'
-    form_class = IndividualLessonForm
+    form_class = RevalidationLessonForm
     success_url = '/eow/'
     initial = {
         'date': datetime.now().strftime('%d.%m.%Y'),
@@ -34,11 +36,15 @@ class IndividualLessonFormView(LoginRequiredMixin, FormView):
         return self.form_class(self.request.user, **self.get_form_kwargs())
 
     def form_valid(self, form):
+        logged_user = self.request.user
+        save_revalidation_topic(form=form, logged_user=logged_user)
+
         credentials = self.request.session['credentials']
         vd: VulcanIndividualLessonData = form.parse_to_vulcan_data()
 
         runner = RevalidationVulcanRunner(credentials=credentials, vd=vd)
-        runner.run()
+        # spared_time = runner.run()
+        # add_spared_time_to_total(spared_time, user=logged_user)
 
         return super().form_valid(form)
 
@@ -47,6 +53,22 @@ class IndividualLessonFormView(LoginRequiredMixin, FormView):
         context['individual_lesson_form'] = form
         context['individual_lesson_form'].label_suffix = ''
         return self.render_to_response(context)
+
+
+def save_revalidation_topic(form: RevalidationLessonForm, logged_user: User):
+    """ Exception means that given topic wasn't found in associated user's topics. """
+    try:
+        topic = form['topic'].data.title()
+        if LessonTopic.objects.filter(teacher=logged_user).get(topic__exact=topic):
+            return None
+    except Exception as e:
+        revalidation_category = LessonCategory.objects.get(name__exact='rewalidacja'.title())
+        LessonTopic.objects.create(
+            topic=topic,
+            is_individual=True,
+            teacher=logged_user,
+            category=revalidation_category
+        )
 
 
 @login_required(login_url="/login")

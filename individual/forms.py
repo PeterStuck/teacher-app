@@ -15,7 +15,7 @@ PRESENCE_SYMBOLS = [[symbol.symbol, symbol.full_name] for symbol in PresenceSymb
 REQUIRED_ERROR_INFO = 'To pole jest wymagane.'
 
 
-class IndividualLessonForm(forms.Form):
+class RevalidationLessonForm(forms.Form):
     department = ChoiceField(
         label='Szkoła',
         choices=DEPARTMENTS,

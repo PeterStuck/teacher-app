@@ -1,5 +1,6 @@
 from time import time
 from django.contrib.auth.models import User
+from django.db.models import F
 
 
 def count_spared_time(func):
@@ -20,8 +21,9 @@ def count_spared_time(func):
 def add_spared_time_to_total(time_in_sec: int, user: User):
     __check_time_no_negative(time_in_sec)
     if hasattr(user, 'sparedtime'):
-        user.sparedtime.time += time_in_sec
+        user.sparedtime.time = F('time') + time_in_sec
         user.sparedtime.save()
+        user.refresh_from_db()
     else:
         raise AttributeError("User has no SparedTime object associated")
 
