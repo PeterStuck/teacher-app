@@ -1,0 +1,49 @@
+{% extends 'standard_base_template.html' %}
+
+{% block title %} Zapisane tematy {% endblock %}
+
+{% block styles %}
+    {{ block.super }}
+{% endblock %}
+
+{% block external_scripts %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'base/css/saved_teacher_topics.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="filter_panel">
+
+    </div>
+
+    <div class="saved_topics">
+        <table class="table table-light table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Temat</th>
+              <th scope="col">Kategoria</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for topic in saved_topics %}
+                <tr>
+                  <td>{{ topic.topic }}</td>
+                  <td>{{ topic.category.name }}</td>
+                  <td>
+                      <button class="copy_btn btn btn-primary">Kopiuj</button>
+                  </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+
+    gsap.timeline()
+        .from('.saved_topics', { duration: 0.5, y: 200, opacity: 0, ease: "power1. out" })
+{% endblock %}

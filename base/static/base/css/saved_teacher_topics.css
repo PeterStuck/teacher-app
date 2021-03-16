@@ -1,0 +1,22 @@
+body {
+    background-color: #36393f;
+}
+
+.saved_topics {
+    flex-basis: 80%;
+    background-color: #2a2d31;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2%
+}
+
+.saved_topics table {
+    flex-basis: 80%;
+    text-align: center;
+}
+
+.copy_btn {
+    display: block;
+    margin: 0 auto;
+}

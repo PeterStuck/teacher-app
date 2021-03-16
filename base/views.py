@@ -3,6 +3,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from dateutil.relativedelta import relativedelta
 from django.views.generic import TemplateView
+from django.views.generic.list import ListView
+
+from base.models import LessonTopic
 
 
 class MainNavigationView(LoginRequiredMixin, TemplateView):
@@ -19,11 +22,21 @@ class MainNavigationView(LoginRequiredMixin, TemplateView):
 
 
 def get_user_spared_time(user):
-    """ Returns object with access to particular time units """
+    """ Returns User object with access to particular time units """
     if not hasattr(user, 'sparedtime'):
         raise AttributeError("User has no SparedTime object associated.")
     spared_time_in_sec = user.sparedtime.time
     return relativedelta(seconds=spared_time_in_sec)
+
+
+class LessonTopicsView(LoginRequiredMixin, ListView):
+    login_url = '/login'
+    model = LessonTopic
+    template_name = 'base/saved_teacher_topics.html'
+    context_object_name = 'saved_topics'
+
+    def get_queryset(self):
+        return LessonTopic.objects.filter(teacher=self.request.user)
 
 
 @login_required(login_url='/login')
