@@ -3,11 +3,10 @@ from datetime import datetime as dt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.views.generic.edit import FormView
-from django.views.generic.base import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from filler.attendance_manager.filler_vulcan_runner import FillerVulcanRunner
 from base.utils.spared_time_counter import add_spared_time_to_total
+from filler.vulcan_management.filler_vulcan_runner import FillerVulcanRunner
 from wku_django.settings import BASE_DIR
 from .attendance_manager.settings import files_settings, webdriver_settings
 from .forms import FillerForm, ArchiveSettingsForm, WebdriverSettingsForm
@@ -49,8 +48,8 @@ class FillerFormView(LoginRequiredMixin, FormView):
 
         runner = FillerVulcanRunner(credentials=credentials, vulcan_data=vd)
 
-        # spared_time = runner.run()
-        # add_spared_time_to_total(time_in_sec=spared_time, user=self.request.user)
+        spared_time = runner.run()
+        add_spared_time_to_total(time_in_sec=spared_time, user=self.request.user)
 
         return redirect(self.get_success_url(), filename=vd.filename)
 
@@ -64,7 +63,7 @@ class FillerFormView(LoginRequiredMixin, FormView):
 
 def save_file(filename: str, file):
     fs = OverrideFileStorage()
-    fs.save(f'teams/{filename}.csv', file)
+    fs.save(f'teams/{filename}', file)
 
 
 @login_required(login_url='/login')

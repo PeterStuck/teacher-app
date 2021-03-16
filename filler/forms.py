@@ -80,7 +80,6 @@ class FillerForm(Form):
         for field in self.fields:
             form_fields[field] = self.cleaned_data.get(field)
 
-        print("FORM FIELDS", form_fields)
         vd = FillerVulcanData(**form_fields)
         vd = self.determine_filename(vd, form_fields)
 
@@ -95,7 +94,7 @@ class FillerForm(Form):
 
     def determine_filename(self, vd, form_fields):
         if not vd.file_not_loaded and vd.teams_file is not None:
-            vd.filename = form_fields['date'] + '-' + form_fields['departments'] + '-' + form_fields['lesson']
+            vd.filename = form_fields['date'] + '-' + form_fields['departments'] + '-' + form_fields['lesson'] + '.csv'
         else:
             vd.filename = None
         return vd
