@@ -27,7 +27,7 @@ class IndividualLessonFormView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['individual_lesson_form'] = self.form_class(
+        context['revalidation_lesson_form'] = self.form_class(
             user=self.request.user,
             label_suffix='',
             initial=self.get_initial())
@@ -51,8 +51,8 @@ class IndividualLessonFormView(LoginRequiredMixin, FormView):
 
     def form_invalid(self, form):
         context = self.get_context_data()
-        context['individual_lesson_form'] = form
-        context['individual_lesson_form'].label_suffix = ''
+        context['revalidation_lesson_form'] = form
+        context['revalidation_lesson_form'].label_suffix = ''
         return self.render_to_response(context)
 
 

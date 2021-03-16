@@ -2,6 +2,7 @@ from datetime import datetime as dt
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect, redirect
+from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -66,29 +67,27 @@ def save_file(filename: str, file):
     fs.save(f'teams/{filename}', file)
 
 
-@login_required(login_url='/login')
-def settings_view(request):
-    archive_form = prepopulate_archive_form()
-    webdriver_form = prepopulate_webdriver_form()
+class SettingsView(LoginRequiredMixin, TemplateView):
+    login_url = '/login'
+    template_name = 'filler/settings.html'
 
-    context = {
-        'archive_form': archive_form,
-        'webdriver_form': webdriver_form,
-    }
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['archive_form'] = self.prepopulate_archive_form()
+        context['webdriver_form'] = self.prepopulate_webdriver_form()
 
-    return render(request, 'filler/settings.html', context=context)
+        return context
 
-
-def prepopulate_archive_form():
-    settings = files_settings.FilesSettings()
-    settings_dict = settings.load_settings()
-    return ArchiveSettingsForm(label_suffix='', initial={'path': BASE_DIR / settings_dict['archive_desktop_path'],})
+    def prepopulate_archive_form(self):
+        settings = files_settings.FilesSettings()
+        settings_dict = settings.load_settings()
+        return ArchiveSettingsForm(label_suffix='', initial={'path': BASE_DIR / settings_dict['archive_desktop_path'],})
 
 
-def prepopulate_webdriver_form():
-    settings = webdriver_settings.WebdriverSettings()
-    settings_dict = settings.load_settings()
-    return WebdriverSettingsForm(label_suffix='', initial={'path': settings_dict['path'], 'vulcan_url': settings_dict['vulcan_url']})
+    def prepopulate_webdriver_form(self):
+        settings = webdriver_settings.WebdriverSettings()
+        settings_dict = settings.load_settings()
+        return WebdriverSettingsForm(label_suffix='', initial={'path': settings_dict['path'], 'vulcan_url': settings_dict['vulcan_url']})
 
 
 @login_required(login_url='/login')

@@ -29,7 +29,7 @@
               method="post"
               revalidation-students-url="{% url 'individual:load_revalidation_students' %}">
             {% csrf_token %}
-            {% include 'standard_form_template.html' with form=individual_lesson_form %}
+            {% include 'standard_form_template.html' with form=revalidation_lesson_form %}
             <input class="form__submit btn btn-lg" type="submit" value="Oszczędź czas">
         </form>
     </div>

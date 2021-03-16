@@ -1,16 +1,21 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from dateutil.relativedelta import relativedelta
+from django.views.generic import TemplateView
 
 
-@login_required(login_url='/login')
-def main_navigation_view(request):
-    spared_time = get_user_spared_time(request.user)
-    context = {
-        'spared_time': spared_time,
-        'has_spared_time': (spared_time._has_time == 1)
-    }
-    return render(request, 'base/main_nav.html', context=context)
+class MainNavigationView(LoginRequiredMixin, TemplateView):
+    login_url = '/login'
+    template_name = 'base/main_nav.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        spared_time = get_user_spared_time(self.request.user)
+        context['spared_time'] = spared_time
+        context['has_spared_time'] = (spared_time._has_time == 1)
+
+        return context
 
 
 def get_user_spared_time(user):
