@@ -1,0 +1,14 @@
+{% for field in form %}
+    {% if field.name == file_field_name %}
+        <label for="{{ field.id_for_label }}">{{ field.label }} <i id="csv_file_icon" class="fas fa-file-csv"></i></label>
+        {{ field }}
+    {% else %}
+        {{ field.label_tag }}
+        {{ field }}
+    {% endif %}
+    {% if field.errors %}
+        {% for error in field.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+    {% endif %}
+{% endfor %}

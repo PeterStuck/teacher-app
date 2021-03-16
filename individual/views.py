@@ -8,13 +8,14 @@ from django.contrib.auth.models import User
 
 from .forms import RevalidationLessonForm
 from .models import RevalidationStudent
-from .plain_classes.vulcan_data import VulcanIndividualLessonData
+from .plain_classes.vulcan_data import RevalidationVulcanData
 from .vulcan_management.revalidation_vulcan_runner import RevalidationVulcanRunner
 from base.utils.spared_time_counter import add_spared_time_to_total
 from base.models import LessonTopic, LessonCategory
 
 
 class IndividualLessonFormView(LoginRequiredMixin, FormView):
+    """ Main control panel to set parameters for RevalidationVulcanData and run sequence """
     login_url = "/login"
 
     template_name = 'individual/index.html'
@@ -40,11 +41,11 @@ class IndividualLessonFormView(LoginRequiredMixin, FormView):
         save_revalidation_topic(form=form, logged_user=logged_user)
 
         credentials = self.request.session['credentials']
-        vd: VulcanIndividualLessonData = form.parse_to_vulcan_data()
+        vd: RevalidationVulcanData = form.parse_to_vulcan_data()
 
         runner = RevalidationVulcanRunner(credentials=credentials, vd=vd)
-        # spared_time = runner.run()
-        # add_spared_time_to_total(spared_time, user=logged_user)
+        spared_time = runner.run()
+        add_spared_time_to_total(spared_time, user=logged_user)
 
         return super().form_valid(form)
 

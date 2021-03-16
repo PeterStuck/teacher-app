@@ -1,5 +1,5 @@
 from base.vulcan_management.vulcan_agent import VulcanAgent
-from individual.plain_classes.vulcan_data import VulcanIndividualLessonData
+from individual.plain_classes.vulcan_data import RevalidationVulcanData
 from selenium.common.exceptions import NoSuchElementException
 
 from time import sleep
@@ -7,7 +7,7 @@ from time import sleep
 
 class IndividualLessonAgent(VulcanAgent):
 
-    def __init__(self, credentials: dict, vulcan_data: VulcanIndividualLessonData):
+    def __init__(self, credentials: dict, vulcan_data: RevalidationVulcanData):
         super().__init__(credentials, vulcan_data)
 
     def go_to_student_invidual_lessons(self):

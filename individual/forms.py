@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 from base.models import Department, PresenceSymbol
 from .models import IndividualLessonPaymentType, RevalidationStudent
-from .plain_classes.vulcan_data import VulcanIndividualLessonData
+from .plain_classes.vulcan_data import RevalidationVulcanData
 
 DEPARTMENTS = [[department.name, department.full_name] for department in Department.objects.all()]
 DEPARTMENTS.insert(0, [0, '---'])
@@ -111,7 +111,7 @@ class RevalidationLessonForm(forms.Form):
         for field in self.fields:
             form_fields[field] = self.data.get(field)
 
-        vd = VulcanIndividualLessonData(**form_fields)
+        vd = RevalidationVulcanData(**form_fields)
 
         student_id = self.data.get('student')
         student = RevalidationStudent.objects.get(pk=student_id)

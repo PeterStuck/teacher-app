@@ -1,11 +1,11 @@
-from ..plain_classes.vulcan_data import VulcanIndividualLessonData
+from ..plain_classes.vulcan_data import RevalidationVulcanData
 from .individual_lesson_agent import IndividualLessonAgent
 from base.utils.spared_time_counter import count_spared_time
 
 
 class RevalidationVulcanRunner:
 
-    def __init__(self, credentials: dict, vd: VulcanIndividualLessonData):
+    def __init__(self, credentials: dict, vd: RevalidationVulcanData):
         self.vulcan_agent = IndividualLessonAgent(
             credentials=credentials,
             vulcan_data=vd)

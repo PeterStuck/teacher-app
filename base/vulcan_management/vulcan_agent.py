@@ -1,7 +1,7 @@
 from .vulcan_webdriver import VulcanWebdriver
 from selenium.common.exceptions import NoSuchElementException
 from filler.utils.errors.argument_error import InvalidArgumentError
-from filler.plain_classes.vulcan_data import VulcanData
+from filler.plain_classes.vulcan_data import FillerVulcanData
 
 from time import sleep
 
@@ -90,7 +90,7 @@ class VulcanAgent:
             self.driver.execute_script("alert('#Error# Problem z wybraniem podanej lekcji.');")
             return -1
 
-    def change_attendance(self, vulcan_data: VulcanData, students_from_csv: set = None):
+    def change_attendance(self, vulcan_data: FillerVulcanData, students_from_csv: set = None):
         """ Whole sequence from entering into attendance correction to place appropriate presency symbol to students """
         self.__enter_attendance_correction()
         students_from_page: list = self.__get_all_students_from_page()

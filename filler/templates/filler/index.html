@@ -16,33 +16,17 @@
 {% endblock %}
 
 {% block home_icon %}
-    <a href="{% url 'filler:filler_start' %}"><i class="fas fa-file-signature"></i></a>
+    <a href="{% url 'filler:start' %}"><i class="fas fa-file-signature"></i></a>
 {% endblock %}
 
 {% block content %}
-    {% if error_message %}
-        <div class="alert alert-warning" id="error_message" role="alert">
-          {{ error_message }} <i id="close_error_message" class="fas fa-times" onclick="close_error_message()"></i>
-        </div>
-    {% endif %}
+    {% include 'filler/non_field_error_alerts.html' with form=filler_form %}
+
     <div class="form_wrapper">
-        <form id="flex_form" method="post" enctype="multipart/form-data"  action="{% url 'filler:filler_start' %}" novalidate>
+        <form id="flex_form" method="post" enctype="multipart/form-data" action="{% url 'filler:start' %}" novalidate>
             {% csrf_token %}
-            {% for field in form %}
-                {% if field.name == 'file' %}
-                    <label for="{{ field.id_for_label }}">{{ field.label }} <i id="csv_file_icon" class="fas fa-file-csv"></i></label>
-                    {{ field }}
-                {% else %}
-                    {{ field.label_tag }}
-                    {{ field }}
-                {% endif %}
-                {% if field.errors %}
-                    {% for error in field.errors %}
-                        <div class="error">{{ error }}</div>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-            <input type="submit" class="form__submit btn-lg btn" value="Oszczędź czas">
+            {% include 'filler/form_with_single_file_field.html' with form=filler_form file_field_name='teams_file' %}
+            <input type="submit" class="form__submit btn btn-lg" value="Oszczędź czas">
         </form>
     </div>
 
@@ -65,7 +49,10 @@
         .from('.settings_wrapper', {duration: 1, yPercent: 250, ease: "back.out(1.7)"})
 
     function close_error_message(event) {
-        document.querySelector('#error_message').style.display = 'none';
+        gsap.to('.alert', { duration: 0.5, ease: "slow(0.7, 0.7, false)", opacity: 0, xPercent: 100 })
+        setTimeout(() => {
+            document.querySelector('#error_message').style.display = 'none';
+        }, 500)
     }
 
 {% endblock %}

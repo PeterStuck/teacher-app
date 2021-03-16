@@ -1,52 +1,65 @@
 from datetime import datetime as dt
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, redirect
+from django.views.generic.edit import FormView
+from django.views.generic.base import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from filler.attendance_manager.vulcan_runner import VulcanAttendanceFiller
+from filler.attendance_manager.filler_vulcan_runner import FillerVulcanRunner
 from base.utils.spared_time_counter import add_spared_time_to_total
 from wku_django.settings import BASE_DIR
 from .attendance_manager.settings import files_settings, webdriver_settings
-from .forms import FillerStartForm, ArchiveSettingsForm, WebdriverSettingsForm, ChangePasswordForm
-from .plain_classes.vulcan_data import VulcanData
+from .forms import FillerForm, ArchiveSettingsForm, WebdriverSettingsForm
+from .plain_classes.vulcan_data import FillerVulcanData
 from .utils.override_file_storage import OverrideFileStorage
 
 
-@login_required(login_url='/login')
-def start(request):
-    """ Main control panel to set parameters for VulcanAttendaceFiller """
-    form = FillerStartForm(label_suffix='', initial={'date': dt.now().strftime('%Y-%m-%d')})
-    if request.method == 'POST':
-        form = FillerStartForm(request.POST, request.FILES, label_suffix='')
+class FillerFormView(LoginRequiredMixin, FormView):
+    login_url = '/login'
+
+    template_name = 'filler/index.html'
+    form_class = FillerForm
+    success_url = '/eow/'
+    initial = {
+        'date': str(dt.now().strftime('%Y-%m-%d')),
+    }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filler_form'] = self.form_class(
+            label_suffix='',
+            initial=self.get_initial())
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
-            file = form.cleaned_data['file']
-            file_not_loaded = form.cleaned_data['file_not_loaded']
-            department = form.cleaned_data['departments']
-            day = form.cleaned_data['day']
-            date = form.cleaned_data['date'].strftime('%Y-%m-%d')
-            lesson = form.cleaned_data['lesson_number']
-            is_double_lesson = form.cleaned_data['is_double_lesson']
-            absent_symbol = form.cleaned_data['absent_symbol']
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
-            filename = None
+    def form_valid(self, form):
+        credentials = self.request.session['credentials']
+        vd: FillerVulcanData = form.parse_to_vulcan_data()
 
-            if not file_not_loaded and file is not None:
-                filename = str(date) + '-' + department + '-' + lesson
-                save_file(filename, file)
-            elif not file_not_loaded and file is None:
-                error_message = 'Musisz wgrać plik lub wybrać opcję poniżej zaznaczając kwadracik, aby program mógł przystąpić do działania.'
-                return render(request, 'filler/index.html', {
-                    'form': form,
-                    'error_message': error_message
-                })
+        if not vd.file_not_loaded and vd.teams_file is not None:
+            save_file(vd.filename, vd.teams_file)
 
-            vulcan_data = VulcanData(file=file, file_not_loaded=file_not_loaded, department=department, day=day, date=date, lesson=lesson, absent_symbol=absent_symbol)
-            vulcan_runner = VulcanAttendanceFiller(data=vulcan_data, is_double_lesson=is_double_lesson, credentials=request.session['credentials'])
-            spared_time = vulcan_runner.start_sequence()
-            add_spared_time_to_total(time_in_sec=spared_time, user=request.user)
+        runner = FillerVulcanRunner(credentials=credentials, vulcan_data=vd)
 
-            return render(request, 'base/end_of_work.html', context={'filename': filename})
-    return render(request, 'filler/index.html', context={'form': form})
+        # spared_time = runner.run()
+        # add_spared_time_to_total(time_in_sec=spared_time, user=self.request.user)
+
+        return redirect(self.get_success_url(), filename=vd.filename)
+
+    def form_invalid(self, form):
+        context = self.get_context_data()
+        context['filler_form'] = form
+        context['filler_form'].label_suffix = ''
+
+        return self.render_to_response(context)
 
 
 def save_file(filename: str, file):
