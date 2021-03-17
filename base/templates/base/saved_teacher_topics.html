@@ -4,10 +4,6 @@
 
 {% block styles %}
     {{ block.super }}
-{% endblock %}
-
-{% block external_scripts %}
-    {{ block.super }}
     {% load static %}
     <link rel="stylesheet" href="{% static 'base/css/saved_teacher_topics.css' %}">
 {% endblock %}
@@ -29,10 +25,15 @@
           <tbody>
             {% for topic in saved_topics %}
                 <tr>
-                  <td>{{ topic.topic }}</td>
+                  <td id="topic_{{ forloop.counter }}">{{ topic.topic }}</td>
                   <td>{{ topic.category.name }}</td>
                   <td>
-                      <button class="copy_btn btn btn-primary">Kopiuj</button>
+                    <button tabindex="0"
+                        class="copy_popover copy_btn btn btn-primary"
+                        data-bs-toggle="popover"
+                        data-bs-trigger="focus"
+                        id="topic_btn_{{ forloop.counter }}"
+                        onclick="copy_topic({{ forloop.counter }})">Kopiuj</button>
                   </td>
                 </tr>
             {% endfor %}
@@ -41,9 +42,24 @@
     </div>
 {% endblock %}
 
+{% block external_scripts %}
+    {{ block.super }}
+    {% load static %}
+    <script src="{% static 'base/js/show_copied_popover.js' %}"></script>
+    <script src="{% static 'js/copy_to_clipboard.js' %}"></script>
+{% endblock %}
+
 {% block script %}
     {{ block.super }}
 
+    function copy_topic(element_id) {
+        topic = document.querySelector(`#topic_${element_id}`);
+        topic_btn = document.querySelector(`#topic_btn_${element_id}`);
+        copy_to_clipboard(topic);
+        show_copied_popover(topic_btn);
+    }
+
+
     gsap.timeline()
-        .from('.saved_topics', { duration: 0.5, y: 200, opacity: 0, ease: "power1. out" })
+        .from('.saved_topics', { duration: 0.5, y: 200, opacity: 0, ease: "power1. out" });
 {% endblock %}
