@@ -82,15 +82,14 @@
 {% block script %}
     {{ block.super }}
 
+    gsap.timeline()
+        .from('.saved_topics', { duration: 0.5, y: 200, opacity: 0, ease: "power1. out" })
+        .from('.pagination', { duration: 0.5, opacity: 0, ease: "power1. out" });
+
     function copy_topic(element_id) {
         topic = document.querySelector(`#topic_${element_id}`);
         topic_btn = document.querySelector(`#topic_btn_${element_id}`);
         copy_to_clipboard(topic);
         show_copied_popover(topic_btn);
     }
-
-
-    gsap.timeline()
-        .from('.saved_topics', { duration: 0.5, y: 200, opacity: 0, ease: "power1. out" })
-        .from('.pagination', { duration: 0.5, opacity: 0, ease: "power1. out" })
 {% endblock %}

@@ -39,6 +39,11 @@
         <input class="form__submit btn btn-success" type="submit" value="Aktualizuj">
         </form>
     </div>
+
+    <div class="form_wrapper">
+        <h1 class="form__title">Zapisane tematy</h1>
+        <a href="{% url 'base:saved_topics' %}" class="btn btn-lg btn-info saved_topics_link">Tutaj</a>
+    </div>
 {% endblock %}
 
 {% block script %}
