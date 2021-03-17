@@ -1,0 +1,6 @@
+gsap.timeline()
+    .add('header')
+    .from('.home_icon', {duration: 0.5, xPercent: -150, opacity: 0}, 'header')
+    .from('.logout', {duration: 0.5, xPercent: 150, opacity: 0}, 'header')
+    .from('.back_to_main_nav', {duration: 0.5, y: 100, opacity: 0})
+    .from('.technologies_icons', {duration: 1, opacity: 0})

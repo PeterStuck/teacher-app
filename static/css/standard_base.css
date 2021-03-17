@@ -109,11 +109,10 @@ footer {
     text-decoration: none;
     color: #007bff;
     padding: 5px;
-    transition: 0.4s;
 }
 
 .back_to_main_nav #back_to_main_nav_link:hover {
-    border-bottom: 2px solid #007bff;
+    border-bottom: 1px solid #007bff;
 }
 
 #back_to_main_nav_link i {

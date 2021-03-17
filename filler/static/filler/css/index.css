@@ -4,6 +4,10 @@ body {
     overflow-x: hidden;
 }
 
+.form_wrapper {
+    padding: 0 !important;
+}
+
 #flex_form label {
     color: #dcddde;
     font-weight: 600;

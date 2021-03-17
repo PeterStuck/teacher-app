@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="{% static 'filler/css/settings.css' %}">
 {% endblock %}
 
-{% block external_scripts %}
-    {{ block.super }}
-{% endblock %}
-
 {% block home_icon %}
     <a href="{% url 'filler:start' %}"><i class="fas fa-file-signature"></i></a>
 {% endblock %}
@@ -39,18 +35,13 @@
     </div>
 {% endblock %}
 
+{% block external_scripts %}
+    {{ block.super }}
+    {% load static %}
+    <script src="{% static 'filler/js/settings_gsap_animations.js' %}"></script>
+    <script src="{% static 'js/close_alert.js' %}"></script>
+{% endblock %}
+
 {% block script %}
     {{ block.super }}
-
-    gsap.timeline()
-        .delay(0.5)
-        .from('.alert', {opacity: 0})
-        .from('.form_wrapper', {opacity: 0, y: 200, stagger: 0.5, ease: "back.out(1.7)"})
-
-    function close_alert(event) {
-        gsap.to('.alert', {duration: 1 , xPercent: 100, opacity: 0})
-        setTimeout(() => {
-            document.querySelector('.alert').style.display = 'none';
-        }, 1000)
-    }
 {% endblock %}

@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="{% static 'authentication/css/account_options.css' %}">
 {% endblock %}
 
-{% block external_scripts %}
-    {{ block.super }}
-{% endblock %}
-
 {% block home_icon %}
     <a href="{% url 'base:main_nav' %}"><i class="fas fa-home"></i></a>
 {% endblock %}
@@ -46,18 +42,13 @@
     </div>
 {% endblock %}
 
+{% block external_scripts %}
+    {{ block.super }}
+    <script src="{% static 'authentication/js/account_options_gsap_animations.js' %}"></script>
+    <script src="{% static 'js/close_alert.js' %}"></script>
+{% endblock %}
+
 {% block script %}
     {{ block.super }}
-
-    gsap.timeline()
-        .from('.form_wrapper', {y: 200, opacity: 0, stagger: 0.5,  ease: "power3. out" })
-
-    function close_alert(event) {
-        gsap.to('.alert', {duration: 0.5 , xPercent: 100, opacity: 0})
-        setTimeout(() => {
-            document.querySelector('.alert').style.display = 'none';
-        }, 1000)
-
-    }
 {% endblock %}
 

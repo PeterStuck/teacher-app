@@ -3,6 +3,10 @@ body {
     overflow-x: hidden;
 }
 
+.form_wrapper {
+    padding: 0 !important;
+}
+
 #flex_form label {
     color: #dcddde;
     font-weight: 300;
@@ -12,6 +16,11 @@ body {
     color: #007bff;
     text-align: center;
     cursor: pointer;
+    transition: 0.4s;
+}
+
+#flex_form label[for=get_saved_topic]:hover {
+    color: #31037d;
 }
 
 .form__submit {

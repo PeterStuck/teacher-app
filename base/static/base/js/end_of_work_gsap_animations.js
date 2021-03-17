@@ -1,0 +1,6 @@
+gsap.timeline()
+    .delay(0.5)
+    .add('content')
+    .from('.time_is_money', {duration: 1, opacity: 0, ease: "expo.out"}, 'content')
+    .from('h1', {duration: 2, opacity: 0, ease: "expo.out"}, 'content')
+    .from('h4', {duration: 1, opacity: 0, ease: "expo.out"}, 'content')

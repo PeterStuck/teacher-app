@@ -38,15 +38,11 @@
     {{ block.super }}
     {% load static %}
     <script src="{% static 'individual/js/load_revalidation_students.js' %}"></script>
+    <script src="{% static 'individual/js/index_gsap_animations.js' %}"></script>
 {% endblock %}
 
 {% block script %}
     {{ block.super }}
-
-    gsap.timeline()
-        .from('#flex_form', {duration: 0.7, y: 200, opacity: 0, ease: "circ.out"}, 'form')
-        .from('.form__submit', {duration: 2, y: 200, opacity: 0, ease: "elastic.out(1, 0.3)"})
-        .from('.settings_wrapper', {duration: 1, yPercent: 250, ease: "back.out(1.7)"})
 
     var all_labels = document.querySelectorAll('label');
     var get_saved_topic_label = undefined;
