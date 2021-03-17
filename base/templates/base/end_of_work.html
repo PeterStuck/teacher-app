@@ -8,10 +8,6 @@
     <link rel="stylesheet" href="{% static 'base/css/end_of_work.css' %}">
 {% endblock %}
 
-{% block external_scripts %}
-    {{ block.super }}
-{% endblock %}
-
 {% block home_icon %}
     <a href="{% url 'base:main_nav' %}"><i class="fas fa-home"></i></a>
 {% endblock %}
@@ -30,6 +26,10 @@
             <span class="filename">{{ filename }}</span>.
         </h4>
     {% endif %}
+{% endblock %}
+
+{% block external_scripts %}
+    {{ block.super }}
 {% endblock %}
 
 {% block script %}

@@ -1,0 +1,8 @@
+.invalid_topic {
+    flex-basis: 70%;
+    font-size: 5rem;
+}
+
+#account_options_link {
+    color: #2a2d31 !important;
+}

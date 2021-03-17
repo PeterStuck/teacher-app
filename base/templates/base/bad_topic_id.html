@@ -1,0 +1,21 @@
+{% extends 'standard_base_template.html' %}
+
+{% block title %} Nie znaleziono tematu {% endblock %}
+
+{% block styles %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'base/css/bad_topic_id.css' %}">
+{% endblock %}
+
+{% block home_icon %}
+    <a href="{% url 'base:main_nav' %}"><i class="fas fa-home"></i></a>
+{% endblock %}
+
+{% block content %}
+    <h1 class="invalid_topic">Nie posiadasz w zapisanych tematach pozycji z tym identyfikatorem.</h1>
+{% endblock %}
+
+{% block external_scripts %}
+    {{ block.super }}
+{% endblock %}

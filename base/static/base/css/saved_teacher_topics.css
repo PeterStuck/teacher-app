@@ -38,3 +38,7 @@ body {
 .next_page_link, .previous_page_link {
     margin: 0 1%;
 }
+
+.delete_topic_btn, .copy_topic_btn {
+    width: 0;
+}

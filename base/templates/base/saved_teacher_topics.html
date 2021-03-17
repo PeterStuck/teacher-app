@@ -20,6 +20,7 @@
               <th scope="col">Temat</th>
               <th scope="col">Kategoria</th>
               <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -27,13 +28,16 @@
                 <tr>
                   <td id="topic_{{ forloop.counter }}">{{ topic.topic }}</td>
                   <td>{{ topic.category.name }}</td>
-                  <td>
+                  <td class="copy_topic_btn">
                     <button tabindex="0"
                         class="copy_popover copy_btn btn btn-primary"
                         data-bs-toggle="popover"
                         data-bs-trigger="focus"
                         id="topic_btn_{{ forloop.counter }}"
                         onclick="copy_topic({{ forloop.counter }})">Kopiuj</button>
+                  </td>
+                  <td class="delete_topic_btn">
+                      <a class="btn btn-danger" href="{% url 'base:delete_topic' topic.id %}">Usuń</a>
                   </td>
                 </tr>
             {% endfor %}
@@ -87,5 +91,6 @@
 
 
     gsap.timeline()
-        .from('.saved_topics', { duration: 0.5, y: 200, opacity: 0, ease: "power1. out" });
+        .from('.saved_topics', { duration: 0.5, y: 200, opacity: 0, ease: "power1. out" })
+        .from('.pagination', { duration: 0.5, opacity: 0, ease: "power1. out" })
 {% endblock %}
