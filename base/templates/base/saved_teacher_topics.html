@@ -40,6 +40,32 @@
           </tbody>
         </table>
     </div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="first_page_link">
+                    <i class="fas fa-backward"></i>
+                </a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="previous_page_link">
+                    <i class="fas fa-chevron-circle-left"></i>
+                </a>
+            {% endif %}
+
+            <span class="current">
+                Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="next_page_link">
+                    <i class="fas fa-chevron-circle-right"></i>
+                </a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="last_page_link">
+                    <i class="fas fa-forward"></i>
+                </a>
+            {% endif %}
+        </span>
+    </div>
 {% endblock %}
 
 {% block external_scripts %}

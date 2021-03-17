@@ -15,3 +15,26 @@ body {
     flex-basis: 80%;
     text-align: center;
 }
+
+.pagination {
+    flex-basis: 70%;
+    justify-content: center;
+    margin: 2% 0;
+}
+
+.step-links {
+    flex-basis: 55%;
+    text-align: center;
+}
+
+.step-links .current {
+    color: #dcddde;
+}
+
+.step-links .first_page_link, .step-links .last_page_link {
+    margin: 0 2%;
+}
+
+.next_page_link, .previous_page_link {
+    margin: 0 1%;
+}

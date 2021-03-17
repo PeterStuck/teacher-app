@@ -34,6 +34,7 @@ class LessonTopicsView(LoginRequiredMixin, ListView):
     model = LessonTopic
     template_name = 'base/saved_teacher_topics.html'
     context_object_name = 'saved_topics'
+    paginate_by = 2
 
     def get_queryset(self):
         return LessonTopic.objects.filter(teacher=self.request.user)
