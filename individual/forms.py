@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ChoiceField, CharField, Select, TextInput, Textarea
+from django.forms import ChoiceField, CharField, Select, TextInput, Textarea, BooleanField, CheckboxInput
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 
@@ -57,6 +57,17 @@ class RevalidationLessonForm(forms.Form):
             'class': 'form-control form__field form__field--dark'
         }),
         required=True)
+
+    get_saved_topic = BooleanField(
+        label='Wykorzystaj jeden z zapisanych (Kliknij tutaj)',
+        widget=CheckboxInput(attrs={
+            'class': 'form-control form__field',
+            'id': 'get_saved_topic',
+            'style': 'display: none;',
+        }),
+        required=False
+    )
+
     comments = CharField(
         label='Uwagi',
         error_messages= {
@@ -118,5 +129,56 @@ class RevalidationLessonForm(forms.Form):
         vd.student = student
 
         return vd
+
+
+class AddRevalidationStudentForm(forms.ModelForm):
+    class Meta:
+        model = RevalidationStudent
+        fields = ['name', 'department']
+        exclude = ['teacher']
+
+        widgets = {
+            'name': TextInput(attrs={
+                'class': 'form-control form__field form__field--dark',
+            }),
+            'department': Select(attrs={
+                'class': 'form-control form__field form__field--dark'
+            })
+        }
+
+        labels = {
+            'name': 'Nazwa ucznia (taka jak widnieje na stronie)',
+            'department': 'Szkoła'
+        }
+
+        error_messages = {
+            'name': {
+                'required': REQUIRED_ERROR_INFO
+            },
+            'department': {
+                'invalid_choice': 'Wybierz właściwą szkołę.'
+            }
+        }
+
+    def __init__(self, user: User, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.instance.teacher = user
+
+    def save(self, commit=True):
+        self.instance.name = self.instance.name.title()
+        if self.errors:
+            raise ValueError(
+                "The %s could not be %s because the data didn't validate." % (
+                    self.instance._meta.object_name,
+                    'created' if self.instance._state.adding else 'changed',
+                )
+            )
+        if commit:
+            self.instance.save()
+            self._save_m2m()
+        else:
+            self.save_m2m = self._save_m2m
+        return self.instance
+
 
 

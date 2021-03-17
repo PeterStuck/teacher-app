@@ -11,13 +11,6 @@
     <link rel="stylesheet" href="{% static 'individual/css/index.css' %}">
 {% endblock %}
 
-{% block external_scripts %}
-    {{ block.super }}
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    {% load static %}
-    <script src="{% static 'individual/js/load_revalidation_students.js' %}"></script>
-{% endblock %}
-
 {% block home_icon %}
     <a href="{% url 'individual:start' %}"><i class="fas fa-user-friends"></i></a>
 {% endblock %}
@@ -36,11 +29,16 @@
 
     <div class="settings_wrapper">
         <div class="settings">
-            <a href="#"><i class="fas fa-cogs"></i></a>
+            <a href="{% url 'individual:settings' %}"><i class="fas fa-cogs"></i></a>
         </div>
     </div>
 {% endblock %}
 
+{% block external_scripts %}
+    {{ block.super }}
+    {% load static %}
+    <script src="{% static 'individual/js/load_revalidation_students.js' %}"></script>
+{% endblock %}
 
 {% block script %}
     {{ block.super }}
@@ -49,4 +47,17 @@
         .from('#flex_form', {duration: 0.7, y: 200, opacity: 0, ease: "circ.out"}, 'form')
         .from('.form__submit', {duration: 2, y: 200, opacity: 0, ease: "elastic.out(1, 0.3)"})
         .from('.settings_wrapper', {duration: 1, yPercent: 250, ease: "back.out(1.7)"})
+
+    var all_labels = document.querySelectorAll('label');
+    var get_saved_topic_label = undefined;
+    for (var i = 0; i < all_labels.length; i++) {
+        if (all_labels[i].getAttribute('for') == 'get_saved_topic') {
+            get_saved_topic_label = all_labels[i];
+            break;
+        }
+    }
+
+    get_saved_topic_label.addEventListener('click', () => {
+        window.location.replace("{% url 'base:saved_topics' %}");
+    })
 {% endblock %}

@@ -2,11 +2,12 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
 from django.views.generic.edit import FormView
+from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
 
-from .forms import RevalidationLessonForm
+from .forms import RevalidationLessonForm, AddRevalidationStudentForm
 from .models import RevalidationStudent
 from .plain_classes.vulcan_data import RevalidationVulcanData
 from .vulcan_management.revalidation_vulcan_runner import RevalidationVulcanRunner
@@ -70,6 +71,29 @@ def save_revalidation_topic(form: RevalidationLessonForm, logged_user: User):
             teacher=logged_user,
             category=revalidation_category
         )
+
+
+class RevalidationSettingsView(LoginRequiredMixin, TemplateView):
+    login_url = '/login'
+    template_name = 'individual/settings.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['add_revalidation_student_form'] = AddRevalidationStudentForm(
+            user=self.request.user,
+            label_suffix='')
+
+        return context
+
+
+@login_required(login_url='/login')
+def save_revalidation_student(request):
+    if request.method == "POST":
+        rsf = AddRevalidationStudentForm(user=request.user, data=request.POST)
+        if rsf.is_valid():
+            rsf.save(commit=True)
+            return redirect(reverse('individual:settings') + "?status=1")
+        return redirect(reverse('individual:settings') + "?status=0")
 
 
 @login_required(login_url="/login")

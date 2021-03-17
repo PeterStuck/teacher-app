@@ -1,5 +1,6 @@
 .form_wrapper {
     flex-basis: 51%;
+    padding: 3%;
 }
 
 .form_wrapper #flex_form {

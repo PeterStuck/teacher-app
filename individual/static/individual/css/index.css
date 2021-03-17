@@ -8,6 +8,12 @@ body {
     font-weight: 300;
 }
 
+#flex_form label[for=get_saved_topic] {
+    color: #007bff;
+    text-align: center;
+    cursor: pointer;
+}
+
 .form__submit {
     background: linear-gradient(-45deg, #833ab4, #fd1d1d, #fcb045);
 	background-size: 400% 400%;
