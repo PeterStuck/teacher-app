@@ -13,7 +13,7 @@ class TestLoadRevalidationStudentsView(TestCase):
         user. """
         self.client.force_login(self.user)
         RevalidationStudent.objects.create(name='TEST_STUDENT', department=create_department(), teacher=self.user)
-        response = self.client.get('/individual/load_revalidation_students/', data={})
+        response = self.client.get('/revalidation/load_revalidation_students/', data={})
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '---')
@@ -23,7 +23,7 @@ class TestLoadRevalidationStudentsView(TestCase):
         """ If user has no RevalidationStudent object associated view should display only default value of choice: --- """
         self.client.force_login(self.user)
         create_department()
-        response = self.client.get('/individual/load_revalidation_students/', data={'department': 'TEST'})
+        response = self.client.get('/revalidation/load_revalidation_students/', data={'department': 'TEST'})
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '---')
@@ -32,7 +32,7 @@ class TestLoadRevalidationStudentsView(TestCase):
         """ If logged user has associated RevalidationStudent objects their names should be display on page """
         self.client.force_login(self.user)
         RevalidationStudent.objects.create(name='TEST_STUDENT', department=create_department(), teacher=self.user)
-        response = self.client.get('/individual/load_revalidation_students/', data={'department': 'TEST'})
+        response = self.client.get('/revalidation/load_revalidation_students/', data={'department': 'TEST'})
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'TEST_STUDENT')

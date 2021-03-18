@@ -17,7 +17,7 @@
       <sourceFolder url="file://$MODULE_DIR$/authentication/static" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/base/static" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/filler/static" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/individual/static" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/revalidation/static" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
     <orderEntry type="inheritedJdk" />

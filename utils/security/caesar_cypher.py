@@ -32,7 +32,7 @@ class CaesarCypher:
         return encoded_word
 
     def encode_character(self, letter: str, collection: list = None) -> str:
-        """ Encode individual ASCII character into caesar cipher crypt with given shift """
+        """ Encode revalidation ASCII character into caesar cipher crypt with given shift """
         if collection is None:
             raise InvalidArgumentError(message="Collection can't be of type None", argument=collection)
 
@@ -61,7 +61,7 @@ class CaesarCypher:
         return decoded_word
 
     def decode_character(self, letter: str, collection: list = None) -> str:
-        """ Decode individual character from caesar cipher crypt into ASCII character with given shift """
+        """ Decode revalidation character from caesar cipher crypt into ASCII character with given shift """
         if collection is None:
             raise InvalidArgumentError(message="Collection can't be of type None", argument=collection)
 

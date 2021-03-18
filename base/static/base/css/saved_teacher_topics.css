@@ -41,4 +41,9 @@ body {
 
 .delete_topic_btn, .copy_topic_btn {
     width: 0;
+    padding: 10px 0 !important;
+}
+
+.copy_topic_btn button {
+    margin: 0 1%;
 }

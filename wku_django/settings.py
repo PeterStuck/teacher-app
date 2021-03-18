@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'filler.apps.FillerConfig',
     'authentication.apps.AuthenticationConfig',
-    'individual.apps.IndividualConfig',
+    'revalidation.apps.RevalidationConfig',
 ]
 
 MIDDLEWARE = [

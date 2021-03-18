@@ -19,7 +19,7 @@ class IndividualLessonFormView(LoginRequiredMixin, FormView):
     """ Main control panel to set parameters for RevalidationVulcanData and run sequence """
     login_url = "/login"
 
-    template_name = 'individual/index.html'
+    template_name = 'revalidation/index.html'
     form_class = RevalidationLessonForm
     success_url = '/eow/'
     initial = {
@@ -75,7 +75,7 @@ def save_revalidation_topic(form: RevalidationLessonForm, logged_user: User):
 
 class RevalidationSettingsView(LoginRequiredMixin, TemplateView):
     login_url = '/login'
-    template_name = 'individual/settings.html'
+    template_name = 'revalidation/settings.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -92,15 +92,15 @@ def save_revalidation_student(request):
         rsf = AddRevalidationStudentForm(user=request.user, data=request.POST)
         if rsf.is_valid():
             rsf.save(commit=True)
-            return redirect(reverse('individual:settings') + "?status=1")
-        return redirect(reverse('individual:settings') + "?status=0")
+            return redirect(reverse('revalidation:settings') + "?status=1")
+        return redirect(reverse('revalidation:settings') + "?status=0")
 
 
 @login_required(login_url="/login")
 def load_revalidation_students(request):
     department_name = request.GET.get('department')
     revalidation_students = RevalidationStudent.objects.filter(department__name=department_name).filter(teacher=request.user).order_by('name')
-    return render(request, 'individual/revalidation_students_dropdown.html', context={'revalidation_students': revalidation_students})
+    return render(request, 'revalidation/revalidation_students_dropdown.html', context={'revalidation_students': revalidation_students})
 
 
 

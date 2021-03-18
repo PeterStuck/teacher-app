@@ -1,5 +1,5 @@
 from base.vulcan_management.vulcan_agent import VulcanAgent
-from individual.plain_classes.vulcan_data import RevalidationVulcanData
+from ..plain_classes.vulcan_data import RevalidationVulcanData
 from selenium.common.exceptions import NoSuchElementException
 
 from time import sleep

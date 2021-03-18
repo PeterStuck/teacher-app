@@ -3,7 +3,6 @@ from django.contrib import admin
 from .models import RevalidationStudent, IndividualLessonPaymentType
 
 
-# Register your models here.
 class RevalidationStudentAdminMeta(admin.ModelAdmin):
     list_display = ('name', 'get_department_name', 'get_teacher_name')
 

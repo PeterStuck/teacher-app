@@ -1,7 +1,7 @@
 {% if form.non_field_errors %}
     {% for non_field_error in form.non_field_errors %}
         <div class="alert alert-warning" id="error_message" role="alert">
-        {{ non_field_error }} <i id="close_error_message" class="fas fa-times" onclick="close_error_message()"></i>
+        {{ non_field_error }} <i class="fas fa-times" onclick="close_alert()"></i>
     </div>
     {% endfor %}
 {% endif %}

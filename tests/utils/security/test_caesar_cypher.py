@@ -16,7 +16,7 @@ class TestCaesarCypher(TestCase):
         self.assertEqual(encoded_word, 'YJXY')
 
     def test_encode_character(self):
-        """ Should change individual character into shifted char """
+        """ Should change revalidation character into shifted char """
         test_char = 'A'
         encoded_char = self.cypher.encode_character(letter=test_char, collection=ALL_UPPERCASE_LETTERS)
         self.assertEqual(encoded_char, 'F')

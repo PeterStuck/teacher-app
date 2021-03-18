@@ -21,7 +21,7 @@ urlpatterns = [
     path('', include('authentication.urls')),
     path('', include('base.urls')),
     path('filler/', include('filler.urls')),
-    path('individual/', include('individual.urls')),
+    path('revalidation/', include('revalidation.urls')),
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='/login')),
 ]

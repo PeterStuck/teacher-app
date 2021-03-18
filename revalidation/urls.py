@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import load_revalidation_students, IndividualLessonFormView, RevalidationSettingsView, save_revalidation_student
 
-app_name = 'individual'
+app_name = 'revalidation'
 
 urlpatterns = [
     path('', IndividualLessonFormView.as_view(), name='start'),
