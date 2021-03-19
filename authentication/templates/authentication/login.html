@@ -13,7 +13,7 @@
 {% block content %}
     <div class="form_wrapper">
         <i id="login_logo" class="fas fa-atom"></i>
-        <form id="flex_form" method="post" novalidate>
+        <form id="flex_form" method="post">
             {% csrf_token %}
             {% for field in form %}
                 {{ field.label_tag }}

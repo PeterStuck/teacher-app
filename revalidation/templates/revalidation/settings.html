@@ -18,7 +18,7 @@
 
     <div class="form_wrapper">
         <h1 class="form__title">Dodaj ucznia</h1>
-        <form id="flex_form" action="{% url 'revalidation:save_revalidation_student' %}" method="post" novalidate>
+        <form id="flex_form" action="{% url 'revalidation:save_revalidation_student' %}" method="post">
             {% csrf_token %}
             {% include 'standard_form_template.html' with form=add_revalidation_student_form %}
             <input class="form__submit btn btn-lg btn-success" type="submit" value="Dodaj">

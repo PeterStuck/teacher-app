@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from utils.security.caesar_cypher import CaesarCypher, ALL_UPPERCASE_LETTERS
+from base.utils.security.caesar_cypher import CaesarCypher, ALL_UPPERCASE_LETTERS
 from filler.utils.errors.argument_error import InvalidArgumentError
 
 

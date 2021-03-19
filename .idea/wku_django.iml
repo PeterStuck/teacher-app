@@ -31,7 +31,7 @@
         <option value="$MODULE_DIR$/authentication/templates" />
         <option value="$MODULE_DIR$/base/templates" />
         <option value="$MODULE_DIR$/filler/templates" />
-        <option value="$MODULE_DIR$/individual/templates" />
+        <option value="$MODULE_DIR$/revalidation/templates" />
       </list>
     </option>
   </component>

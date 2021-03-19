@@ -154,9 +154,6 @@ class AddRevalidationStudentForm(forms.ModelForm):
             'name': TextInput(attrs={
                 'class': 'form-control form__field form__field--dark',
             }),
-            'department': Select(attrs={
-                'class': 'form-control form__field form__field--dark'
-            })
         }
 
         labels = {
