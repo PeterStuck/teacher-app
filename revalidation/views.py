@@ -3,6 +3,7 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
+from django.views.decorators.http import require_POST
 from django.views.generic.edit import FormView
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
@@ -15,7 +16,7 @@ from base.utils.spared_time_counter import add_spared_time_to_total
 from base.models import LessonTopic, LessonCategory
 
 
-class IndividualLessonFormView(LoginRequiredMixin, FormView):
+class RevalidationLessonFormView(LoginRequiredMixin, FormView):
     """ Main control panel to set parameters for RevalidationVulcanData and run sequence """
     login_url = "/login"
 
@@ -87,13 +88,13 @@ class RevalidationSettingsView(LoginRequiredMixin, TemplateView):
 
 
 @login_required(login_url='/login')
+@require_POST
 def save_revalidation_student(request):
-    if request.method == "POST":
-        rsf = AddRevalidationStudentForm(user=request.user, data=request.POST)
-        if rsf.is_valid():
-            rsf.save(commit=True)
-            return redirect(reverse('revalidation:settings') + "?status=1")
-        return redirect(reverse('revalidation:settings') + "?status=0")
+    rsf = AddRevalidationStudentForm(user=request.user, data=request.POST)
+    if rsf.is_valid():
+        rsf.save(commit=True, department_name=rsf.cleaned_data['department'])
+        return redirect(reverse('revalidation:settings') + "?status=1")
+    return redirect(reverse('revalidation:settings') + "?status=0")
 
 
 @login_required(login_url="/login")

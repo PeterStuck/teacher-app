@@ -14,35 +14,39 @@
     </div>
 
     <div class="saved_topics">
-        <table class="table table-light table-striped">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Temat</th>
-              <th scope="col">Kategoria</th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for topic in saved_topics %}
-                <tr class="topic">
-                  <td id="topic_{{ forloop.counter }}">{{ topic.topic }}</td>
-                  <td>{{ topic.category.name }}</td>
-                  <td class="copy_topic_btn">
-                    <button tabindex="0"
-                        class="copy_popover copy_btn btn btn-primary"
-                        data-bs-toggle="popover"
-                        data-bs-trigger="focus"
-                        id="topic_btn_{{ forloop.counter }}"
-                        onclick="copy_topic({{ forloop.counter }})">Kopiuj</button>
-                  </td>
-                  <td class="delete_topic_btn">
-                      <a class="btn btn-danger" href="{% url 'base:delete_topic' topic.id %}">Usuń</a>
-                  </td>
+        {% if saved_topics|length != 0 %}
+            <table class="table table-light table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Temat</th>
+                  <th scope="col">Kategoria</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
                 </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {% for topic in saved_topics %}
+                    <tr class="topic">
+                      <td id="topic_{{ forloop.counter }}">{{ topic.topic }}</td>
+                      <td>{{ topic.category.name }}</td>
+                      <td class="copy_topic_btn">
+                        <button tabindex="0"
+                            class="copy_popover copy_btn btn btn-primary"
+                            data-bs-toggle="popover"
+                            data-bs-trigger="focus"
+                            id="topic_btn_{{ forloop.counter }}"
+                            onclick="copy_topic({{ forloop.counter }})">Kopiuj</button>
+                      </td>
+                      <td class="delete_topic_btn">
+                          <a class="btn btn-danger" href="{% url 'base:delete_topic' topic.id %}">Usuń</a>
+                      </td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        {% else %}
+            <h1 id="no_saved_topics">Aktualnie nie masz żadnych zapisanych tematów.</h1>
+        {% endif %}
     </div>
 
     <div class="pagination">

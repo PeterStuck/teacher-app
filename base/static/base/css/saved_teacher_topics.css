@@ -47,3 +47,9 @@ body {
 .copy_topic_btn button {
     margin: 0 1%;
 }
+
+#no_saved_topics {
+    color: #dcddde;
+    font-weight: 300;
+    font-size: 3rem;
+}

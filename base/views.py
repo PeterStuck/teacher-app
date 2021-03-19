@@ -1,7 +1,8 @@
+from dateutil.relativedelta import relativedelta
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, HttpResponseRedirect, reverse
-from django.contrib.auth.decorators import login_required
-from dateutil.relativedelta import relativedelta
+from django.views.decorators.http import require_GET
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 
@@ -41,6 +42,7 @@ class LessonTopicsView(LoginRequiredMixin, ListView):
 
 
 @login_required(login_url='/login')
+@require_GET
 def delete_saved_topic(request, pk):
     try:
         topic_to_delete = LessonTopic.objects.filter(teacher=request.user).get(pk=pk)
@@ -48,10 +50,11 @@ def delete_saved_topic(request, pk):
 
         return HttpResponseRedirect(reverse('base:saved_topics'))
     except LessonTopic.DoesNotExist:
-        return render(request, 'base/bad_topic_id.html', {})
+        return render(request, 'base/bad_topic_id.html')
 
 
 @login_required(login_url='/login')
+@require_GET
 def end_of_work_view(request, filename=None):
-    """ View to display when filler ends work correctly """
+    """ View to display when app ends work correctly """
     return render(request, 'base/end_of_work.html', context={'filename': filename})

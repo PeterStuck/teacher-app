@@ -27,7 +27,7 @@ class TestAttendanceDataReader(TestCase):
     def tearDown(self) -> None:
         """ Removes files created in tests """
         converted_file_path = str(BASE_DIR / self.settings_dict['coverted_files_path']) + "\\" + self.filename
-        archive_file_path = self.settings_dict['archive_desktop_path'] + self.filename
+        archive_file_path = self.settings_dict['archive_desktop_path'] + "\\" + self.filename
         raw_file_path = str(BASE_DIR / self.settings_dict['raw_teams_file_path']) + "\\" + self.filename
 
         if os.path.isfile(converted_file_path):

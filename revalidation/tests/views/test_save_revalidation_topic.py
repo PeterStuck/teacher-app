@@ -2,10 +2,10 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from base.models import Department, LessonTopic, LessonCategory
-from ..models import RevalidationStudent
-from ..forms import RevalidationLessonForm
-from ..views import save_revalidation_topic
-from .set_up_methods import create_user
+from revalidation.models import RevalidationStudent
+from revalidation.forms import RevalidationLessonForm
+from revalidation.views import save_revalidation_topic
+from revalidation.tests.set_up_methods import create_user
 
 
 def create_revalidation_category():

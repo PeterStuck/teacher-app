@@ -6,9 +6,6 @@ from django.forms import TextInput, FileField, ChoiceField, DateTimeField, Selec
 from base.models import Department, PolishDays, PresenceSymbol
 from .plain_classes.vulcan_data import FillerVulcanData
 
-all_departments = Department.objects.all()
-DEPARTMENTS = [[department.name, department.full_name] for department in all_departments]
-
 all_polish_days = PolishDays.objects.all()
 DAYS = [[day.name, day.name] for day in all_polish_days]
 
@@ -29,7 +26,7 @@ class FillerForm(Form):
     )
     departments = ChoiceField(
         label='Szkoła',
-        choices=DEPARTMENTS,
+        choices=[],
         widget=Select(attrs={
             'class': 'form-control form__field form__field--dark',
         })
@@ -72,13 +69,14 @@ class FillerForm(Form):
         required=False)
 
     use_required_attribute = True
-    field_order = ['teams_file', 'file_not_loaded', 'departments', 'day', 'date', 'lesson_number', 'is_double_lesson', 'absent_symbol']
+    field_order = ['teams_file', 'file_not_loaded', 'departments', 'day', 'date', 'lesson', 'is_double_lesson', 'absent_symbol']
     auto_id = 'field_%s'
 
     def parse_to_vulcan_data(self):
         form_fields = dict()
         for field in self.fields:
             form_fields[field] = self.cleaned_data.get(field)
+            print('##', self.cleaned_data.get(field))
 
         vd = FillerVulcanData(**form_fields)
         vd = self.determine_filename(vd, form_fields)
@@ -99,10 +97,15 @@ class FillerForm(Form):
             vd.filename = None
         return vd
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['departments'].choices = [[department.name, department.full_name] for department in Department.objects.all()]
+
 
 class WebdriverSettingsForm(Form):
     vulcan_url = CharField(label='URL do strony Vulcan', widget=TextInput(attrs={'class': 'form-control form__field'}), required=True)
 
 
 class ArchiveSettingsForm(Form):
-    path = CharField(label='Ścieżka absolutna do archiwum', widget=TextInput(attrs={'class': 'form-control form__field'}), required=True)
+    archive_desktop_path = CharField(label='Ścieżka absolutna do archiwum', widget=TextInput(attrs={'class': 'form-control form__field'}), required=True)

@@ -17,6 +17,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\filler\tests\forms\test_filler_form.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\filler\views.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

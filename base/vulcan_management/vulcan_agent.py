@@ -29,6 +29,7 @@ class VulcanAgent:
             print(e)
             self.driver.execute_script("alert('#Error# Nie udało się znaleźć przycisku logowania.');")
 
+
     def __send_credentials(self):
         """ Pastes login data into fields on page and submit them """
         try:

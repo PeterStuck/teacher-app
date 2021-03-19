@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from .set_up_methods import create_user, create_department
-from ..models import RevalidationStudent
+from revalidation.tests.set_up_methods import create_user, create_department
+from revalidation.models import RevalidationStudent
 
 
 class TestLoadRevalidationStudentsView(TestCase):

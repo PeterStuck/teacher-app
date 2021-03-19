@@ -7,9 +7,7 @@ from base.models import Department, PresenceSymbol
 from .models import IndividualLessonPaymentType, RevalidationStudent
 from .plain_classes.vulcan_data import RevalidationVulcanData
 
-DEPARTMENTS = [[department.name, department.full_name] for department in Department.objects.all()]
-DEPARTMENTS.insert(0, [0, '---'])
-PAYMENT_TYPES = [[payment_type.type, payment_type.type] for payment_type in IndividualLessonPaymentType.objects.all()]
+
 PRESENCE_SYMBOLS = [[symbol.symbol, symbol.full_name] for symbol in PresenceSymbol.objects.all()]
 
 REQUIRED_ERROR_INFO = 'To pole jest wymagane.'
@@ -18,7 +16,7 @@ REQUIRED_ERROR_INFO = 'To pole jest wymagane.'
 class RevalidationLessonForm(forms.Form):
     department = ChoiceField(
         label='Szkoła',
-        choices=DEPARTMENTS,
+        choices=[],
         error_messages= {
             'invalid_choice': 'Wybierz szkołę.'
         },
@@ -79,7 +77,7 @@ class RevalidationLessonForm(forms.Form):
         required=False)
     payment_type = ChoiceField(
         label='Typ płatności',
-        choices=PAYMENT_TYPES,
+        choices=[],
         widget=Select(attrs={
             'class': 'form-control form__field form__field--dark'
         })
@@ -104,6 +102,10 @@ class RevalidationLessonForm(forms.Form):
 
     def __init__(self, user: User= None, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        departments = [[department.name, department.full_name] for department in Department.objects.all()]
+        departments.insert(0, [0, '---'])
+        self.fields['department'].choices = departments
+        self.fields['payment_type'].choices = [[payment_type.type, payment_type.type] for payment_type in IndividualLessonPaymentType.objects.all()]
 
         if 'student' in self.data:
             try:
@@ -132,9 +134,20 @@ class RevalidationLessonForm(forms.Form):
 
 
 class AddRevalidationStudentForm(forms.ModelForm):
+    department = ChoiceField(
+        label='Szkoła',
+        choices=[],
+        error_messages={
+            'invalid_choice': 'Wybierz właściwą szkołę.'
+        },
+        widget=Select(attrs={
+            'class': 'form-control form__field form__field--dark'
+        })
+    )
+
     class Meta:
         model = RevalidationStudent
-        fields = ['name', 'department']
+        fields = ['name']
         exclude = ['teacher']
 
         widgets = {
@@ -148,24 +161,23 @@ class AddRevalidationStudentForm(forms.ModelForm):
 
         labels = {
             'name': 'Nazwa ucznia (taka jak widnieje na stronie)',
-            'department': 'Szkoła'
         }
 
         error_messages = {
             'name': {
                 'required': REQUIRED_ERROR_INFO
             },
-            'department': {
-                'invalid_choice': 'Wybierz właściwą szkołę.'
-            }
         }
 
     def __init__(self, user: User, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.instance.teacher = user
+        self.fields['department'].choices = [[department.name, department.full_name] for department in Department.objects.all()]
 
-    def save(self, commit=True):
+    def save(self, department_name, commit=True):
+        print("##", self.instance.name)
         self.instance.name = self.instance.name.title()
+        print("##", self.instance.name)
         if self.errors:
             raise ValueError(
                 "The %s could not be %s because the data didn't validate." % (
@@ -174,10 +186,8 @@ class AddRevalidationStudentForm(forms.ModelForm):
                 )
             )
         if commit:
+            self.instance.department = Department.objects.filter(name=department_name).first()
             self.instance.save()
-            self._save_m2m()
-        else:
-            self.save_m2m = self._save_m2m
         return self.instance
 
 
