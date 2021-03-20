@@ -12,6 +12,7 @@ class IndividualLessonAgent(VulcanAgent):
 
     def go_to_student_invidual_lessons(self):
         self.__select_other_journals()
+        sleep(0.5)
         self.__select_revalidation_journal()
         sleep(0.5)
         self.__select_student()
@@ -46,7 +47,8 @@ class IndividualLessonAgent(VulcanAgent):
         self.__click_add_lesson_btn()
         sleep(0.75)
         self.__fill_up_lesson_data()
-        # self.__save_lesson()
+        sleep(0.25)
+        self.__save_lesson()
 
     def __click_add_lesson_btn(self):
         try:
@@ -82,7 +84,7 @@ class IndividualLessonAgent(VulcanAgent):
             self.driver.execute_script(f'console.log("Nie mogę znaleźć przycisku: Zapisz")')
 
     def add_attendance_to_lesson(self):
-        sleep(0.75)
+        sleep(1)
         self.__select_student_attendance()
         sleep(1)
         self.__enter_student_attendance_edit_mode()
