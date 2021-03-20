@@ -2,11 +2,14 @@ from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.http import require_GET
 from django.views.generic import TemplateView
+from django.views.generic.edit import FormMixin, ProcessFormView
 from django.views.generic.list import ListView
 
 from base.models import LessonTopic
+from base.forms import TopicSearchForm
 
 
 class MainNavigationView(LoginRequiredMixin, TemplateView):
@@ -30,15 +33,38 @@ def get_user_spared_time(user):
     return relativedelta(seconds=spared_time_in_sec)
 
 
-class LessonTopicsView(LoginRequiredMixin, ListView):
+class LessonTopicsView(LoginRequiredMixin, ListView, FormMixin):
     login_url = '/login'
     model = LessonTopic
     template_name = 'base/saved_teacher_topics.html'
     context_object_name = 'saved_topics'
     paginate_by = 20
 
+    form_class = TopicSearchForm
+    success_url = '/saved-topics/'
+
     def get_queryset(self):
-        return LessonTopic.objects.filter(teacher=self.request.user)
+        queryset = LessonTopic.objects.filter(teacher=self.request.user)
+        keyword = self.get_searched_keyword()
+
+        if keyword:
+            queryset = queryset.filter(topic__contains=keyword)
+
+        return queryset
+
+    def get_searched_keyword(self):
+        """ 'k' stands from keyword """
+        try:
+            keyword = self.request.GET['k']
+            return keyword
+        except MultiValueDictKeyError:
+            pass
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = TopicSearchForm()
+
+        return context
 
 
 @login_required(login_url='/login')

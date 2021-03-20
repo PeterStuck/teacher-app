@@ -76,7 +76,6 @@ class FillerForm(Form):
         form_fields = dict()
         for field in self.fields:
             form_fields[field] = self.cleaned_data.get(field)
-            print('##', self.cleaned_data.get(field))
 
         vd = FillerVulcanData(**form_fields)
         vd = self.determine_filename(vd, form_fields)

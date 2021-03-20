@@ -38,3 +38,28 @@ class TestLessonTopicsView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'next_page_link')
         self.assertContains(response, 'Strona 1 z 2.')
+
+    def test_no_topics_with_given_keyword(self):
+        self.client.force_login(self.user)
+        response = self.client.get('/saved-topics/?k=test')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Nie znaleziono żadnego tematu.')
+
+    def test_topics_with_given_keyword_found(self):
+        category = create_topic_category()
+        create_saved_topic(self.user, category)
+        create_saved_topic(self.user, category)
+
+        self.client.force_login(self.user)
+        response = self.client.get('/saved-topics/?k=TOPIC')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(list(response.context['saved_topics']), ['<LessonTopic: TOPIC>', '<LessonTopic: TOPIC>'])
+
+    def test_get_context_data(self):
+        self.client.force_login(self.user)
+        response = self.client.get('/saved-topics/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(dict(response.context).get('search_form'))

@@ -172,9 +172,7 @@ class AddRevalidationStudentForm(forms.ModelForm):
         self.fields['department'].choices = [[department.name, department.full_name] for department in Department.objects.all()]
 
     def save(self, department_name, commit=True):
-        print("##", self.instance.name)
         self.instance.name = self.instance.name.title()
-        print("##", self.instance.name)
         if self.errors:
             raise ValueError(
                 "The %s could not be %s because the data didn't validate." % (

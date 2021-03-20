@@ -5,12 +5,23 @@
 {% block styles %}
     {{ block.super }}
     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/flex_form.css' %}">
     <link rel="stylesheet" href="{% static 'base/css/saved_teacher_topics.css' %}">
 {% endblock %}
 
 {% block content %}
     <div class="filter_panel">
-
+        <div class="search_form form_wrapper">
+            <form id="flex_form" method="get" action="{% url 'base:saved_topics' %}">
+                <input
+                        name="k"
+                        id="{{ search_form.keyword.id_for_label }}"
+                        type="text"
+                        class="form-control form__field"
+                        required>
+                <input class="btn btn-info form__submit" type="submit" value="Szukaj">
+            </form>
+        </div>
     </div>
 
     <div class="saved_topics">
@@ -45,35 +56,15 @@
               </tbody>
             </table>
         {% else %}
-            <h1 id="no_saved_topics">Aktualnie nie masz żadnych zapisanych tematów.</h1>
+            {% if request.GET.k %}
+                <h1 id="no_saved_topics">Nie znaleziono żadnego tematu.</h1>
+            {% else %}
+                 <h1 id="no_saved_topics">Aktualnie nie masz żadnych zapisanych tematów.</h1>
+            {% endif %}
         {% endif %}
     </div>
 
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1" class="first_page_link">
-                    <i class="fas fa-backward"></i>
-                </a>
-                <a href="?page={{ page_obj.previous_page_number }}" class="previous_page_link">
-                    <i class="fas fa-chevron-circle-left"></i>
-                </a>
-            {% endif %}
-
-            <span class="current">
-                Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
-            </span>
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="next_page_link">
-                    <i class="fas fa-chevron-circle-right"></i>
-                </a>
-                <a href="?page={{ page_obj.paginator.num_pages }}" class="last_page_link">
-                    <i class="fas fa-forward"></i>
-                </a>
-            {% endif %}
-        </span>
-    </div>
+    {% include 'basic_paginator.html' %}
 {% endblock %}
 
 {% block external_scripts %}

@@ -2,6 +2,29 @@ body {
     background-color: #36393f;
 }
 
+.filter_panel {
+    flex-basis: 80%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #2a2d31;
+    padding: 1%;
+    margin: 2% 0;
+}
+
+.search_form {
+    flex-basis: 50% !important;
+    padding: 0;
+}
+
+.search_form #flex_form .form__field {
+    flex-basis: 70% !important;
+}
+
+.search_form #flex_form .form__submit {
+    flex-basis: 20% !important;
+}
+
 .saved_topics {
     flex-basis: 80%;
     background-color: #2a2d31;
@@ -40,7 +63,6 @@ body {
 }
 
 .delete_topic_btn, .copy_topic_btn {
-    width: 0;
     padding: 10px 0 !important;
 }
 
