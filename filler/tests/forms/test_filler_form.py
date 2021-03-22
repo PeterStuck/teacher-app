@@ -22,7 +22,7 @@ class TestFillerForm(TestCase):
         form = FillerForm({
             'teams_file': None,
             'file_not_loaded': True,
-            'departments': self.department.name,
+            'department': self.department.name,
             'day': 'Poniedziałek',
             'date': '2020-01-01',
             'lesson': '1',
@@ -33,13 +33,13 @@ class TestFillerForm(TestCase):
         form.is_valid()
         vd = form.parse_to_vulcan_data()
         self.assertTrue(form.is_valid())
-        self.assertEqual(str(vd), f'FillerVulcanData(teams_file=None, file_not_loaded=True, departments={self.department.name}, day=Poniedziałek, date=2020-01-01, lesson=1, is_double_lesson=False, absent_symbol=▬, filename=None)')
+        self.assertEqual(str(vd), f'FillerVulcanData(teams_file=None, file_not_loaded=True, department={self.department.name}, day=Poniedziałek, date=2020-01-01, lesson=1, is_double_lesson=False, absent_symbol=▬, filename=None)')
 
     def test_determine_filename_with_no_file(self):
         form = FillerForm({
             'teams_file': '',
             'file_not_loaded': True,
-            'departments': self.department.name,
+            'department': self.department.name,
             'day': 'Poniedziałek',
             'date': '2020-01-01',
             'lesson': '1',

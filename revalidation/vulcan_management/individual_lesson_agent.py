@@ -33,7 +33,7 @@ class IndividualLessonAgent(VulcanAgent):
 
     def __select_student(self):
         try:
-            self.driver.find_element_by_xpath('//span[contains(text(), "Tomek")]/..').click()
+            self.driver.find_element_by_xpath(f'//span[contains(text(), "{self.vd.student.name}")]/..').click()
         except NoSuchElementException:
             self.driver.execute_script(f'console.log("Nie mogę znaleźć ucznia : {self.vd.student.name}")')
 

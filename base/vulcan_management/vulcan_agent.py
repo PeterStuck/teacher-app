@@ -49,7 +49,7 @@ class VulcanAgent:
     def __select_department(self):
         """ Selects department on main page """
         try:
-            self.driver.find_element_by_xpath(f'//span[text()="{self.vd.departments}"]/..').click()
+            self.driver.find_element_by_xpath(f'//span[text()="{self.vd.department}"]/..').click()
         except NoSuchElementException as e:
             print(e)
             self.driver.execute_script("alert('#Error# Problem ze znalezieniem podanego departamentu.');")

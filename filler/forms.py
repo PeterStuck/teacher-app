@@ -24,7 +24,7 @@ class FillerForm(Form):
             'class': 'form-control form__field form__field--dark',
         })
     )
-    departments = ChoiceField(
+    department = ChoiceField(
         label='Szkoła',
         choices=[],
         widget=Select(attrs={
@@ -69,7 +69,7 @@ class FillerForm(Form):
         required=False)
 
     use_required_attribute = True
-    field_order = ['teams_file', 'file_not_loaded', 'departments', 'day', 'date', 'lesson', 'is_double_lesson', 'absent_symbol']
+    field_order = ['teams_file', 'file_not_loaded', 'department', 'day', 'date', 'lesson', 'is_double_lesson', 'absent_symbol']
     auto_id = 'field_%s'
 
     def parse_to_vulcan_data(self):
@@ -91,7 +91,7 @@ class FillerForm(Form):
 
     def determine_filename(self, vd, form_fields):
         if not vd.file_not_loaded and vd.teams_file is not None:
-            vd.filename = form_fields['date'] + '-' + form_fields['departments'] + '-' + form_fields['lesson'] + '.csv'
+            vd.filename = form_fields['date'] + '-' + form_fields['department'] + '-' + form_fields['lesson'] + '.csv'
         else:
             vd.filename = None
         return vd
@@ -99,7 +99,7 @@ class FillerForm(Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['departments'].choices = [[department.name, department.full_name] for department in Department.objects.all()]
+        self.fields['department'].choices = [[department.name, department.full_name] for department in Department.objects.all()]
 
 
 class WebdriverSettingsForm(Form):
