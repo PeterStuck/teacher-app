@@ -12,9 +12,9 @@ class IndividualLessonAgent(VulcanAgent):
 
     def go_to_student_invidual_lessons(self):
         self.__select_other_journals()
-        sleep(0.5)
+        sleep(0.75)
         self.__select_revalidation_journal()
-        sleep(0.5)
+        sleep(0.75)
         self.__select_student()
         sleep(0.5)
         self.__go_to_course_of_class()
@@ -45,7 +45,7 @@ class IndividualLessonAgent(VulcanAgent):
 
     def add_lesson(self):
         self.__click_add_lesson_btn()
-        sleep(0.75)
+        sleep(1)
         self.__fill_up_lesson_data()
         sleep(0.25)
         self.__save_lesson()
@@ -58,11 +58,11 @@ class IndividualLessonAgent(VulcanAgent):
 
     def __fill_up_lesson_data(self):
         try:
-            date_input = self.driver.find_element_by_css_selector('#dfData-inputEl')
+            date_input = self.driver.find_element_by_xpath('//input[contains(@name, "Data")]')
             textareas = self.driver.find_elements_by_xpath('//textarea')
             topic_area = textareas[0]
             comments_area = textareas[1]
-            payment_select = self.driver.find_element_by_xpath('//input[contains(@value, "Dodatkowo płatne")]')
+            payment_select = self.driver.find_element_by_xpath('//input[contains(@name, "FormaPlatnosci")]')
             num_of_hours = self.driver.find_element_by_xpath('//input[contains(@name, "LiczbaGodzin")]')
 
             date_input.clear()
@@ -75,7 +75,7 @@ class IndividualLessonAgent(VulcanAgent):
 
             num_of_hours.send_keys(self.vd.num_of_hours)
         except NoSuchElementException:
-            self.driver.execute_script(f'console.log("Nie mogę znaleźć przycisku: Dodaj lub pól formularza")')
+            self.driver.execute_script(f'console.log("Nie mogę znaleźć pól formularza");')
 
     def __save_lesson(self):
         try:
@@ -113,7 +113,7 @@ class IndividualLessonAgent(VulcanAgent):
 
     def __change_attendance_status(self):
         try:
-            self.driver.find_element_by_xpath('//td[contains(text(), "?")]').click()
+            self.driver.find_elements_by_xpath('//td[contains(text(), "?")]')[-1].click()
 
             presence_symbol = self.driver.find_element_by_xpath(
             f'//span[contains(@class, "clickableText") and contains(text(), "{self.vd.presence_symbol}")]')
