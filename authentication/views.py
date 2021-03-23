@@ -1,11 +1,12 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import authenticate, login, logout
-from django.views.generic.edit import FormView
-from django.views.generic.base import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.decorators.http import require_POST, require_GET, require_http_methods
 from django.contrib.auth.models import User
+from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.views.decorators.http import require_POST, require_GET
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
+from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 
 from .forms import LoginForm, ChangePasswordForm
 from .plain_classes.user_credentials import UserCredentials
@@ -28,6 +29,7 @@ class LoginFormView(FormView):
 
         return self.render_to_response(self.get_context_data())
 
+    @sensitive_variables()
     def form_valid(self, form):
         try:
             email = form.cleaned_data['email']
@@ -39,6 +41,7 @@ class LoginFormView(FormView):
             return render(self.request, self.template_name, context=context)
 
 
+@sensitive_variables()
 def authenticate_user(request, email, password):
     """ Authenticates user and create user session if username and password are valid """
     user_with_given_email: User = User.objects.filter(email=email).first()
@@ -73,6 +76,7 @@ class AccountOptionsView(LoginRequiredMixin, TemplateView):
         return context
 
 
+@sensitive_variables()
 @login_required(login_url='/login')
 @require_POST
 def change_password(request):
@@ -88,6 +92,7 @@ def change_password(request):
     return HttpResponseRedirect('/account-options?status=0')
 
 
+@sensitive_variables('request')
 @login_required(login_url='/login')
 @require_GET
 def logout_view(request):

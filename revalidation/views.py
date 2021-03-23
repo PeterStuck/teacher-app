@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic.edit import FormView
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
+from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 
 from .forms import RevalidationLessonForm, AddRevalidationStudentForm
 from .models import RevalidationStudent
@@ -38,6 +39,7 @@ class RevalidationLessonFormView(LoginRequiredMixin, FormView):
     def get_form(self, form_class=None):
         return self.form_class(self.request.user, **self.get_form_kwargs())
 
+    @sensitive_post_parameters()
     def form_valid(self, form):
         logged_user = self.request.user
         save_revalidation_topic(form=form, logged_user=logged_user)
@@ -58,6 +60,7 @@ class RevalidationLessonFormView(LoginRequiredMixin, FormView):
         return self.render_to_response(context)
 
 
+@sensitive_variables('logged_user')
 def save_revalidation_topic(form: RevalidationLessonForm, logged_user: User):
     """ Exception means that given topic wasn't found in associated user's topics. """
     try:
@@ -87,6 +90,7 @@ class RevalidationSettingsView(LoginRequiredMixin, TemplateView):
         return context
 
 
+@sensitive_variables('user', 'request')
 @login_required(login_url='/login')
 @require_POST
 def save_revalidation_student(request):
@@ -97,6 +101,7 @@ def save_revalidation_student(request):
     return redirect(reverse('revalidation:settings') + "?status=0")
 
 
+@sensitive_variables('request')
 @login_required(login_url="/login")
 def load_revalidation_students(request):
     department_name = request.GET.get('department')

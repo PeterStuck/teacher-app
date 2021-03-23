@@ -1,11 +1,13 @@
 from datetime import datetime as dt
 
 from django.contrib.auth.decorators import login_required
+from django.http import HttpRequest
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 
 from base.utils.spared_time_counter import add_spared_time_to_total
 from filler.vulcan_management.filler_vulcan_runner import FillerVulcanRunner
@@ -34,6 +36,7 @@ class FillerFormView(LoginRequiredMixin, FormView):
 
         return context
 
+    @sensitive_variables('request')
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
@@ -41,6 +44,7 @@ class FillerFormView(LoginRequiredMixin, FormView):
         else:
             return self.form_invalid(form)
 
+    @sensitive_variables()
     def form_valid(self, form):
         credentials = self.request.session['credentials']
         vd: FillerVulcanData = form.parse_to_vulcan_data()
