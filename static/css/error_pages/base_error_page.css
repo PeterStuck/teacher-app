@@ -1,0 +1,14 @@
+#account_options_link {
+    color: #333 !important;
+}
+
+.error_message {
+    flex-basis: 90%;
+    font-size: 4rem;
+    font-weight: 300;
+    text-align: center;
+}
+
+footer {
+    position: absolute;
+}

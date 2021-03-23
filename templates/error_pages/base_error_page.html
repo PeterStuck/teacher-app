@@ -1,0 +1,17 @@
+{% extends 'standard_base_template.html' %}
+
+{% block styles %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/error_pages/base_error_page.css' %}">
+{% endblock %}
+
+{% block home_icon %}{% endblock %}
+
+{% block content %}
+    <h1 class="error_message">
+        {% block error_message %}
+
+        {% endblock %}
+    </h1>
+{% endblock %}

@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import RedirectView
+from .views import error_404, error_500
+
+
+handler404 = error_404
+handler500 = error_500
 
 urlpatterns = [
     path('', include('authentication.urls')),

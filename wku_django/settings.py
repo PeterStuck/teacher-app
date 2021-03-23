@@ -171,17 +171,17 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR / 'db/backups'}
 
 
-ADMINS = [
-    ('Piotrek', 'piotr.krawczyk@interia.pl')
-]
+# ADMINS = [
+#     ('Piotrek', 'piotr.krawczyk@interia.pl')
+# ]
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'alerty.django@gmail.com'
-EMAIL_HOST_PASSWORD = 'Pepek656565!'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-DEFAULT_FROM_EMAIL = 'alerty.django@gmail.com'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'alerty.django@gmail.com'
+# EMAIL_HOST_PASSWORD = 'Pepek656565!'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+#
+# DEFAULT_FROM_EMAIL = 'alerty.django@gmail.com'
 
 LOGGING = {
     'version': 1,
