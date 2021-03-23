@@ -43,8 +43,14 @@
         {% endif %}
     </h3>
     <div class="available_apps">
-        <a href="{% url 'revalidation:start' %}"><i class="fas fa-user-friends"></i></a>
-        <a href="{% url 'filler:start' %}"><i class="fas fa-file-signature"></i></a>
+        <div class="app">
+            <a href="{% url 'revalidation:start' %}"><i class="fas fa-user-friends"></i></a>
+            <p class="app__description">Rewalidacja</p>
+        </div>
+        <div class="app">
+            <a href="{% url 'filler:start' %}"><i class="fas fa-file-signature"></i></a>
+            <p class="app__description">Obecność klasowa</p>
+        </div>
     </div>
 {% endblock %}
 

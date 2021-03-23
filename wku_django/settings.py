@@ -169,3 +169,42 @@ CSRF_COOKIE_SECURE = False
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR / 'db/backups'}
+
+
+ADMINS = [
+    ('Piotrek', 'piotr.krawczyk@interia.pl')
+]
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'alerty.django@gmail.com'
+EMAIL_HOST_PASSWORD = 'Pepek656565!'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = 'alerty.django@gmail.com'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s [%(asctime)s] %(module)s %(message)s'
+        },
+    },
+
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['mail_admins'],
+            'propagate': True,
+            'level': 'DEBUG',
+        },
+    }
+}
+

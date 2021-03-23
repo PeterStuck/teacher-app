@@ -45,15 +45,26 @@ body {
 	margin: 4% 0;
 }
 
-.available_apps i {
+.available_apps .app {
+	text-align: center;
+}
+
+.available_apps .app i {
 	font-size: 4rem;
 	color: #eee;
 	transition: 0.4s;
 }
 
-.available_apps i:hover {
+.available_apps .app i:hover {
 	font-size: 4.5rem;
 	color: #fff;
+}
+
+.app__description {
+	color: white;
+	margin: 0.75rem 0;
+	font-weight: 200;
+	letter-spacing: 1.5px;
 }
 
 .technologies_icons {
