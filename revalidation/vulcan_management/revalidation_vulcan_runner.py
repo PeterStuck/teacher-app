@@ -14,5 +14,5 @@ class RevalidationVulcanRunner:
     def run(self):
         self.vulcan_agent.go_to_lessons_menu()
         self.vulcan_agent.go_to_student_invidual_lessons()
-        # self.vulcan_agent.add_lesson()
+        self.vulcan_agent.add_lesson()
         self.vulcan_agent.add_attendance_to_lesson()

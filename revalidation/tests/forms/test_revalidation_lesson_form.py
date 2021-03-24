@@ -40,4 +40,4 @@ class TestRevalidationLessonForm(TestCase):
         valid_form.is_valid()
         vd = valid_form.parse_to_vulcan_data()
 
-        self.assertEqual(str(vd), 'RevalidationVulcanData(department=TEST, student=TEST_NAME, date=01.01.2020, topic=Test_TOPIC, get_saved_topic=False, comments=None, payment_type=TEST_TYPE, num_of_hours=1, presence_symbol=▬)')
+        self.assertEqual(str(vd), 'RevalidationVulcanData(department=TEST, student=TEST_NAME, date=01.01.2020, topic=Test_TOPIC, comments=None, payment_type=TEST_TYPE, num_of_hours=1, presence_symbol=▬)')

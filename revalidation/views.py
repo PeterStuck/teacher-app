@@ -39,7 +39,7 @@ class RevalidationLessonFormView(LoginRequiredMixin, FormView):
     def get_form(self, form_class=None):
         return self.form_class(self.request.user, **self.get_form_kwargs())
 
-    @sensitive_post_parameters()
+    @sensitive_variables()
     def form_valid(self, form):
         logged_user = self.request.user
         save_revalidation_topic(form=form, logged_user=logged_user)

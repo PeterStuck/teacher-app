@@ -51,21 +51,10 @@ class RevalidationLessonForm(forms.Form):
         error_messages= {
             'required': REQUIRED_ERROR_INFO
         },
-        widget=TextInput(attrs={
-            'class': 'form-control form__field form__field--dark'
+        widget=Textarea(attrs={
+            'class': 'form-control form__textarea form__textarea--dark'
         }),
         required=True)
-
-    get_saved_topic = BooleanField(
-        label='Wykorzystaj jeden z zapisanych (Kliknij tutaj)',
-        widget=CheckboxInput(attrs={
-            'class': 'form-control form__field',
-            'id': 'get_saved_topic',
-            'style': 'display: none;',
-        }),
-        required=False
-    )
-
     comments = CharField(
         label='Uwagi',
         error_messages= {

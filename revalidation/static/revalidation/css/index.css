@@ -1,0 +1,88 @@
+body {
+    background-color: #36393f;
+    overflow-x: hidden;
+}
+
+.form_wrapper {
+    padding: 0 !important;
+}
+
+#flex_form label {
+    color: #dcddde;
+    font-weight: 300;
+}
+
+.form__submit {
+    background: linear-gradient(-45deg, #833ab4, #fd1d1d, #fcb045);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+    color: white;
+}
+
+#get_saved_topic {
+    margin-top: 2%;
+    text-decoration: none;
+    color: #007bff;
+    text-align: center;
+    transition: 0.4s;
+}
+
+#get_saved_topic:hover {
+    color: #31037d;
+}
+
+.error {
+    flex-basis: 70%;
+}
+
+.alert {
+    flex-basis: 51%;
+}
+
+.comments_shortcut {
+    flex-basis: 70%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 2%;
+}
+
+.comments_shortcut .btn--light_blue {
+    background-color: #bbe1fa;
+}
+
+.btn--light_blue:hover {
+    background-color: #95b4c8;
+}
+
+.comments_shortcut .btn--blue {
+    background-color: #3282b8;
+}
+
+.btn--blue:hover {
+    background-color: #276690;
+}
+
+.comments_shortcut .btn--dark_blue {
+    background-color: #0f4c75;
+    transition: 0.4s;
+}
+
+.btn--dark_blue:hover {
+    color: white;
+    background-color: #0c3d5e;
+    border-color: #0c3d5e;
+}
+
+.settings {
+    background: linear-gradient(-45deg, #833ab4, #fd1d1d, #fcb045);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+.settings a i {
+    padding: 5px 0;
+}
+
+.technologies_icons i, .technologies_icons p {
+    color: #2a2d31;
+}

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/gradient_anim.css' %}">
     <link rel="stylesheet" href="{% static 'css/fixed_settings.css' %}">
     <link rel="stylesheet" href="{% static 'css/flex_form.css' %}">
-    <link rel="stylesheet" href="{% static 'individual/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'revalidation/css/index.css' %}">
 {% endblock %}
 
 {% block home_icon %}
@@ -22,7 +22,30 @@
               method="post"
               revalidation-students-url="{% url 'revalidation:load_revalidation_students' %}">
             {% csrf_token %}
-            {% include 'standard_form_template.html' with form=revalidation_lesson_form %}
+            {% for field in revalidation_lesson_form %}
+                {% if field.name == 'topic' %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                    <a id="get_saved_topic" class="form__field" href="{% url 'base:saved_topics' %}">Wykorzystaj jeden z zapisanych (Kliknij tutaj)</a>
+                {% elif field.name == 'comments' %}
+                    {{ field.label_tag }}
+                    <div class="comments_shortcut">
+                        <button class="btn btn--light_blue" type="button" onclick="paste_ms_teams_formula(true)">MS Teams/Uczeń</button>
+                        <button class="btn btn--blue" type="button" onclick="paste_ms_teams_formula(false)">MS Teams/Uczennica</button>
+                        <button class="btn btn--dark_blue" type="button" onclick="paste_stacionary_class_formula()">Zajęcia stacjonarne</button>
+                    </div>
+                    {{ field }}
+                {% else %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                {% endif %}
+
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="error">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
             <input class="form__submit btn btn-lg" type="submit" value="Oszczędź czas">
         </form>
     </div>
@@ -37,23 +60,11 @@
 {% block external_scripts %}
     {{ block.super }}
     {% load static %}
-    <script src="{% static 'individual/js/load_revalidation_students.js' %}"></script>
-    <script src="{% static 'individual/js/index_gsap_animations.js' %}"></script>
+    <script src="{% static 'revalidation/js/load_revalidation_students.js' %}"></script>
+    <script src="{% static 'revalidation/js/index_gsap_animations.js' %}"></script>
+    <script src="{% static 'revalidation/js/paste_ready_comment_formula.js' %}"></script>
 {% endblock %}
 
 {% block script %}
     {{ block.super }}
-
-    var all_labels = document.querySelectorAll('label');
-    var get_saved_topic_label = undefined;
-    for (var i = 0; i < all_labels.length; i++) {
-        if (all_labels[i].getAttribute('for') == 'get_saved_topic') {
-            get_saved_topic_label = all_labels[i];
-            break;
-        }
-    }
-
-    get_saved_topic_label.addEventListener('click', () => {
-        window.location.replace("{% url 'base:saved_topics' %}");
-    })
 {% endblock %}
