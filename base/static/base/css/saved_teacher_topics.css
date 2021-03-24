@@ -62,10 +62,6 @@ body {
     margin: 0 1%;
 }
 
-.delete_topic_btn, .copy_topic_btn {
-    padding: 10px 0 !important;
-}
-
 .copy_topic_btn button {
     margin: 0 1%;
 }

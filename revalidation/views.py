@@ -64,7 +64,7 @@ class RevalidationLessonFormView(LoginRequiredMixin, FormView):
 def save_revalidation_topic(form: RevalidationLessonForm, logged_user: User):
     """ Exception means that given topic wasn't found in associated user's topics. """
     try:
-        topic = form['topic'].data.title()
+        topic = form['topic'].data
         if LessonTopic.objects.filter(teacher=logged_user).get(topic__exact=topic):
             return None
     except Exception as e:

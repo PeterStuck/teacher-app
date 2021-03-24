@@ -18,9 +18,10 @@
 {% block content %}
     <div class="form_wrapper">
         <form id="flex_form"
-              action="{% url 'revalidation:start' %}"
-              method="post"
-              revalidation-students-url="{% url 'revalidation:load_revalidation_students' %}">
+            action="{% url 'revalidation:start' %}"
+            method="post"
+            revalidation-students-url="{% url 'revalidation:load_revalidation_students' %}"
+            novalidate>
             {% csrf_token %}
             {% for field in revalidation_lesson_form %}
                 {% if field.name == 'topic' %}
@@ -46,7 +47,7 @@
                     {% endfor %}
                 {% endif %}
             {% endfor %}
-            <input class="form__submit btn btn-lg" type="submit" value="Oszczędź czas">
+            <input class="form__submit btn btn-lg" type="submit" value="Oszczędź czas" onclick="show_loading_mask()">
         </form>
     </div>
 
@@ -55,6 +56,8 @@
             <a href="{% url 'revalidation:settings' %}"><i class="fas fa-cogs"></i></a>
         </div>
     </div>
+
+    {% include 'loading_page_mask.html' %}
 {% endblock %}
 
 {% block external_scripts %}

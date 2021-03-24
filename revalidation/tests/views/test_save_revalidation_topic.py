@@ -1,11 +1,10 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from base.models import Department, LessonTopic, LessonCategory
-from revalidation.models import RevalidationStudent
+from base.models import LessonTopic, LessonCategory
 from revalidation.forms import RevalidationLessonForm
-from revalidation.views import save_revalidation_topic
 from revalidation.tests.set_up_methods import create_user
+from revalidation.views import save_revalidation_topic
 
 
 def create_revalidation_category():
@@ -15,7 +14,7 @@ def create_revalidation_category():
 def create_revalidation_lesson_topic(user: User):
     revalidation_category = LessonCategory.objects.get(name__exact='rewalidacja'.title())
     topic = LessonTopic.objects.create(
-        topic='Test',
+        topic='TEST',
         is_individual=True,
         teacher=user,
         category=revalidation_category
@@ -36,10 +35,10 @@ class SaveRevalidationTopicTest(TestCase):
         create_revalidation_lesson_topic(self.user)
         save_revalidation_topic(self.form, logged_user=self.user)
         self.assertEqual(len(self.user.lessontopic_set.all()), 1)
-        self.assertQuerysetEqual(self.user.lessontopic_set.all(), ['<LessonTopic: Test>'])
+        self.assertQuerysetEqual(self.user.lessontopic_set.all(), ['<LessonTopic: TEST>'])
 
     def test_save_revalidation_topic(self):
         """ If topic is not associated to logged user already then save the topic. """
         save_revalidation_topic(self.form, logged_user=self.user)
         self.assertEqual(len(self.user.lessontopic_set.all()), 1)
-        self.assertQuerysetEqual(self.user.lessontopic_set.all(), ['<LessonTopic: Test>'])
+        self.assertQuerysetEqual(self.user.lessontopic_set.all(), ['<LessonTopic: TEST>'])

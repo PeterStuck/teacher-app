@@ -19,10 +19,10 @@
     {% include 'filler/non_field_error_alerts.html' with form=filler_form %}
 
     <div class="form_wrapper">
-        <form id="flex_form" method="post" enctype="multipart/form-data" action="{% url 'filler:start' %}">
+        <form id="flex_form" method="post" enctype="multipart/form-data" action="{% url 'filler:start' %}" novalidate>
             {% csrf_token %}
             {% include 'filler/form_with_single_file_field.html' with form=filler_form file_field_name='teams_file' %}
-            <input type="submit" class="form__submit btn btn-lg" value="Oszczędź czas">
+            <input type="submit" class="form__submit btn btn-lg" value="Oszczędź czas" onclick="show_loading_mask()">
         </form>
     </div>
 
@@ -31,6 +31,8 @@
             <a href="{% url 'filler:settings' %}"><i class="fas fa-sliders-h"></i></a>
         </div>
     </div>
+
+    {% include 'loading_page_mask.html' %}
 {% endblock %}
 
 {% block external_scripts %}
