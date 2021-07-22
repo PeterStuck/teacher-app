@@ -9,6 +9,12 @@ Stack of tools that helps teachers in their daily tasks on e-learning lessons.
 .\venv\Scripts\activate
 ```
 
+2. Install dependencies
+
+```
+pip install -r requirements.txt
+```
+
 3. Start server
 
 ```
