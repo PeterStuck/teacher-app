@@ -1,14 +1,6 @@
 
 @echo off
 
-ECHO  _   _
-ECHO ((___))
-ECHO [ x x ]
-ECHO  \   /
-ECHO  (' ')
-ECHO   (U)
-
-
 ECHO SEARCHING FOR APP FILES
 D:
 cd Projekty/Python/wku_django

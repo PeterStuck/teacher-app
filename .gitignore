@@ -1,3 +1,13 @@
 filler/static/files/converted
 filler/static/files/archive
 media/teams
+
+secret_key.py
+startup.bat
+
+wku_django/secret_key.py
+wku_django/settings.py
+
+venv
+venv/*
+venv**
